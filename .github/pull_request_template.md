@@ -8,6 +8,7 @@
 ---
 
 #### 📦 **Functional Scope**
+- [ ] Project Configuration & Settings
 - [ ] Feature 1: App Header
 - [ ] Feature 2: Sign In / Sign Up
 - [ ] Feature 3: Swagger Editor
@@ -25,25 +26,6 @@
 - [ ] `chore` [Updates to dependencies, configs]
 - [ ] `docs` [Documentation updates]
 - [ ] `test` [Adding or updating tests]
-
----
-
-#### 🧪 **How to Test**
-1. [Steps to verify the feature functionality]
-2. **Expected result:** [What should happen?]
-
----
-
-#### ✅ **Pre-Flight Checklist**
-**Code Integrity**
-- [ ] **Clean Code:** No dead/commented-out code.
-- [ ] **Type Safety:** No `@ts-ignore` or `any` types used.
-- [ ] **Style:** Linting (ESLint), formatting (Prettier), and Tailwind sorting applied.
-
-**Console & Error Handling**
-- [ ] **Console Clean:** No `console.log` or debug statements left.
-- [ ] **No Warnings/Errors:** Browser console is clear of any framework or runtime warnings.
-- [ ] **API Resilience:** All HTTP 4xx/5xx status codes are handled gracefully within the UI (not just logged as errors in the console).
 
 ---
 
