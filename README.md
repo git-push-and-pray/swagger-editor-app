@@ -30,8 +30,8 @@ It provides an interactive Swagger-like interface with request execution, histor
 ### Architecture & Tooling
 
 - **Framework Architecture:** Next.js App Router (SSR + Server Components)
-- **Deployment:** Vercel
-- **CI/CD:** GitHub Actions
+- **Deployment & CD:** Vercel
+- **CI:** GitHub Actions
 
 ### Code Quality & DX
 - **Linting & Formatting:** ESLint, Prettier, Tailwind CSS class sorting
