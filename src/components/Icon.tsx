@@ -1,6 +1,6 @@
 import type { JSX } from 'react/jsx-runtime';
 
-type IconVersion =
+export type IconVersion =
   | 'sun'
   | 'moon'
   | 'language'
@@ -30,7 +30,7 @@ type IconVersion =
   | 'request'
   | 'response';
 
-type IconSize = 'l' | 'm' | 's';
+export type IconSize = 'l' | 'm' | 's' | 'xs';
 
 interface IconProps {
   name: IconVersion;
@@ -42,13 +42,20 @@ const IconSizeMap: Record<IconSize, number> = {
   l: 24,
   m: 20,
   s: 16,
+  xs: 14,
 };
 
 const Icon = ({ name, size = 'm', className = '' }: IconProps): JSX.Element => {
   const dimension = IconSizeMap[size];
 
   return (
-    <svg width={dimension} height={dimension} aria-hidden="true" className={`${className}`}>
+    <svg
+      width={dimension}
+      height={dimension}
+      aria-hidden="true"
+      focusable="false"
+      className={`${className}`}
+    >
       <use href={`/sprite.svg#icon-${name}`} />
     </svg>
   );
