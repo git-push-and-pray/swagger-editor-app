@@ -15,12 +15,29 @@
   --color-text-primary: #1e1e1e;
   --color-text-foreground: #ffffff;
   --color-text-secondary: #6b6b6b;
+
   --color-accent: #9cbba0;
+  --color-accentdark: #407243;
 
   --color-success: #00c950;
+
   --color-error: #e57373;
+  --color-errordark: #be2323;
+
   --color-warning: #fe9a00;
+  --color-warningdark: #995014;
+
   --color-info: #2b7fff;
+  --color-infodark: #0056d6;
+
+  --color-purple: #9c27b0;
+  --color-darkblue: #063f96;
+
+  --color-slate: #607d8b;
+  --color-slatedark: #476066;
+
+  --color-indigo: #5c6bc0;
+  --color-indigodark: #4555b0;
 
   --shadow-main: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
   --shadow-btn: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
