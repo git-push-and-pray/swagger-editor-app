@@ -1,8 +1,6 @@
-import js from '@eslint/js';
 import globals from 'globals';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import tseslint from 'typescript-eslint';
-import reactHooks from 'eslint-plugin-react-hooks';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -13,23 +11,21 @@ import importPlugin from 'eslint-plugin-import';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default defineConfig([
-  {
-    ignores: [
-      '.next/**',
-      'out/**',
-      'build/**',
-      'coverage/**',
-      'node_modules/**',
-      'next-env.d.ts',
-      '**/*.config.js',
-      '**/*.config.ts',
-    ],
-  },
-
-  js.configs.recommended,
-  ...tseslint.configs.strict,
   ...nextVitals,
   ...nextTs,
+  ...tseslint.configs.strict,
+
+  globalIgnores([
+    '.next/**',
+    'out/**',
+    'build/**',
+    'coverage/**',
+    'node_modules/**',
+    'next-env.d.ts',
+    '**/*.config.js',
+    '**/*.config.ts',
+  ]),
+
   eslintConfigPrettier,
   eslintPluginPrettier,
 
@@ -45,7 +41,6 @@ export default defineConfig([
     },
 
     plugins: {
-      'react-hooks': reactHooks,
       'react-compiler': reactCompiler,
       'unused-imports': unusedImports,
       import: importPlugin,
@@ -62,8 +57,6 @@ export default defineConfig([
     },
 
     rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'error',
       'react-compiler/react-compiler': 'error',
       'simple-import-sort/imports': [
         'error',
