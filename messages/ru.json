@@ -1,0 +1,9 @@
+{
+  "ErrorPage": {
+    "title": "Что-то пошло не так!",
+    "btn": "Попробовать снова"
+  },
+  "HomePage": {
+    "title": "Приложение Swagger-Editor"
+  }
+}
