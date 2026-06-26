@@ -162,4 +162,9 @@
     <path d="M6 6H6.01" stroke="currentColor" stroke-width="1.33245" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M6 18H6.01" stroke="currentColor" stroke-width="1.33245" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
+
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none">
+    <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
 </svg>

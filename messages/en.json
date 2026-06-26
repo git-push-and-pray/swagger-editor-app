@@ -1,4 +1,8 @@
 {
+  "Modal": {
+    "closeAriaLabel": "Close modal",
+    "cancelButton": "Cancel"
+  },
   "ErrorPage": {
     "title": "Something went wrong!",
     "btn": "Try again"

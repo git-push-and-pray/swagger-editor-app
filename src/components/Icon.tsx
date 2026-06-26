@@ -28,7 +28,8 @@ export type IconVersion =
   | 'upload'
   | 'download'
   | 'request'
-  | 'response';
+  | 'response'
+  | 'close';
 
 export type IconSize = 'l' | 'm' | 's' | 'xs';
 

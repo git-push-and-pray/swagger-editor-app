@@ -8,8 +8,8 @@ export const btnVariants = {
   primary: `bg-foreground text-text-foreground shadow-btn hover:not-disabled:opacity-80 disabled:bg-secondary disabled:text-text-secondary disabled:border-border/50 disabled:border disabled:border-solid ${buttonBase}`,
   secondary: `bg-bg border border-border border-solid text-text-primary shadow-btn hover:not-disabled:bg-secondary disabled:opacity-40 ${buttonBase}`,
   destructive: `bg-error text-text-foreground shadow-btn hover:not-disabled:opacity-80 disabled:opacity-40 ${buttonBase}`,
-  ghostRegular: `bg-transparent text-text-secondary disabled:opacity-40 hover:not-disabled:bg-error/10 hover:not-disabled:text-error hover:not-disabled:border-error hover:not-disabled:border-solid hover:not-disabled:border ${buttonBase}`,
-  ghostRed: `bg-transparent text-error disabled:opacity-40 hover:not-disabled:bg-error/10 hover:not-disabled:border-error hover:not-disabled:border-solid hover:not-disabled:border ${buttonBase}`,
+  ghostRegular: `bg-transparent text-text-secondary disabled:opacity-40 hover:not-disabled:bg-error/10 hover:not-disabled:text-errordark hover:not-disabled:border-error hover:not-disabled:border-solid hover:not-disabled:border ${buttonBase}`,
+  ghostRed: `bg-transparent text-errordark disabled:opacity-40 hover:not-disabled:bg-error/10 hover:not-disabled:border-error hover:not-disabled:border-solid hover:not-disabled:border ${buttonBase}`,
 };
 
 export const linkVariants = {
