@@ -1,23 +1,10 @@
 import type { JSX } from 'react/jsx-runtime';
 
-import type { ButtonSize, LinkVersion } from '@/constants/ui-variants';
-import { btnSizes, linkVariants } from '@/constants/ui-variants';
+import { uiConfig } from '@/config/buttonConfig';
 import { Link } from '@/i18n/navigation';
+import type { LinkProps } from '@/types/ui';
 
-import type { IconSize, IconVersion } from './Icon';
 import Icon from './Icon';
-
-interface LinkProps {
-  href: string;
-  name: string;
-  icon?: IconVersion;
-  iconSize?: IconSize;
-  iconPosition?: 'left' | 'right';
-  hideTextOnMobile?: boolean;
-  linkVersion: LinkVersion;
-  linkSize: ButtonSize;
-  className?: string;
-}
 
 const LinkComponent = ({
   href,
@@ -27,13 +14,13 @@ const LinkComponent = ({
   iconPosition = 'left',
   hideTextOnMobile = true,
   linkVersion,
-  linkSize,
+  size,
   className = '',
 }: LinkProps): JSX.Element => {
   const linkClasses = [
-    linkVariants[linkVersion],
-    btnSizes[linkSize],
-    'inline-flex items-center justify-center gap-2',
+    uiConfig.link.variants[linkVersion],
+    uiConfig.button.sizes[size],
+    uiConfig.common.layout,
     iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row',
     className,
   ]

@@ -1,24 +1,9 @@
 import type { JSX } from 'react/jsx-runtime';
 
-import type { ButtonSize, ButtonVersion } from '@/constants/ui-variants';
-import { btnSizes, btnVariants } from '@/constants/ui-variants';
+import { uiConfig } from '@/config/buttonConfig';
+import type { ButtonProps } from '@/types/ui';
 
-import type { IconSize, IconVersion } from './Icon';
 import Icon from './Icon';
-
-interface ButtonProps {
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
-  name: string;
-  icon?: IconVersion;
-  iconSize?: IconSize;
-  iconPosition?: 'left' | 'right';
-  hideTextOnMobile?: boolean;
-  disabled?: boolean;
-  btnVersion: ButtonVersion;
-  btnSize: ButtonSize;
-  className?: string;
-}
 
 const Button = ({
   onClick,
@@ -30,13 +15,13 @@ const Button = ({
   hideTextOnMobile = true,
   disabled = false,
   btnVersion,
-  btnSize,
+  size,
   className = '',
 }: ButtonProps): JSX.Element => {
   const buttonClasses = [
-    btnVariants[btnVersion],
-    btnSizes[btnSize],
-    'inline-flex items-center justify-center gap-2',
+    uiConfig.button.variants[btnVersion],
+    uiConfig.button.sizes[size],
+    uiConfig.common.layout,
     iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row',
     'cursor-pointer disabled:cursor-not-allowed',
     className,

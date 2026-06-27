@@ -73,9 +73,9 @@ const Modal = ({
           {message}
         </main>
         <footer className="flex justify-end gap-3 py-4">
-          <Button name={t('cancelButton')} btnVersion="secondary" btnSize="sm" onClick={onClose} />
+          <Button name={t('cancelButton')} btnVersion="secondary" size="sm" onClick={onClose} />
           {onAction && actionName && (
-            <Button name={actionName} btnVersion="destructive" btnSize="sm" onClick={onAction} />
+            <Button name={actionName} btnVersion="destructive" size="sm" onClick={onAction} />
           )}
         </footer>
       </div>

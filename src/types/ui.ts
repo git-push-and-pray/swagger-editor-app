@@ -1,0 +1,32 @@
+import type { IconSize, IconVersion } from '@/components/Icon';
+import type { ButtonSize, ButtonVersion, LinkVersion } from '@/config/buttonConfig';
+
+interface BaseControlProps {
+  name: string;
+
+  icon?: IconVersion;
+  iconSize?: IconSize;
+  iconPosition?: 'left' | 'right';
+  hideTextOnMobile?: boolean;
+
+  size: ButtonSize;
+  className?: string;
+}
+
+export interface ButtonProps extends BaseControlProps {
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
+  disabled?: boolean;
+  btnVersion: ButtonVersion;
+}
+
+export interface LinkProps extends BaseControlProps {
+  href: string;
+  linkVersion: LinkVersion;
+}
+
+export interface ExternalLinkProps extends BaseControlProps {
+  href: string;
+  ariaLabel: string;
+  linkVersion: 'regular' | 'secondary';
+}
