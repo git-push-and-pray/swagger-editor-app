@@ -52,3 +52,12 @@
       color 0.3s ease;
   }
 }
+
+[data-sonner-toast]:not(:has(svg)) .sonner-loading-wrapper {
+  position: static !important;
+  display: flex !important;
+}
+
+[data-sonner-toast] .sonner-loading-wrapper {
+  display: none !important;
+}
