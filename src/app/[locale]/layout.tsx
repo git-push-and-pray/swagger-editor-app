@@ -47,7 +47,7 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col px-5 font-sans">
         <NextIntlClientProvider>
