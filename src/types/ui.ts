@@ -1,4 +1,4 @@
-import type { IconSize, IconVersion } from '@/components/Icon';
+import type { IconSize, IconVersion } from '@/components/ui/Icon';
 import type { ButtonSize, ButtonVersion, LinkVersion } from '@/config/buttonConfig';
 
 interface BaseControlProps {
