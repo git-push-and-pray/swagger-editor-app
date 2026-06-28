@@ -29,7 +29,8 @@ export type IconVersion =
   | 'download'
   | 'request'
   | 'response'
-  | 'close';
+  | 'close'
+  | 'burger';
 
 export type IconSize = 'l' | 'm' | 's' | 'xs';
 

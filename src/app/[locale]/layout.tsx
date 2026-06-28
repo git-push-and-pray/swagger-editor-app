@@ -49,7 +49,7 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
       lang={locale}
       className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} data-scroll-behavior="smooth" h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col px-5 font-sans">
+      <body className="flex min-h-full flex-col font-sans">
         <NextIntlClientProvider>
           <main className="mx-auto w-full max-w-360 flex-1 px-5 2xl:max-w-450">{children}</main>
           <Toaster
