@@ -7,6 +7,13 @@
     "title": "Something went wrong!",
     "btn": "Try again"
   },
+  "Navigation": {
+    "aboutNav": "About",
+    "historyNav": "History & Analytics",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
+  },
   "HomePage": {
     "title": "Swagger-Editor App"
   }

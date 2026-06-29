@@ -1,0 +1,20 @@
+{
+  "Modal": {
+    "closeAriaLabel": "Закрити модальне вікно",
+    "cancelButton": "Скасувати"
+  },
+  "ErrorPage": {
+    "title": "Щось пішло не так!",
+    "btn": "Спробувати знову"
+  },
+  "Navigation": {
+    "aboutNav": "Про проєкт",
+    "historyNav": "Історія & Аналітика",
+    "signIn": "Увійти",
+    "signUp": "Реєстрація",
+    "signOut": "Вийти"
+  },
+  "HomePage": {
+    "title": "Застосунок Swagger Editor"
+  }
+}

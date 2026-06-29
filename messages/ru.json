@@ -7,6 +7,13 @@
     "title": "Что-то пошло не так!",
     "btn": "Попробовать снова"
   },
+  "Navigation": {
+    "aboutNav": "О проекте",
+    "historyNav": "История & Аналитика",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "signOut": "Выйти"
+  },
   "HomePage": {
     "title": "Приложение Swagger-Editor"
   }
