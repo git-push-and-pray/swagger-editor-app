@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Toaster } from 'sonner';
 
+import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import { toastConfig } from '@/config/toastConfig';
 import { routing } from '@/i18n/routing';
@@ -65,6 +66,7 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
             }}
             visibleToasts={9}
           />
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
