@@ -1,4 +1,8 @@
 {
+  "Modal": {
+    "closeAriaLabel": "Закрыть модальное окно",
+    "cancelButton": "Отмена"
+  },
   "ErrorPage": {
     "title": "Что-то пошло не так!",
     "btn": "Попробовать снова"
