@@ -12,6 +12,7 @@ const ExternalLink = ({
   icon,
   iconSize = 'xs',
   iconPosition = 'left',
+  hideTextOnMobile = false,
   linkVersion,
   size,
   className = '',
@@ -25,7 +26,7 @@ const ExternalLink = ({
   ]
     .filter(Boolean)
     .join(' ');
-
+  const textClasses = icon && hideTextOnMobile ? 'sr-only sm:not-sr-only sm:inline' : '';
   return (
     <a
       href={href}
@@ -35,7 +36,7 @@ const ExternalLink = ({
       aria-label={ariaLabel}
     >
       {icon && <Icon name={icon} size={iconSize} />}
-      <span>{name}</span>
+      <span className={textClasses}>{name}</span>
     </a>
   );
 };

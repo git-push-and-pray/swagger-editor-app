@@ -1,3 +1,5 @@
+import type { MouseEventHandler } from 'react';
+
 import type { IconSize, IconVersion } from '@/components/ui/Icon';
 import type { ButtonSize, ButtonVersion, LinkVersion } from '@/config/buttonConfig';
 
@@ -15,7 +17,7 @@ interface BaseControlProps {
 
 export interface ButtonProps extends BaseControlProps {
   type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   btnVersion: ButtonVersion;
 }

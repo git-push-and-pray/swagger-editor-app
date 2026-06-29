@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { JSX } from 'react/jsx-runtime';
 
 interface InputProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'className'> {
+  id: string;
   label: string;
   showLabel?: boolean;
   isRequired?: boolean;
@@ -34,7 +35,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         <input
           ref={ref}
-          required={isRequired}
           disabled={disabled}
           id={id}
           name={id}
@@ -42,6 +42,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           maxLength={50}
           aria-required={isRequired}
           aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           autoComplete={isPassword ? 'current-password' : 'off'}
           className={`w-full rounded-md border-2 px-3 py-2.5 font-sans text-sm transition-all outline-none ${error ? 'border-error' : 'border-border focus:border-accent'} disabled:bg-secondary/50 disabled:opacity-60`}
           {...props}

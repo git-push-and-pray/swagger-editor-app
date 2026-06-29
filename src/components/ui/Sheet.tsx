@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
-import { Dialog as SheetPrimitive } from 'radix-ui';
+import type * as React from 'react';
+import * as SheetPrimitive from '@radix-ui/react-dialog';
 
 import Icon from './Icon';
 
@@ -9,8 +9,17 @@ function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
 
-function SheetTrigger({ ...props }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
-  return <SheetPrimitive.Trigger data-slot="sheet-trigger" className="cursor-pointer" {...props} />;
+function SheetTrigger({
+  className = '',
+  ...props
+}: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
+  return (
+    <SheetPrimitive.Trigger
+      data-slot="sheet-trigger"
+      {...props}
+      className={`cursor-pointer ${className}`}
+    />
+  );
 }
 
 function SheetClose({ ...props }: React.ComponentProps<typeof SheetPrimitive.Close>) {
@@ -22,7 +31,7 @@ function SheetPortal({ ...props }: React.ComponentProps<typeof SheetPrimitive.Po
 }
 
 function SheetOverlay({
-  className,
+  className = '',
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Overlay>) {
   return (
@@ -35,7 +44,7 @@ function SheetOverlay({
 }
 
 function SheetContent({
-  className,
+  className = '',
   children,
   showCloseButton = true,
   ...props
