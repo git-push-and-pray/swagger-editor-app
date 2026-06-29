@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Lora } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Toaster } from 'sonner';
 
+import Header from '@/components/layout/Header';
 import { toastConfig } from '@/config/toastConfig';
 import { routing } from '@/i18n/routing';
 
@@ -44,6 +45,8 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
   }
   setRequestLocale(locale);
 
+  const messages = await getMessages();
+
   return (
     <html
       lang={locale}
@@ -51,7 +54,8 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
       className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <Header />
           <main className="mx-auto w-full max-w-360 flex-1 px-5 2xl:max-w-450">{children}</main>
           <Toaster
             position="bottom-right"
