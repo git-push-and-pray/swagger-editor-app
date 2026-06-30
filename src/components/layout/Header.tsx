@@ -4,7 +4,6 @@ import type { JSX } from 'react';
 import { useEffect, useState } from 'react';
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/Sheet';
-import { usePathname } from '@/i18n/navigation';
 
 import { Navigation, UserActions } from '../Navigation';
 import SelectLanguage from '../SelectLanguage';
@@ -14,14 +13,6 @@ import Logo from '../ui/Logo';
 const Header = (): JSX.Element => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const pathname = usePathname();
-  const [prevPathname, setPrevPathname] = useState(pathname);
-
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setIsOpen(false);
-  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -47,6 +38,8 @@ const Header = (): JSX.Element => {
     };
   }, []);
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <header
       className={[
@@ -63,9 +56,9 @@ const Header = (): JSX.Element => {
               <Icon name="burger" size="l" />
             </SheetTrigger>
             <SheetContent>
-              <Navigation />
+              <Navigation onItemClick={closeMenu} />
               <div className="bg-border my-1 h-0.5 w-[80%]" />
-              <UserActions />
+              <UserActions onItemClick={closeMenu} />
               <div className="bg-border my-1 h-0.5 w-[80%]" />
               <SelectLanguage />
             </SheetContent>

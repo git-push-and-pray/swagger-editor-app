@@ -21,7 +21,7 @@ const languageLabels: Record<LocaleType, string> = {
   en: 'ENG',
   ru: 'RUS',
   be: 'BEL',
-  ua: 'UKR',
+  uk: 'UKR',
 };
 
 const languages = routing.locales.map((loc) => ({

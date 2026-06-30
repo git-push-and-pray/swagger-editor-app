@@ -25,6 +25,7 @@ export interface ButtonProps extends BaseControlProps {
 export interface LinkProps extends BaseControlProps {
   href: string;
   linkVersion: LinkVersion;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 export interface ExternalLinkProps extends BaseControlProps {

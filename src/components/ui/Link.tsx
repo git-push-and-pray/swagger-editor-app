@@ -16,6 +16,7 @@ const LinkComponent = ({
   linkVersion,
   size,
   className = '',
+  onClick,
 }: LinkProps): JSX.Element => {
   const linkClasses = [
     uiConfig.link.variants[linkVersion],
@@ -29,7 +30,7 @@ const LinkComponent = ({
 
   const textClasses = icon && hideTextOnMobile ? 'sr-only sm:not-sr-only sm:inline' : '';
   return (
-    <Link href={href} className={linkClasses}>
+    <Link href={href} className={linkClasses} onClick={onClick}>
       {icon && <Icon name={icon} size={iconSize} />}
       <span className={textClasses}>{name}</span>
     </Link>

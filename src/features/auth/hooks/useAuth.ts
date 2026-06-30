@@ -1,7 +1,13 @@
 export function useAuth() {
   return {
-    isAuth: true,
+    isAuth: false,
     user: null,
-    signOut: () => {},
+    signOut: () => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+    },
   };
 }
