@@ -2,8 +2,12 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Lora } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { Toaster } from 'sonner';
 
+import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
+import { toastConfig } from '@/config/toastConfig';
 import { routing } from '@/i18n/routing';
 
 const inter = Inter({
@@ -42,14 +46,27 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
   }
   setRequestLocale(locale);
 
+  const messages = await getMessages();
+
   return (
     <html
       lang={locale}
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col px-5 font-sans">
-        <NextIntlClientProvider>
+      <body className="flex min-h-full flex-col font-sans">
+        <NextIntlClientProvider messages={messages}>
+          <Header />
           <main className="mx-auto w-full max-w-360 flex-1 px-5 2xl:max-w-450">{children}</main>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              unstyled: true,
+              ...toastConfig.toastOptions,
+            }}
+            visibleToasts={9}
+          />
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,19 +1,115 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg: #f4f3f0;
-  --color-text-main: #1e1e1e;
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-lora);
+
+  --color-bg: #f4f3f0;
+  --color-secondary: #e8e6e1;
+  --color-foreground: #1e1e1e;
+  --color-surface: #f9f8f6;
+  --color-border: #e2dfd8;
+  --color-bg-active-tab: #ffffff;
+
+  --color-text-primary: #1e1e1e;
+  --color-text-foreground: #ffffff;
+  --color-text-secondary: #6b6b6b;
+
+  --color-accent: #9cbba0;
+  --color-accentdark: #407243;
+
+  --color-success: #00c950;
+
+  --color-error: #e57373;
+  --color-errordark: #be2323;
+
+  --color-warning: #fe9a00;
+  --color-warningdark: #995014;
+
+  --color-info: #2b7fff;
+  --color-infodark: #0056d6;
+
+  --color-purple: #9c27b0;
+  --color-darkblue: #063f96;
+
+  --color-slate: #607d8b;
+  --color-slatedark: #476066;
+
+  --color-indigo: #5c6bc0;
+  --color-indigodark: #4555b0;
+
+  --shadow-main: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+  --shadow-btn: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
 @layer base {
   body {
     background-color: var(--color-bg);
-    color: var(--color-text-main);
+    color: var(--color-text-primary);
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
+  }
+}
+
+[data-sonner-toast]:not(:has(svg)) .sonner-loading-wrapper {
+  position: static !important;
+  display: flex !important;
+}
+
+[data-sonner-toast] .sonner-loading-wrapper {
+  display: none !important;
+}
+
+@utility animate-sheet-fade-in {
+  animation: sheet-fade-in 150ms ease-out forwards;
+}
+
+@utility animate-sheet-fade-out {
+  animation: sheet-fade-out 150ms ease-in forwards;
+}
+
+@keyframes sheet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@utility animate-sheet-slide-in {
+  animation: sheet-slide-in 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@utility animate-sheet-slide-out {
+  animation: sheet-slide-out 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sheet-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheet-slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 }
