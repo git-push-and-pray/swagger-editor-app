@@ -37,22 +37,73 @@ interface ParsedSchema {
 
 export function SwaggerViewer() {
   const { schema, format } = useSwaggerContext();
+  //   const schema = `
+  // openapi: 3.1.0
+  // info:
+  //   title: Test API
+  //   version: 1.0.0
+  // paths:
+  //   /users:
+  //     get:
+  //       summary: Get users
+  //       responses:
+  //         '200':
+  //           description: OK
+  //   `;
+  //   const format = 'yaml';
   const [parsed, setParsed] = useState<ParsedSchema>({
     isValid: false,
     data: null,
   });
 
+  // useEffect(() => {
+  //   try {
+  //     let jsonObject: any;
+
+  //     if (format === 'yaml') {
+  //       jsonObject = YAML.parse(schema);
+  //     } else {
+  //       jsonObject = JSON.parse(schema);
+  //     }
+
+  //     // Проверяем, что это OpenAPI схема
+  //     if (!jsonObject.openapi) {
+  //       throw new Error('Не является OpenAPI схемой (отсутствует поле openapi)');
+  //     }
+
+  //     setParsed({
+  //       isValid: true,
+  //       data: jsonObject as OpenAPIObject,
+  //     });
+  //   } catch (error) {
+  //     setParsed({
+  //       isValid: false,
+  //       data: null,
+  //       error: error instanceof Error ? error.message : 'Ошибка парсинга',
+  //     });
+  //   }
+  // }, [schema, format]);
+
   useEffect(() => {
     try {
+      console.log('📝 Получена схема:', schema);
+      console.log('📝 Формат:', format);
+      console.log('📝 Тип schema:', typeof schema);
+
       let jsonObject: any;
 
       if (format === 'yaml') {
+        console.log('🔄 Парсим YAML...');
         jsonObject = YAML.parse(schema);
+        console.log('✅ Результат парсинга:', jsonObject);
       } else {
+        console.log('🔄 Парсим JSON...');
         jsonObject = JSON.parse(schema);
+        console.log('✅ Результат парсинга:', jsonObject);
       }
 
-      // Проверяем, что это OpenAPI схема
+      console.log('🔍 Проверяем openapi:', jsonObject.openapi);
+
       if (!jsonObject.openapi) {
         throw new Error('Не является OpenAPI схемой (отсутствует поле openapi)');
       }
@@ -62,6 +113,7 @@ export function SwaggerViewer() {
         data: jsonObject as OpenAPIObject,
       });
     } catch (error) {
+      console.error('❌ Ошибка:', error);
       setParsed({
         isValid: false,
         data: null,
