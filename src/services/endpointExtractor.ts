@@ -1,0 +1,183 @@
+import type {
+  Endpoint,
+  HttpMethod,
+  OpenAPIObject,
+  OperationObject,
+  ParameterObject,
+  RequestBodyObject,
+  ResponseObject,
+  ResponsesObject,
+} from '@/types/openapi';
+import { resolveParameters, resolveRequestBody } from '@/types/openapi';
+
+export function extractEndpoints(schema: OpenAPIObject): Endpoint[] {
+  const endpoints: Endpoint[] = [];
+
+  if (!schema.paths) {
+    return endpoints;
+  }
+
+  for (const [path, pathItem] of Object.entries(schema.paths)) {
+    const methods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
+
+    for (const method of methods) {
+      const methodKey = method.toLowerCase() as keyof typeof pathItem;
+      const operation = pathItem[methodKey] as OperationObject | undefined;
+
+      if (!operation) continue;
+
+      const operationParams = resolveParameters(operation.parameters, schema.components);
+
+      const pathParams = resolveParameters(pathItem.parameters, schema.components);
+
+      const parameters = extractParameters(operationParams, pathParams);
+
+      const requestBody = operation.requestBody
+        ? resolveRequestBody(operation.requestBody, schema.components)
+        : undefined;
+
+      const responses = extractResponses(operation.responses);
+
+      const tags = operation.tags || [];
+
+      endpoints.push({
+        method,
+        path,
+        summary: operation.summary,
+        description: operation.description,
+        operationId: operation.operationId,
+        tags,
+        parameters,
+        requestBody,
+        responses,
+        security: operation.security,
+        deprecated: operation.deprecated,
+        servers: operation.servers,
+        externalDocs: operation.externalDocs,
+      });
+    }
+  }
+
+  return endpoints;
+}
+
+export function extractParameters(
+  operationParams: ParameterObject[] = [],
+  pathParams: ParameterObject[] = []
+): ParameterObject[] {
+  const paramMap = new Map<string, ParameterObject>();
+
+  for (const param of pathParams) {
+    const key = `${param.name}-${param.in}`;
+    paramMap.set(key, param);
+  }
+
+  for (const param of operationParams) {
+    const key = `${param.name}-${param.in}`;
+    paramMap.set(key, param);
+  }
+
+  return Array.from(paramMap.values());
+}
+
+export function extractRequestBody(requestBody: RequestBodyObject): RequestBodyObject {
+  return {
+    description: requestBody.description,
+    content: requestBody.content,
+    required: requestBody.required,
+  };
+}
+
+export function extractResponses(responses: ResponsesObject): ResponsesObject {
+  const result: ResponsesObject = {};
+
+  for (const [statusCode, response] of Object.entries(responses)) {
+    result[statusCode] = extractResponse(response as ResponseObject);
+  }
+
+  return result;
+}
+
+export function extractResponse(response: ResponseObject): ResponseObject {
+  return {
+    description: response.description,
+    content: response.content,
+    headers: response.headers,
+    links: response.links,
+  };
+}
+
+export function groupEndpointsByTag(endpoints: Endpoint[]): Map<string, Endpoint[]> {
+  const groups = new Map<string, Endpoint[]>();
+
+  for (const endpoint of endpoints) {
+    const tags = endpoint.tags.length > 0 ? endpoint.tags : ['default'];
+
+    for (const tag of tags) {
+      const group = groups.get(tag);
+      if (group) {
+        group.push(endpoint);
+      } else {
+        groups.set(tag, [endpoint]);
+      }
+    }
+  }
+
+  return groups;
+}
+
+export function groupEndpointsByPath(endpoints: Endpoint[]): Map<string, Endpoint[]> {
+  const groups = new Map<string, Endpoint[]>();
+
+  for (const endpoint of endpoints) {
+    const basePath = endpoint.path.replace(/\{.*?\}/g, '{id}');
+
+    const group = groups.get(basePath);
+    if (group) {
+      group.push(endpoint);
+    } else {
+      groups.set(basePath, [endpoint]);
+    }
+  }
+
+  return groups;
+}
+
+export function sortEndpoints(endpoints: Endpoint[]): Endpoint[] {
+  return [...endpoints].sort((a, b) => {
+    if (a.path !== b.path) {
+      return a.path.localeCompare(b.path);
+    }
+    return a.method.localeCompare(b.method);
+  });
+}
+
+export function getAllTags(endpoints: Endpoint[]): string[] {
+  const tagSet = new Set<string>();
+
+  for (const endpoint of endpoints) {
+    for (const tag of endpoint.tags) {
+      tagSet.add(tag);
+    }
+  }
+
+  return Array.from(tagSet).sort();
+}
+
+export function hasRequiredParameters(endpoint: Endpoint): boolean {
+  return endpoint.parameters.some((param) => param.required === true);
+}
+
+export function hasRequestBody(endpoint: Endpoint): boolean {
+  return endpoint.requestBody !== undefined;
+}
+
+export function getStatusCodes(responses: ResponsesObject): string[] {
+  return Object.keys(responses).sort((a, b) => {
+    const aIsSuccess = a.startsWith('2');
+    const bIsSuccess = b.startsWith('2');
+    if (aIsSuccess && !bIsSuccess) return -1;
+    if (!aIsSuccess && bIsSuccess) return 1;
+    return parseInt(a) - parseInt(b);
+  });
+}

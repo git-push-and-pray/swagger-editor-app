@@ -1,32 +1,10 @@
-// import { createContext, useState, ReactNode } from 'react';
-// import { MOCK_SCHEMA_YAML } from '@/mocks/swaggerSchema';
-
-// interface SwaggerContextType {
-//   schema: string;
-//   format: 'json' | 'yaml';
-//   setSchema: (schema: string) => void;
-//   setFormat: (format: 'json' | 'yaml') => void;
-// }
-
-// export const SwaggerContext = createContext<SwaggerContextType | undefined>(undefined);
-
-// export function SwaggerProvider({ children }: { children: ReactNode }) {
-//   const [schema, setSchema] = useState(MOCK_SCHEMA_YAML);
-//   const [format, setFormat] = useState<'json' | 'yaml'>('yaml');
-
-//   return (
-//     <SwaggerContext.Provider value={{ schema, format, setSchema, setFormat }}>
-//       {children}
-//     </SwaggerContext.Provider>
-//   );
-// }
-
-// src/context/SwaggerContext.tsx
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { SchemaFormat } from '@/types/openapi';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useState } from 'react';
+
 import { MOCK_SCHEMA_YAML } from '@/mocks/swaggerSchema';
+import type { SchemaFormat } from '@/types/openapi';
 
 interface SwaggerContextType {
   schema: string;
