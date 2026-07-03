@@ -4,6 +4,7 @@ import type { JSX } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
+import { useSignOutAction } from '@/features/auth/hooks/useSignOutAction';
 
 import Button from './ui/Button';
 import LinkComponent from './ui/Link';
@@ -39,7 +40,9 @@ export const Navigation = ({ onItemClick }: MenuItemClickProps): JSX.Element => 
 
 export const UserActions = ({ onItemClick }: MenuItemClickProps): JSX.Element => {
   const t = useTranslations('Navigation');
-  const { isAuth, signOut } = useAuth();
+  const tToast = useTranslations('Auth.SignOut');
+  const { isAuth } = useAuth();
+  const { signOut } = useSignOutAction(tToast);
 
   const handleSignOut = async () => {
     await signOut();

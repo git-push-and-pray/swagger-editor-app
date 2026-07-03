@@ -5,16 +5,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
+import { signIn } from '@/app/[locale]/actions/signIn';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 
+import { useAuthActions } from '../hooks/useAuthActions';
 import { createSignInSchema, type SignInSchema } from '../schemas/signInSchema';
 
 const SignInForm = (): JSX.Element => {
   const t = useTranslations('Auth');
+  const tToast = useTranslations('Auth.SignIn');
   const tPage = useTranslations('SignInPage');
   const schema = createSignInSchema(t);
-
+  const { runAuth } = useAuthActions(tToast);
   const {
     register,
     handleSubmit,
@@ -28,12 +31,14 @@ const SignInForm = (): JSX.Element => {
     },
   });
 
-  const signIn = () => {};
+  const onSubmit = async (data: SignInSchema) => {
+    await runAuth(signIn, '/')(data);
+  };
 
   return (
     <form
       noValidate={true}
-      onSubmit={handleSubmit(signIn)}
+      onSubmit={handleSubmit(onSubmit)}
       className="border-border bg-surface flex w-75 flex-col gap-1 rounded-xl border p-6 shadow-xl sm:w-96"
     >
       <Input

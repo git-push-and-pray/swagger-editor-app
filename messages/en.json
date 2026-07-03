@@ -62,7 +62,8 @@
       },
       "error": {
         "title": "Sign in failed",
-        "description": "Invalid email or password. Please try again."
+        "description": "Invalid email or password. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable."
       }
     },
     "SignUp": {
@@ -75,7 +76,24 @@
       },
       "error": {
         "title": "Registration failed",
-        "description": "This email is already registered or invalid. Please try again."
+        "description": "This email is already registered or invalid. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable.",
+        "unknown": "An unexpected error occurred. Please try again later."
+      }
+    },
+    "SignOut": {
+      "loading": {
+        "title": "Signing out..."
+      },
+      "success": {
+        "title": "Signed out successfully",
+        "description": "You have been logged out."
+      },
+      "error": {
+        "title": "Error",
+        "description": "Failed to sign out. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable.",
+        "unknown": "An unexpected error occurred. Please try again later."
       }
     }
   }
