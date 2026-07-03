@@ -21,13 +21,16 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@radix-ui/react-dialog": "^1.1.17",
     "@radix-ui/react-select": "^2.3.1",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sonner": "^2.0.7"
+    "react-hook-form": "^7.80.0",
+    "sonner": "^2.0.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
