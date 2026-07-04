@@ -16,5 +16,16 @@
   },
   "HomePage": {
     "title": "Приложение Swagger-Editor"
+  },
+  "SwaggerEditor": {
+    "title": "Редактор",
+    "formatAriaLabel": "Формат схемы",
+    "status": {
+      "validating": "Проверка...",
+      "valid": "Корректна",
+      "invalid": "Некорректна"
+    },
+    "line": "Строка {line}",
+    "column": "столбец {column}"
   }
 }

@@ -16,5 +16,16 @@
   },
   "HomePage": {
     "title": "Прыкладанне Swagger Editor"
+  },
+  "SwaggerEditor": {
+    "title": "Рэдактар",
+    "formatAriaLabel": "Фармат схемы",
+    "status": {
+      "validating": "Праверка...",
+      "valid": "Карэктная",
+      "invalid": "Некарэктная"
+    },
+    "line": "Радок {line}",
+    "column": "слупок {column}"
   }
 }

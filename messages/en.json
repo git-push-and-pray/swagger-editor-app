@@ -16,5 +16,16 @@
   },
   "HomePage": {
     "title": "Swagger-Editor App"
+  },
+  "SwaggerEditor": {
+    "title": "Editor",
+    "formatAriaLabel": "Schema format",
+    "status": {
+      "validating": "Validating...",
+      "valid": "Valid",
+      "invalid": "Invalid"
+    },
+    "line": "Line {line}",
+    "column": "column {column}"
   }
 }

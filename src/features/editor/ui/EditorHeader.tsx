@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 import { EditorStatus } from './EditorStatus';
 
@@ -8,17 +10,19 @@ interface Props {
 }
 
 export function EditorHeader({ format, status, onFormatChange }: Props) {
+  const t = useTranslations('SwaggerEditor');
+
   const isSwitchDisabled = status !== 'valid';
 
   return (
     <header className="border-border flex h-14 items-center justify-between border-b px-4">
       <div className="flex items-center gap-4">
-        <h2 className="font-serif font-semibold">Editor</h2>
+        <h2 className="font-serif font-semibold">{t('title')}</h2>
 
         <div
           className="border-border bg-bg flex rounded-md border p-0.5"
           role="group"
-          aria-label="Schema format"
+          aria-label={t('formatAriaLabel')}
         >
           <button
             type="button"
