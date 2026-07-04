@@ -70,6 +70,13 @@ cd swagger-editor-app
 npm install
 ```
 
+### Configure Environment Variables
+
+```bash
+cp .env.example .env.local
+```
+_Note: Open .env.local and populate it with the actual Supabase keys_
+
 ### Running the project
 
 ```bash
