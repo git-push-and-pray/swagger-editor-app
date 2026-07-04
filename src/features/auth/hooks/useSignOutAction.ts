@@ -1,4 +1,5 @@
-import type { useTranslations } from 'next-intl';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
 import { signOutAction } from '@/app/[locale]/actions/signOut';
@@ -21,7 +22,7 @@ export const useSignOutAction = (t: TFunction): UseSignOutActionResult => {
     try {
       const res = await signOutAction();
 
-      if (res && 'error' in res && res.error) {
+      if (res && res.error) {
         toast.error(t('error.title'), {
           id: toastId,
           description: t('error.description'),
@@ -37,7 +38,7 @@ export const useSignOutAction = (t: TFunction): UseSignOutActionResult => {
 
       router.replace('/signin');
 
-      return res;
+      return { error: null };
     } catch (fatalError) {
       const descriptionMessage = getNetworkError(fatalError, t);
       toast.error(t('error.title'), {
@@ -46,8 +47,6 @@ export const useSignOutAction = (t: TFunction): UseSignOutActionResult => {
       });
 
       return {
-        user: null,
-        session: null,
         error: descriptionMessage,
       };
     }

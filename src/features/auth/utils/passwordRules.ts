@@ -1,8 +1,8 @@
 export const passwordRules = {
   minLength: 8,
   letter: /\p{L}/u,
-  digit: /\d/,
-  special: /[^\p{L}\d\s]/u,
+  digit: /\p{Nd}/u,
+  special: /[^\p{L}\p{Nd}\s]/u,
 };
 
 export function validatePassword(value: string) {

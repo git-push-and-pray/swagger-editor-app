@@ -19,7 +19,6 @@ export async function signIn(data: SignInSchema): Promise<AuthResponse> {
   if (error) {
     return {
       user: null,
-      session: null,
       error: error.message,
     };
   }
@@ -29,12 +28,6 @@ export async function signIn(data: SignInSchema): Promise<AuthResponse> {
       id: authData.user.id,
       email: authData.user.email,
     },
-    session: authData.session
-      ? {
-          access_token: authData.session.access_token,
-          refresh_token: authData.session.refresh_token,
-        }
-      : null,
     error: null,
   };
 }

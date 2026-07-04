@@ -1,4 +1,5 @@
-import type { useTranslations } from 'next-intl';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { useTranslations } from 'next-intl';
 
 type TFunction = ReturnType<typeof useTranslations>;
 

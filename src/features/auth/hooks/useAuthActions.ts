@@ -1,4 +1,5 @@
-import type { useTranslations } from 'next-intl';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
 import { useRouter } from '@/i18n/navigation';
@@ -45,7 +46,6 @@ export const useAuthActions = (t: TFunction) => {
 
         return {
           user: null,
-          session: null,
           error: descriptionMessage,
         };
       }

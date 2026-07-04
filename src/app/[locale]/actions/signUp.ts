@@ -19,7 +19,6 @@ export async function signUp(data: SignUpSchema): Promise<AuthResponse> {
   if (error || !authData.user) {
     return {
       user: null,
-      session: null,
       error: error?.message || 'User creation failed: No user data returned.',
     };
   }
@@ -29,12 +28,6 @@ export async function signUp(data: SignUpSchema): Promise<AuthResponse> {
       id: authData.user.id,
       email: authData.user.email,
     },
-    session: authData.session
-      ? {
-          access_token: authData.session.access_token,
-          refresh_token: authData.session.refresh_token,
-        }
-      : null,
     error: null,
   };
 }
