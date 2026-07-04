@@ -7,6 +7,7 @@ export async function updateSession(request: NextRequest, response: NextResponse
   if (!supabaseUrl || !supabaseKey) {
     throw new Error('Missing Supabase environment variables');
   }
+  const currentResponse = response;
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {
@@ -18,13 +19,15 @@ export async function updateSession(request: NextRequest, response: NextResponse
         });
 
         cookiesToSet.forEach(({ name, value, options }) => {
-          response.cookies.set(name, value, options);
+          currentResponse.cookies.set(name, value, options);
         });
       },
     },
   });
 
-  await supabase.auth.getClaims();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  return response;
+  return { response: currentResponse, user };
 }

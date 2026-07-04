@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import type { SignUpSchema } from '@/features/auth/schemas/signUpSchema';
 import type { AuthResponse } from '@/features/auth/types/auth.types';
 import { createClient } from '@/lib/supabase/server';
@@ -21,7 +23,7 @@ export async function signUp(data: SignUpSchema): Promise<AuthResponse> {
       error: error?.message || 'User creation failed: No user data returned.',
     };
   }
-
+  revalidatePath('/', 'layout');
   return {
     user: {
       id: authData.user.id,
