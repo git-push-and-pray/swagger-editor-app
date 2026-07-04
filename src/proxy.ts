@@ -16,7 +16,6 @@ export default async function proxy(request: NextRequest) {
   const intlResponse = i18nRouting(request);
 
   if (isRedirectResponse(intlResponse.status) && intlResponse.headers.has('location')) {
-    console.log('Redirecting to:', intlResponse.headers.get('location'));
     return intlResponse;
   }
 
