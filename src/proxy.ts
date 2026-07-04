@@ -5,10 +5,21 @@ import { routing } from './i18n/routing';
 import { parseUrlWithLocale } from './i18n/routingUtils';
 import { updateSession } from './lib/supabase/proxy';
 
+const isRedirectResponse = (status: number): boolean => {
+  const REDIRECT_STATUSES = [301, 302, 303, 307, 308];
+  return REDIRECT_STATUSES.includes(status);
+};
+
 const i18nRouting = createIntlMiddleware(routing);
 
 export default async function proxy(request: NextRequest) {
   const intlResponse = i18nRouting(request);
+
+  if (isRedirectResponse(intlResponse.status) && intlResponse.headers.has('location')) {
+    console.log('Redirecting to:', intlResponse.headers.get('location'));
+    return intlResponse;
+  }
+
   const { pathname } = request.nextUrl;
 
   const { relativePath, locale } = parseUrlWithLocale(pathname, routing.locales);
