@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import type { SignInSchema } from '@/features/auth/schemas/signInSchema';
 import type { AuthResponse } from '@/features/auth/types/auth.types';
 import { createClient } from '@/lib/supabase/server';
@@ -21,7 +23,7 @@ export async function signIn(data: SignInSchema): Promise<AuthResponse> {
       error: error.message,
     };
   }
-
+  revalidatePath('/', 'layout');
   return {
     user: {
       id: authData.user.id,

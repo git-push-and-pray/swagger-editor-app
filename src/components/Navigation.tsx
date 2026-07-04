@@ -15,7 +15,8 @@ interface MenuItemClickProps {
 
 export const Navigation = ({ onItemClick }: MenuItemClickProps): JSX.Element => {
   const t = useTranslations('Navigation');
-  const { isAuth } = useAuth();
+  const { user } = useAuth();
+  const isAuth = !!user;
   return (
     <nav className="flex flex-col items-center gap-1 md:flex-row md:gap-0.5">
       <LinkComponent
@@ -41,7 +42,8 @@ export const Navigation = ({ onItemClick }: MenuItemClickProps): JSX.Element => 
 export const UserActions = ({ onItemClick }: MenuItemClickProps): JSX.Element => {
   const t = useTranslations('Navigation');
   const tToast = useTranslations('Auth.SignOut');
-  const { isAuth } = useAuth();
+  const { user } = useAuth();
+  const isAuth = !!user;
   const { signOut } = useSignOutAction(tToast);
 
   const handleSignOut = async () => {

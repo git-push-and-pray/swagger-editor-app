@@ -35,8 +35,7 @@ export const useSignOutAction = (t: TFunction): UseSignOutActionResult => {
         description: t('success.description'),
       });
 
-      router.push('/');
-      router.refresh();
+      router.replace('/signin');
 
       return res;
     } catch (fatalError) {

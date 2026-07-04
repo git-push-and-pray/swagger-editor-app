@@ -34,7 +34,7 @@ export const useAuthActions = (t: TFunction) => {
         });
 
         router.push(redirect);
-        router.refresh();
+
         return res;
       } catch (fatalError: unknown) {
         const descriptionMessage = getNetworkError(fatalError, t);
