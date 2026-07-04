@@ -18,6 +18,7 @@ interface Props {
 export function SchemaCodeEditor({ value, format, onChange }: Props) {
   return (
     <CodeMirror
+      className="h-full"
       value={value}
       height="100%"
       extensions={FORMAT_EXTENSIONS[format]}

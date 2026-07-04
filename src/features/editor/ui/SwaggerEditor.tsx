@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 
 import { parseSchema } from '../lib/parse-schema';
+import { serializeSchema } from '../lib/serialize-schema';
 import { validateSchema } from '../lib/validate-schema';
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 import { EditorHeader } from './EditorHeader';
@@ -47,11 +48,26 @@ export function SwaggerEditor() {
     });
   };
 
-  return (
-    <section className="border-border bg-surface shadow-main flex min-h-150 flex-col rounded-lg border">
-      <EditorHeader format={format} status={editorState.status} onFormatChange={setFormat} />
+  const handleFormatChange = (nextFormat: SchemaFormat) => {
+    if (nextFormat === format || editorState.status !== 'valid') {
+      return;
+    }
 
-      <div className="flex min-h-0 flex-1 flex-col">
+    const nextSource = serializeSchema(editorState.document, nextFormat);
+
+    setSource(nextSource);
+    setFormat(nextFormat);
+  };
+
+  return (
+    <section className="border-border bg-surface shadow-main flex h-full min-h-0 flex-col overflow-hidden rounded-lg border">
+      <EditorHeader
+        format={format}
+        status={editorState.status}
+        onFormatChange={handleFormatChange}
+      />
+
+      <div className="min-h-0 flex-1 overflow-hidden">
         <SchemaCodeEditor value={source} format={format} onChange={handleSourceChange} />
       </div>
 

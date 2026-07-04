@@ -1,4 +1,5 @@
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
+import { EditorStatus } from './EditorStatus';
 
 interface Props {
   format: SchemaFormat;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export function EditorHeader({ format, status, onFormatChange }: Props) {
+  const isSwitchDisabled = status !== 'valid';
+
   return (
     <header className="border-border flex h-14 items-center justify-between border-b px-4">
       <div className="flex items-center gap-4">
@@ -20,7 +23,8 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
           <button
             type="button"
             aria-pressed={format === 'json'}
-            className={`rounded px-3 py-1 text-sm ${
+            disabled={isSwitchDisabled}
+            className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'json'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
                 : 'text-text-secondary'
@@ -32,7 +36,8 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
           <button
             type="button"
             aria-pressed={format === 'yaml'}
-            className={`rounded px-3 py-1 text-sm ${
+            disabled={isSwitchDisabled}
+            className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'yaml'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
                 : 'text-text-secondary'
@@ -44,11 +49,7 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
         </div>
       </div>
 
-      <div className="text-sm" aria-live="polite">
-        {status === 'validating' && <span className="text-text-secondary">Validating...</span>}
-        {status === 'valid' && <span className="text-accentdark">Valid</span>}
-        {status === 'invalid' && <span className="text-errordark">Invalid</span>}
-      </div>
+      <EditorStatus status={status} />
     </header>
   );
 }
