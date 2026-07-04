@@ -31,7 +31,7 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
             className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'json'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
-                : 'text-text-secondary'
+                : 'text-text-secondary cursor-pointer'
             }`}
             onClick={() => onFormatChange('json')}
           >
@@ -44,7 +44,7 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
             className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'yaml'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
-                : 'text-text-secondary'
+                : 'text-text-secondary cursor-pointer'
             }`}
             onClick={() => onFormatChange('yaml')}
           >
