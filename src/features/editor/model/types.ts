@@ -31,3 +31,12 @@ export type SchemaValidationResult =
       status: 'invalid';
       errors: SchemaError[];
     };
+
+export type SchemaEditorState =
+  | {
+      status: 'empty';
+    }
+  | {
+      status: 'validating';
+    }
+  | SchemaValidationResult;

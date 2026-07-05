@@ -96,5 +96,16 @@
         "unknown": "An unexpected error occurred. Please try again later."
       }
     }
+  },
+  "SwaggerEditor": {
+    "title": "Editor",
+    "formatAriaLabel": "Schema format",
+    "status": {
+      "validating": "Validating...",
+      "valid": "Valid",
+      "invalid": "Invalid"
+    },
+    "line": "Line {line}",
+    "column": "column {column}"
   }
 }
