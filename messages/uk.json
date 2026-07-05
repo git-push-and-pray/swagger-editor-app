@@ -138,5 +138,15 @@
         "ariaLabel": "Профіль GitHub Марії Макарової"
       }
     }
+  "SwaggerEditor": {
+    "title": "Редактор",
+    "formatAriaLabel": "Формат схеми",
+    "status": {
+      "validating": "Перевірка...",
+      "valid": "Коректна",
+      "invalid": "Некоректна"
+    },
+    "line": "Рядок {line}",
+    "column": "стовпець {column}"
   }
 }
