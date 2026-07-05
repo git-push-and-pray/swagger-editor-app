@@ -119,17 +119,23 @@
     },
     "team": {
       "title": "Development Team",
-      "dianaD": {
+      "DianaD": {
         "role": "Team Lead / Frontend Developer",
-        "name": "Diana Dukhovskaya"
+        "name": "Diana Dukhovskaya",
+        "alt": "Avatar of Diana Dukhovskaya",
+        "ariaLabel": "GitHub profile of Diana Dukhovskaya"
       },
-      "dianaS": {
+      "DianaS": {
         "role": "Frontend Developer",
-        "name": "Diana Solovey"
+        "name": "Diana Solovey",
+        "alt": "Avatar of Diana Solovey",
+        "ariaLabel": "GitHub profile of Diana Solovey"
       },
       "MariaM": {
         "role": "Frontend Developer",
-        "name": "Maria Makarova"
+        "name": "Maria Makarova",
+        "alt": "Avatar of Maria Makarova",
+        "ariaLabel": "GitHub profile of Maria Makarova"
       }
     }
   }

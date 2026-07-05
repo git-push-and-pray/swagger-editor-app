@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 
 import AboutCourse from '@/components/about/AboutCourse';
 import AboutIntro from '@/components/about/AboutIntro';
+import AboutTeam from '@/components/about/AboutTeam';
 import AboutTechStack from '@/components/about/AboutTechStack';
 
 export const dynamic = 'force-static';
@@ -21,6 +22,7 @@ export default async function AboutPage({ params }: Props): Promise<JSX.Element>
         <AboutCourse t={t} />
         <AboutTechStack t={t} />
       </div>
+      <AboutTeam t={t} />
     </div>
   );
 }
