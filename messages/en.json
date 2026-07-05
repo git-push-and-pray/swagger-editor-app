@@ -96,5 +96,41 @@
         "unknown": "An unexpected error occurred. Please try again later."
       }
     }
+  },
+  "AboutPage": {
+    "title": "About the Project",
+    "desc": "Swagger/OpenAPI UI is a web application for editing, visualizing, and testing REST APIs based on OpenAPI specifications. It provides an interactive Swagger-like interface with request execution, history tracking, and analytics.",
+    "RSS": {
+      "title": "RS School Course",
+      "desc": "The Rolling Scopes School is a free, community-based education program conducted by The Rolling Scopes developer community since 2013. This project demonstrates skills acquired during the advanced React path, including full-stack development, routing, testing, and modern UI implementation.",
+      "linkName": "Visit RS School",
+      "linkAria": "Visit RS School React Course web site"
+    },
+    "tech": {
+      "title": "Technologies",
+      "items": {
+        "framework": "Framework",
+        "language": "Language",
+        "styling": "Styling",
+        "i18n": "Internationalization",
+        "testing": "Testing",
+        "backend": "Backend / BaaS"
+      }
+    },
+    "team": {
+      "title": "Development Team",
+      "dianaD": {
+        "role": "Team Lead / Frontend Developer",
+        "name": "Diana Dukhovskaya"
+      },
+      "dianaS": {
+        "role": "Frontend Developer",
+        "name": "Diana Solovey"
+      },
+      "MariaM": {
+        "role": "Frontend Developer",
+        "name": "Maria Makarova"
+      }
+    }
   }
 }
