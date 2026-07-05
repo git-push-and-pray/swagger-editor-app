@@ -1,14 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
 import { useRouter } from '@/i18n/navigation';
+import type { TFunction } from '@/types/translation';
 
 import type { AuthResponse } from '../types/auth.types';
 import { getNetworkError } from '../utils/getNetworkError';
 
 type AuthAction<T> = (data: T) => Promise<AuthResponse>;
-type TFunction = ReturnType<typeof useTranslations>;
 
 export const useAuthActions = (t: TFunction) => {
   const router = useRouter();
