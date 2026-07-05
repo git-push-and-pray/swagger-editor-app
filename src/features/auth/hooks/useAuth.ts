@@ -1,13 +1,9 @@
-export function useAuth() {
-  return {
-    isAuth: false,
-    user: null,
-    signOut: () => {
-      return new Promise<void>((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
-      });
-    },
-  };
-}
+import { useContext } from 'react';
+
+import { AuthContext } from '../components/AuthProvider';
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  return context;
+};

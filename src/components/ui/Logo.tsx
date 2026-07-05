@@ -21,9 +21,9 @@ const Logo = ({ type }: LogoProps): JSX.Element => {
       </span>
 
       {type === 'long' && (
-        <h1 className="text-text-primary font-serif text-lg font-semibold tracking-wide">
+        <span className="text-text-primary font-serif text-lg font-semibold tracking-wide">
           SwaggerEditor
-        </h1>
+        </span>
       )}
     </Link>
   );
