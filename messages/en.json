@@ -138,6 +138,7 @@
         "ariaLabel": "GitHub profile of Maria Makarova"
       }
     }
+  },
   "SwaggerEditor": {
     "title": "Editor",
     "formatAriaLabel": "Schema format",

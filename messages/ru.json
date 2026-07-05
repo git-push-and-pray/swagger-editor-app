@@ -138,6 +138,7 @@
         "ariaLabel": "Профиль GitHub Марии Макаровой"
       }
     }
+  },
   "SwaggerEditor": {
     "title": "Редактор",
     "formatAriaLabel": "Формат схемы",
