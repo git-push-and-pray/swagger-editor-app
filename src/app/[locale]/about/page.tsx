@@ -18,7 +18,7 @@ export default async function AboutPage({ params }: Props): Promise<JSX.Element>
   return (
     <div className="flex flex-col items-center gap-10 px-2 py-8 sm:p-8">
       <AboutIntro t={t} />
-      <div className="flex flex-col gap-5 md:flex-row">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <AboutCourse t={t} />
         <AboutTechStack t={t} />
       </div>

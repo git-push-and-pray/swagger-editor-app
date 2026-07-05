@@ -7,7 +7,7 @@ import { TECH_STACK } from './techStack';
 
 export default function AboutTechStack({ t }: TranslationProps): JSX.Element {
   return (
-    <div className="border-border bg-surface flex max-w-full flex-col items-start gap-5 rounded-lg border p-6 shadow-lg md:max-w-101 md:min-w-95 lg:min-w-101">
+    <div className="border-border bg-surface flex max-w-full flex-1 flex-col items-start gap-5 rounded-lg border p-6 shadow-lg md:max-w-101">
       <h2 className="text-text-primary flex items-center gap-2 font-serif text-lg font-semibold tracking-tight">
         <Icon name="code" className="text-accentdark" /> {t('tech.title')}
       </h2>

@@ -29,7 +29,7 @@ export default function AboutTeam({ t }: TranslationProps): JSX.Element {
             <span className="text-accentdark mb-1 text-center font-sans text-[10px] font-bold tracking-wide uppercase">
               {t(`team.${role}`)}
             </span>
-            <h3 className="text-text-primary mb-3 font-serif text-base font-medium">
+            <h3 className="text-text-primary mb-3 text-center font-serif text-base font-medium">
               {t(`team.${name}`)}
             </h3>
             <ExternalLink
