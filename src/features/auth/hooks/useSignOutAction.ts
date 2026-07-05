@@ -1,9 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
 import { signOutAction } from '@/app/[locale]/actions/signOut';
 import { useRouter } from '@/i18n/navigation';
+import type { TFunction } from '@/types/translation';
 
 import type { SignOutResponse } from '../types/auth.types';
 import { getNetworkError } from '../utils/getNetworkError';
@@ -11,7 +10,6 @@ import { getNetworkError } from '../utils/getNetworkError';
 interface UseSignOutActionResult {
   signOut: () => Promise<SignOutResponse>;
 }
-type TFunction = ReturnType<typeof useTranslations>;
 
 export const useSignOutAction = (t: TFunction): UseSignOutActionResult => {
   const router = useRouter();

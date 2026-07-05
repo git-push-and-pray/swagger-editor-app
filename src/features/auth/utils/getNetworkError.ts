@@ -1,7 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { useTranslations } from 'next-intl';
-
-type TFunction = ReturnType<typeof useTranslations>;
+import type { TFunction } from '@/types/translation';
 
 export const getNetworkError = (fatalError: unknown, t: TFunction): string => {
   const error = fatalError instanceof Error ? fatalError : new Error(String(fatalError));
