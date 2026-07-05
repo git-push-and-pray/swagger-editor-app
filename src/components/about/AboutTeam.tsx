@@ -9,15 +9,15 @@ import { TEAM } from './teamInfo';
 
 export default function AboutTeam({ t }: TranslationProps): JSX.Element {
   return (
-    <div className="border-border bg-surface flex max-w-full flex-col items-start gap-8 rounded-lg border p-8 shadow-lg">
+    <div className="border-border bg-surface flex w-full flex-col gap-8 rounded-lg border p-8 shadow-lg lg:w-fit">
       <h2 className="text-text-primary flex items-center gap-2 font-serif text-lg font-semibold tracking-tight">
         <Icon name="team" className="text-accentdark" /> {t('team.title')}
       </h2>
-      <div className="flex flex-col gap-6 md:flex-row">
+      <div className="flex flex-col gap-6 lg:flex-row">
         {TEAM.map(({ name, avatar, alt, role, github, githubLink, ariaLabel }) => (
           <div
             key={name}
-            className="bg-bg border-border flex w-60 flex-col items-center rounded-md border p-5 shadow-md"
+            className="bg-bg border-border flex w-full flex-col items-center justify-between rounded-md border p-5 shadow-md lg:w-60"
           >
             <Image
               src={avatar}
