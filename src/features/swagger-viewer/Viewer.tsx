@@ -1,11 +1,13 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useSwaggerContext } from '@/context/SwaggerContext';
 import { extractEndpoints, groupEndpointsByTag, sortEndpoints } from '@/services/endpointExtractor';
 import { parseSwaggerSchema } from '@/services/swaggerParser';
-import type { OpenAPIObject } from '@/types/openapi';
+import type { Endpoint, OpenAPIObject } from '@/types/openapi';
+
+import EndpointDetails from './components/EndpointDetails';
 
 interface ParsedSchema {
   isValid: boolean;
@@ -15,6 +17,8 @@ interface ParsedSchema {
 
 export function SwaggerViewer() {
   const { schema, format } = useSwaggerContext();
+  const [selectedEndpoint, setSelectedEndpoint] = useState<Endpoint | null>(null);
+
   const parsed = useMemo<ParsedSchema>(() => {
     const result = parseSwaggerSchema(schema, format);
 
@@ -32,6 +36,27 @@ export function SwaggerViewer() {
     };
   }, [schema, format]);
 
+  const endpoints = useMemo(() => {
+    if (!parsed.isValid || !parsed.data) return [];
+    return sortEndpoints(extractEndpoints(parsed.data));
+  }, [parsed]);
+
+  const groupedEndpoints = useMemo(() => {
+    return groupEndpointsByTag(endpoints);
+  }, [endpoints]);
+
+  const handleEndpointClick = (endpoint: Endpoint) => {
+    if (selectedEndpoint === endpoint) {
+      setSelectedEndpoint(null);
+    } else {
+      setSelectedEndpoint(endpoint);
+    }
+  };
+
+  const handleCloseDetails = () => {
+    setSelectedEndpoint(null);
+  };
+
   if (!parsed.isValid || !parsed.data) {
     return (
       <div className="rounded-lg border border-red-300 bg-red-50 p-4">
@@ -41,9 +66,6 @@ export function SwaggerViewer() {
       </div>
     );
   }
-  const endpoints = extractEndpoints(parsed.data);
-  const sortedEndpoints = sortEndpoints(endpoints);
-  const groupedEndpoints = groupEndpointsByTag(sortedEndpoints);
 
   return (
     <div className="space-y-4">
@@ -66,48 +88,61 @@ export function SwaggerViewer() {
               </div>
               <div className="divide-y">
                 {tagEndpoints.map((endpoint, index) => (
-                  <div
-                    key={`${endpoint.method}-${endpoint.path}-${index}`}
-                    className="px-4 py-3 transition hover:bg-gray-50"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`rounded px-2 py-1 text-xs font-bold ${
-                          endpoint.method === 'GET'
-                            ? 'bg-blue-100 text-blue-700'
-                            : endpoint.method === 'POST'
-                              ? 'bg-green-100 text-green-700'
-                              : endpoint.method === 'PUT'
-                                ? 'bg-yellow-100 text-yellow-700'
-                                : endpoint.method === 'DELETE'
-                                  ? 'bg-red-100 text-red-700'
-                                  : endpoint.method === 'PATCH'
-                                    ? 'bg-purple-100 text-purple-700'
-                                    : 'bg-gray-100 text-gray-700'
-                        }`}
-                      >
-                        {endpoint.method}
-                      </span>
-                      <span className="font-mono text-sm">{endpoint.path}</span>
-                      {endpoint.summary && (
-                        <span className="ml-2 text-sm text-gray-500">{endpoint.summary}</span>
-                      )}
-                      {endpoint.deprecated && (
-                        <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-700">
-                          Deprecated
+                  <div key={`${endpoint.method}-${endpoint.path}-${index}`}>
+                    <div
+                      className={`cursor-pointer px-4 py-3 transition hover:bg-gray-50 ${
+                        selectedEndpoint === endpoint ? 'bg-gray-50' : ''
+                      }`}
+                      onClick={() => handleEndpointClick(endpoint)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`rounded px-2 py-1 text-xs font-bold ${
+                            endpoint.method === 'GET'
+                              ? 'bg-blue-100 text-blue-700'
+                              : endpoint.method === 'POST'
+                                ? 'bg-green-100 text-green-700'
+                                : endpoint.method === 'PUT'
+                                  ? 'bg-yellow-100 text-yellow-700'
+                                  : endpoint.method === 'DELETE'
+                                    ? 'bg-red-100 text-red-700'
+                                    : endpoint.method === 'PATCH'
+                                      ? 'bg-purple-100 text-purple-700'
+                                      : 'bg-gray-100 text-gray-700'
+                          }`}
+                        >
+                          {endpoint.method}
                         </span>
-                      )}
-                      {endpoint.parameters.length > 0 && (
-                        <span className="ml-auto rounded bg-gray-100 px-2 py-0.5 text-xs">
-                          {endpoint.parameters.length} параметров
-                        </span>
-                      )}
-                      {endpoint.requestBody && (
-                        <span className="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-                          body
-                        </span>
-                      )}
+                        <span className="font-mono text-sm">{endpoint.path}</span>
+                        {endpoint.summary && (
+                          <span className="ml-2 text-sm text-gray-500">{endpoint.summary}</span>
+                        )}
+                        {endpoint.deprecated && (
+                          <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-700">
+                            Deprecated
+                          </span>
+                        )}
+                        <div className="ml-auto flex items-center gap-2">
+                          {endpoint.parameters.length > 0 && (
+                            <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                              {endpoint.parameters.length} параметров
+                            </span>
+                          )}
+                          {endpoint.requestBody && (
+                            <span className="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
+                              body
+                            </span>
+                          )}
+                          <span className="text-xs text-gray-400">
+                            {selectedEndpoint === endpoint ? '▼' : '▶'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
+
+                    {selectedEndpoint === endpoint && (
+                      <EndpointDetails endpoint={endpoint} onClose={handleCloseDetails} />
+                    )}
                   </div>
                 ))}
               </div>
