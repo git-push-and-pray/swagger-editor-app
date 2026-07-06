@@ -1,7 +1,11 @@
-export default function HistoryPage() {
-  return (
-    <div>
-      <h2>History Page Mock</h2>
-    </div>
-  );
+import HistoryViewer from '@/features/history/components/HistoryViewer';
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function HistoryPage({ params }: Props) {
+  const { locale } = await params;
+
+  return <HistoryViewer locale={locale} />;
 }
