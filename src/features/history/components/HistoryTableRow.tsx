@@ -2,7 +2,7 @@ import type { JSX } from 'react/jsx-runtime';
 
 import MethodBadge from '@/components/ui/MethodBadge';
 import { Link } from '@/i18n/navigation';
-import type { HistoryEntry } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/historyEntry';
 import type { TFunction } from '@/types/translation';
 
 import { getStatusClasses } from '../utils/getStatusColor';
@@ -13,7 +13,7 @@ export const dynamic = 'force-static';
 type Props = {
   t: TFunction;
   locale: string;
-  data: HistoryEntry;
+  data: RequestHistory;
 };
 
 export default async function HistoryTableRow({ t, locale, data }: Props): Promise<JSX.Element> {
@@ -33,7 +33,7 @@ export default async function HistoryTableRow({ t, locale, data }: Props): Promi
       <td className="px-4 py-3">
         <MethodBadge method={data.method} />
       </td>
-      <td className="text-text-primary px-4 py-3 font-mono text-sm">{data.url}</td>
+      <td className="text-text-primary px-4 py-3 font-mono text-sm">{data.endpoint}</td>
       <td className="text-text-secondary flex items-center gap-1.5 px-4 py-3 text-xs">
         {formattedDate}
       </td>

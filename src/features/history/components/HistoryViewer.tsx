@@ -1,17 +1,18 @@
 import type { JSX } from 'react/jsx-runtime';
 import { getTranslations } from 'next-intl/server';
 
-import { mockHistoryData } from '../mockHistory';
+import type { RequestHistory } from '@/types/historyEntry';
+
 import ClearHistoryButton from './ClearHistoryButton';
 import HistoryTable from './HistoryTable';
 
 type Props = {
   locale: string;
+  history: RequestHistory[];
 };
 
-export default async function HistoryViewer({ locale }: Props): Promise<JSX.Element> {
+export default async function HistoryViewer({ locale, history }: Props): Promise<JSX.Element> {
   const t = await getTranslations({ locale, namespace: 'HistoryPage' });
-  const history = mockHistoryData;
 
   return (
     <div className="m-auto flex max-w-350 flex-col gap-5 py-6 md:p-6">

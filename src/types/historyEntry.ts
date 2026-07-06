@@ -1,13 +1,15 @@
 import type { HttpMethod } from '@/types/httpMethods';
 
-export interface HistoryEntry {
+export interface RequestHistory {
   id: string;
+  userId: string;
+  timestamp: Date;
+  endpoint: string;
   method: HttpMethod;
-  url: string;
   status: number;
-  timestamp: string;
   duration: number;
-  reqSize: number;
-  resSize: number;
-  error: string | null;
+  requestSize: number;
+  responseSize: number;
+  url: string;
+  errorDetails?: string;
 }

@@ -1,8 +1,8 @@
 import type { JSX } from 'react/jsx-runtime';
 
+import type { RequestHistory } from '@/types/historyEntry';
 import type { TFunction } from '@/types/translation';
 
-import type { HistoryEntry } from '../../../types/historyEntry';
 import HistoryTableRow from './HistoryTableRow';
 
 export const dynamic = 'force-static';
@@ -10,7 +10,7 @@ export const dynamic = 'force-static';
 type Props = {
   t: TFunction;
   locale: string;
-  data: HistoryEntry[];
+  data: RequestHistory[];
 };
 
 export default async function HistoryTable({ t, locale, data }: Props): Promise<JSX.Element> {
