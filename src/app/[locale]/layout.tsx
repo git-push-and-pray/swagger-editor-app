@@ -31,6 +31,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
+  manifest: '/manifest.json',
   title: 'Swagger-Editor App',
   description:
     'Visualize, test, and edit your REST APIs with an interactive interface. Features request execution, API history, and built-in analytics for OpenAPI specs.',
