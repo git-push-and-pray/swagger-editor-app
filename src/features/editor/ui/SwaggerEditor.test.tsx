@@ -22,18 +22,18 @@ vi.mock('./SchemaCodeEditor', () => ({
   ),
 }));
 
-function renderEditor() {
+function renderEditor(onDocumentChange = vi.fn()) {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
-      <SwaggerEditor />
+      <SwaggerEditor onDocumentChange={onDocumentChange} />
     </NextIntlClientProvider>
   );
 }
 
-async function renderEditorWithSource(source: string) {
+async function renderEditorWithSource(source: string, onDocumentChange = vi.fn()) {
   const user = userEvent.setup();
 
-  renderEditor();
+  renderEditor(onDocumentChange);
 
   const editor = screen.getByRole('textbox', {
     name: 'Schema source',
@@ -42,7 +42,7 @@ async function renderEditorWithSource(source: string) {
   await user.click(editor);
   await user.paste(source);
 
-  return { editor, user };
+  return { editor, user, onDocumentChange };
 }
 
 const VALID_DOCUMENT = {
@@ -85,10 +85,11 @@ describe('SwaggerEditor', () => {
   });
 
   it('validates JSON and enables format switching', async () => {
-    const { editor } = await renderEditorWithSource(VALID_JSON);
+    const { editor, onDocumentChange } = await renderEditorWithSource(VALID_JSON);
 
     expect(editor).toHaveValue(VALID_JSON);
     expect(await screen.findByText('Valid')).toBeInTheDocument();
+    expect(onDocumentChange).toHaveBeenLastCalledWith(VALID_DOCUMENT);
 
     const jsonButton = screen.getByRole('button', { name: 'JSON' });
     const yamlButton = screen.getByRole('button', { name: 'YAML' });
@@ -99,19 +100,21 @@ describe('SwaggerEditor', () => {
   });
 
   it('auto-detects a valid YAML schema', async () => {
-    const { editor } = await renderEditorWithSource(VALID_YAML);
+    const { editor, onDocumentChange } = await renderEditorWithSource(VALID_YAML);
 
     expect(editor).toHaveValue(VALID_YAML);
     expect(await screen.findByText('Valid')).toBeInTheDocument();
+    expect(onDocumentChange).toHaveBeenLastCalledWith(VALID_DOCUMENT);
 
     expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('displays syntax errors and disables format switching', async () => {
-    await renderEditorWithSource(INVALID_YAML);
+    const { onDocumentChange } = await renderEditorWithSource(INVALID_YAML);
 
     expect(await screen.findByText('Invalid')).toBeInTheDocument();
+    expect(onDocumentChange).toHaveBeenLastCalledWith(null);
 
     const errorList = screen.getByRole('alert');
 
@@ -122,9 +125,10 @@ describe('SwaggerEditor', () => {
   });
 
   it('displays OpenAPI validation errors', async () => {
-    await renderEditorWithSource(INVALID_OPENAPI);
+    const { onDocumentChange } = await renderEditorWithSource(INVALID_OPENAPI);
 
     expect(await screen.findByText('Invalid')).toBeInTheDocument();
+    expect(onDocumentChange).toHaveBeenLastCalledWith(null);
     expect(screen.getByRole('alert')).not.toBeEmptyDOMElement();
     expect(screen.getByRole('button', { name: 'JSON' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'YAML' })).toBeDisabled();
@@ -154,12 +158,14 @@ describe('SwaggerEditor', () => {
   });
 
   it('returns to the empty state when the schema is removed', async () => {
-    const { editor, user } = await renderEditorWithSource(VALID_JSON);
+    const { editor, user, onDocumentChange } = await renderEditorWithSource(VALID_JSON);
 
     await screen.findByText('Valid');
+    expect(onDocumentChange).toHaveBeenLastCalledWith(VALID_DOCUMENT);
 
     await user.clear(editor);
 
+    expect(onDocumentChange).toHaveBeenLastCalledWith(null);
     expect(editor).toHaveValue('');
     expect(screen.queryByText('Valid')).not.toBeInTheDocument();
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();

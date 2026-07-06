@@ -11,7 +11,7 @@ export function SchemaErrorList({ errors }: Props) {
 
   return (
     <ul
-      className="border-error/30 bg-error/10 text-errordark border-t px-4 py-2 text-sm"
+      className="border-error/30 bg-error/10 text-errordark max-h-24 min-h-0 overflow-y-auto border-t px-4 py-2 text-sm landscape:max-h-40"
       role="alert"
     >
       {errors.map((error) => (
