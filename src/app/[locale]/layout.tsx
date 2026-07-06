@@ -68,7 +68,9 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
         <NextIntlClientProvider messages={messages}>
           <AuthProvider initialUser={user}>
             <Header />
-            <main className="mx-auto w-full max-w-360 flex-1 px-5 2xl:max-w-450">{children}</main>
+            <main className="mx-auto w-full max-w-360 flex-1 px-5 has-[>.workspace-page]:flex has-[>.workspace-page]:min-h-0 has-[>.workspace-page]:flex-col 2xl:max-w-450">
+              {children}
+            </main>
             <Toaster
               position="bottom-right"
               toastOptions={{

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import type { OpenAPI } from 'openapi-types';
 
 import { parseSchema } from '../lib/parse-schema';
 import { serializeSchema } from '../lib/serialize-schema';
@@ -10,7 +11,11 @@ import { EditorHeader } from './EditorHeader';
 import { SchemaCodeEditor } from './SchemaCodeEditor';
 import { SchemaErrorList } from './SchemaErrorList';
 
-export function SwaggerEditor() {
+interface Props {
+  onDocumentChange: (schemaDocument: OpenAPI.Document | null) => void;
+}
+
+export function SwaggerEditor({ onDocumentChange }: Props) {
   const [source, setSource] = useState('');
   const [format, setFormat] = useState<SchemaFormat>('json');
   const [editorState, setEditorState] = useState<SchemaEditorState>({ status: 'empty' });
@@ -25,6 +30,7 @@ export function SwaggerEditor() {
 
     if (parseResult.status === 'empty') {
       setEditorState({ status: 'empty' });
+      onDocumentChange(null);
       return;
     }
 
@@ -33,6 +39,7 @@ export function SwaggerEditor() {
         status: 'invalid',
         errors: parseResult.errors,
       });
+      onDocumentChange(null);
       return;
     }
 
@@ -45,6 +52,7 @@ export function SwaggerEditor() {
       }
 
       setEditorState(validationResult);
+      onDocumentChange(validationResult.status === 'valid' ? validationResult.document : null);
     });
   };
 
@@ -60,7 +68,7 @@ export function SwaggerEditor() {
   };
 
   return (
-    <section className="border-border bg-surface shadow-main flex h-full min-h-0 flex-col overflow-hidden rounded-lg border">
+    <section className="border-border bg-surface shadow-main flex min-h-0 flex-col overflow-hidden rounded-lg border">
       <EditorHeader
         format={format}
         status={editorState.status}
