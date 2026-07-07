@@ -56,7 +56,7 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
   setRequestLocale(locale);
 
   const messages = await getMessages();
-  const user = await getUser();
+  const { user, authError } = await getUser();
 
   return (
     <html
@@ -66,7 +66,7 @@ export default async function LocaleLayout({ children, params }: Readonly<Locale
     >
       <body className="flex min-h-full flex-col font-sans">
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider initialUser={user}>
+          <AuthProvider initialUser={user} authError={authError}>
             <Header />
             <main className="mx-auto w-full max-w-360 flex-1 px-5 2xl:max-w-450">{children}</main>
             <Toaster

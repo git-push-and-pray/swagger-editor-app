@@ -2,6 +2,8 @@
 
 import { createContext, type ReactNode, useEffect, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
+import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 
 import { useRouter } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -15,12 +17,22 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 interface AuthProviderProps {
   children: ReactNode;
   initialUser: User | null;
+  authError?: boolean;
 }
 
-export const AuthProvider = ({ children, initialUser }: AuthProviderProps) => {
+export const AuthProvider = ({ children, initialUser, authError }: AuthProviderProps) => {
   const router = useRouter();
   const [clientUser, setClientUser] = useState<User | null | undefined>(undefined);
   const lastUserIdRef = useRef<string | undefined>(initialUser?.id);
+  const hasShownAuthError = useRef(false);
+  const t = useTranslations('errors');
+
+  useEffect(() => {
+    if (authError && !hasShownAuthError.current) {
+      hasShownAuthError.current = true;
+      toast.error(t('auth'));
+    }
+  }, [authError, t]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -47,6 +59,6 @@ export const AuthProvider = ({ children, initialUser }: AuthProviderProps) => {
       subscription.unsubscribe();
     };
   }, [router]);
-  const activeUser = clientUser === undefined ? initialUser : clientUser;
+  const activeUser = authError ? null : clientUser === undefined ? initialUser : clientUser;
   return <AuthContext.Provider value={{ user: activeUser }}>{children}</AuthContext.Provider>;
 };

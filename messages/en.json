@@ -169,6 +169,14 @@
     "table": {
       "linkLabel": "View Details",
       "ms": "ms"
+    },
+    "errorState": {
+      "title": "Something went wrong!",
+      "desc": "Unable to load history. Please try again.",
+      "btn": "Try again"
     }
+  },
+  "errors": {
+    "auth": "Unable to check authentication status"
   }
 }

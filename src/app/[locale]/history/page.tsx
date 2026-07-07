@@ -1,6 +1,8 @@
+import { redirect } from 'next/navigation';
+
+import HistoryError from '@/features/history/components/HistoryError';
 import HistoryViewer from '@/features/history/components/HistoryViewer';
 import { getRequestHistory } from '@/features/history/services/getRequestHistory';
-import { createClient } from '@/lib/supabase/server';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -9,17 +11,15 @@ type Props = {
 export default async function HistoryPage({ params }: Props) {
   const { locale } = await params;
 
-  const supabase = await createClient();
+  const { history, error, unauthorized } = await getRequestHistory();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return null;
+  if (unauthorized) {
+    redirect(`/${locale}`);
   }
 
-  const history = await getRequestHistory(user.id);
+  if (error) {
+    return <HistoryError />;
+  }
 
   return <HistoryViewer locale={locale} history={history} />;
 }
