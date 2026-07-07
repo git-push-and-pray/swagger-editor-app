@@ -49,7 +49,6 @@ function createSupabaseMock({
 describe('getSavedSchemaSource', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   it('returns null when user is not authenticated', async () => {
@@ -74,7 +73,7 @@ describe('getSavedSchemaSource', () => {
     expect(supabase.eq).toHaveBeenCalledWith('userId', 'user-1');
   });
 
-  it('logs and returns null when loading saved schema fails', async () => {
+  it('returns null when loading saved schema fails', async () => {
     const supabase = createSupabaseMock({
       queryError: { message: 'RLS denied' },
     });
@@ -82,7 +81,5 @@ describe('getSavedSchemaSource', () => {
     createClientMock.mockResolvedValue(supabase);
 
     await expect(getSavedSchemaSource()).resolves.toBeNull();
-
-    expect(console.error).toHaveBeenCalledWith('Failed to load saved schema source:', 'RLS denied');
   });
 });

@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
 import type { OpenAPI } from 'openapi-types';
-import { toast } from 'sonner';
 
+import { useSaveSchemaSource } from '../hooks/useSaveSchemaSource';
 import { parseSchema } from '../lib/parse-schema';
 import { serializeSchema } from '../lib/serialize-schema';
 import { validateSchema } from '../lib/validate-schema';
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
-import { saveSchemaSource } from '../services/saveSchemaSource';
 import { getInitialEditorSnapshot } from '../utils/getInitialEditorSnapshot';
 import { EditorHeader } from './EditorHeader';
 import { SchemaCodeEditor } from './SchemaCodeEditor';
@@ -21,13 +19,12 @@ interface Props {
 }
 
 export function SwaggerEditor({ initialSource = null, onDocumentChange }: Props) {
-  const t = useTranslations('SwaggerEditor');
+  const { isSaving, saveSchema } = useSaveSchemaSource();
 
   const [initialSnapshot] = useState(() => getInitialEditorSnapshot(initialSource));
   const [source, setSource] = useState(initialSnapshot.source);
   const [format, setFormat] = useState<SchemaFormat>(initialSnapshot.format);
   const [editorState, setEditorState] = useState<SchemaEditorState>(initialSnapshot.editorState);
-  const [isSaving, setIsSaving] = useState(false);
 
   const initialValidationDocument = useRef(
     initialSnapshot.needsValidation ? { document: initialSnapshot.document } : null
@@ -79,27 +76,10 @@ export function SwaggerEditor({ initialSource = null, onDocumentChange }: Props)
     setFormat(nextFormat);
   };
 
-  const handleSave = async () => {
-    if (editorState.status !== 'valid') {
-      return;
-    }
+  const handleSave = () => {
+    if (editorState.status !== 'valid') return;
 
-    setIsSaving(true);
-
-    try {
-      const result = await saveSchemaSource(source);
-
-      if (!result.success) {
-        toast.error(result.error);
-        return;
-      }
-
-      toast.success(t('notifications.saveSuccess'));
-    } catch {
-      toast.error(t('notifications.saveError'));
-    } finally {
-      setIsSaving(false);
-    }
+    saveSchema(source);
   };
 
   useEffect(() => {
@@ -108,8 +88,6 @@ export function SwaggerEditor({ initialSource = null, onDocumentChange }: Props)
     if (!pendingValidation) {
       return;
     }
-
-    initialValidationDocument.current = null;
 
     const requestId = ++validationRequestId.current;
     let isActive = true;

@@ -8,12 +8,7 @@ export async function getSavedSchemaSource(): Promise<string | null> {
     error: userError,
   } = await supabase.auth.getUser();
 
-  if (userError) {
-    console.error('Failed to get authenticated user:', userError.message);
-    return null;
-  }
-
-  if (!user) {
+  if (userError || !user) {
     return null;
   }
 
@@ -23,10 +18,9 @@ export async function getSavedSchemaSource(): Promise<string | null> {
     .eq('userId', user.id)
     .maybeSingle();
 
-  if (error) {
-    console.error('Failed to load saved schema source:', error.message);
+  if (error || !data) {
     return null;
   }
 
-  return data?.source ?? null;
+  return data.source;
 }
