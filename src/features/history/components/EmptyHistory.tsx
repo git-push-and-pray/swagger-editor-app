@@ -8,7 +8,7 @@ type Props = {
   t: TFunction;
 };
 
-export default async function EmptyHistory({ t }: Props): Promise<JSX.Element> {
+export default function EmptyHistory({ t }: Props): JSX.Element {
   return (
     <div className="bg-surface border-border mt-4 flex min-h-[40vh] flex-1 flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center shadow-sm">
       <Icon name="status-code" className="text-text-secondary" />

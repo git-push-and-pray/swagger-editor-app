@@ -3,7 +3,7 @@ import type { HttpMethod } from '@/types/httpMethods';
 export interface RequestHistory {
   id: string;
   userId: string;
-  timestamp: Date;
+  timestamp: string | Date;
   endpoint: string;
   method: HttpMethod;
   status: number;

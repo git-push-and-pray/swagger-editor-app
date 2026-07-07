@@ -5,8 +5,6 @@ import type { TFunction } from '@/types/translation';
 
 import HistoryTableRow from './HistoryTableRow';
 
-export const dynamic = 'force-static';
-
 type Props = {
   t: TFunction;
   locale: string;

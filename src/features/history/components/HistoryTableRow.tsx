@@ -6,9 +6,7 @@ import type { RequestHistory } from '@/types/historyEntry';
 import type { TFunction } from '@/types/translation';
 
 import { getStatusClasses } from '../utils/getStatusColor';
-import { formatTimestamp } from '../utils/timeFormater';
-
-export const dynamic = 'force-static';
+import { formatTimestamp } from '../utils/timeFormatter';
 
 type Props = {
   t: TFunction;
@@ -26,7 +24,7 @@ export default async function HistoryTableRow({ t, locale, data }: Props): Promi
           <span className="sr-only">{t('table.linkLabel')}</span>
         </Link>
         <span className={`flex items-center gap-1.5 text-xs font-medium ${text}`}>
-          <div className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+          <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${dot}`} />
           {data.status}
         </span>
       </td>
