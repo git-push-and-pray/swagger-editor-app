@@ -22,6 +22,12 @@ vi.mock('./SchemaCodeEditor', () => ({
   ),
 }));
 
+vi.mock('@/features/auth/hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: null,
+  }),
+}));
+
 function renderEditor(onDocumentChange = vi.fn()) {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>

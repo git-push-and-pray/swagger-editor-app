@@ -147,6 +147,14 @@
       "valid": "Корректна",
       "invalid": "Некорректна"
     },
+    "actions": {
+      "save": "Сохранить",
+      "saving": "Сохранение..."
+    },
+    "notifications": {
+      "saveSuccess": "Схема успешно сохранена",
+      "saveError": "Не удалось сохранить схему"
+    },
     "line": "Строка {line}",
     "column": "столбец {column}"
   }

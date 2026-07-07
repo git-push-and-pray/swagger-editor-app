@@ -147,6 +147,14 @@
       "valid": "Valid",
       "invalid": "Invalid"
     },
+    "actions": {
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "notifications": {
+      "saveSuccess": "Schema saved successfully",
+      "saveError": "Failed to save schema"
+    },
     "line": "Line {line}",
     "column": "column {column}"
   }

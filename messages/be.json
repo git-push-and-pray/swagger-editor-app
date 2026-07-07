@@ -147,6 +147,14 @@
       "valid": "Карэктная",
       "invalid": "Некарэктная"
     },
+    "actions": {
+      "save": "Захаваць",
+      "saving": "Захаванне..."
+    },
+    "notifications": {
+      "saveSuccess": "Схема паспяхова захавана",
+      "saveError": "Не ўдалося захаваць схему"
+    },
     "line": "Радок {line}",
     "column": "слупок {column}"
   }
