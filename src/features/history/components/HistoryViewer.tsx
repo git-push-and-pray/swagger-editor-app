@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import type { RequestHistory } from '@/types/historyEntry';
 
 import ClearHistoryButton from './ClearHistoryButton';
+import EmptyHistory from './EmptyHistory';
 import HistoryTable from './HistoryTable';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 
 export default async function HistoryViewer({ locale, history }: Props): Promise<JSX.Element> {
   const t = await getTranslations({ locale, namespace: 'HistoryPage' });
-
+  const emptyHistory = history.length === 0;
   return (
     <div className="m-auto flex max-w-350 flex-col gap-5 py-6 md:p-6">
       <div className="m-auto flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -25,7 +26,8 @@ export default async function HistoryViewer({ locale, history }: Props): Promise
         </div>
         <ClearHistoryButton />
       </div>
-      <HistoryTable t={t} locale={locale} data={history} />
+      {emptyHistory && <EmptyHistory t={t} />}
+      {!emptyHistory && <HistoryTable t={t} locale={locale} data={history} />}
     </div>
   );
 }
