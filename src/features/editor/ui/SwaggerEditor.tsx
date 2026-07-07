@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { OpenAPI } from 'openapi-types';
 import { toast } from 'sonner';
@@ -10,22 +10,28 @@ import { serializeSchema } from '../lib/serialize-schema';
 import { validateSchema } from '../lib/validate-schema';
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 import { saveSchemaSource } from '../services/saveSchemaSource';
+import { getInitialEditorSnapshot } from '../utils/getInitialEditorSnapshot';
 import { EditorHeader } from './EditorHeader';
 import { SchemaCodeEditor } from './SchemaCodeEditor';
 import { SchemaErrorList } from './SchemaErrorList';
 
 interface Props {
+  initialSource?: string | null;
   onDocumentChange: (schemaDocument: OpenAPI.Document | null) => void;
 }
 
-export function SwaggerEditor({ onDocumentChange }: Props) {
+export function SwaggerEditor({ initialSource = null, onDocumentChange }: Props) {
   const t = useTranslations('SwaggerEditor');
 
-  const [source, setSource] = useState('');
-  const [format, setFormat] = useState<SchemaFormat>('json');
-  const [editorState, setEditorState] = useState<SchemaEditorState>({ status: 'empty' });
+  const [initialSnapshot] = useState(() => getInitialEditorSnapshot(initialSource));
+  const [source, setSource] = useState(initialSnapshot.source);
+  const [format, setFormat] = useState<SchemaFormat>(initialSnapshot.format);
+  const [editorState, setEditorState] = useState<SchemaEditorState>(initialSnapshot.editorState);
   const [isSaving, setIsSaving] = useState(false);
 
+  const initialValidationDocument = useRef(
+    initialSnapshot.needsValidation ? { document: initialSnapshot.document } : null
+  );
   const validationRequestId = useRef(0);
 
   const handleSourceChange = (nextSource: string) => {
@@ -95,6 +101,32 @@ export function SwaggerEditor({ onDocumentChange }: Props) {
       setIsSaving(false);
     }
   };
+
+  useEffect(() => {
+    const pendingValidation = initialValidationDocument.current;
+
+    if (!pendingValidation) {
+      return;
+    }
+
+    initialValidationDocument.current = null;
+
+    const requestId = ++validationRequestId.current;
+    let isActive = true;
+
+    void validateSchema(pendingValidation.document).then((validationResult) => {
+      if (!isActive || requestId !== validationRequestId.current) {
+        return;
+      }
+
+      setEditorState(validationResult);
+      onDocumentChange(validationResult.status === 'valid' ? validationResult.document : null);
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [onDocumentChange]);
 
   return (
     <section className="border-border bg-surface shadow-main flex min-h-0 flex-col overflow-hidden rounded-lg border">
