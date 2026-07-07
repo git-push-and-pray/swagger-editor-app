@@ -149,5 +149,34 @@
     },
     "line": "Line {line}",
     "column": "column {column}"
+  },
+  "HistoryPage": {
+    "title": "History & Analytics",
+    "desc": "Review your past API interactions and performance metrics.",
+    "clearBtn": "Clear All",
+    "emptyState": {
+      "title": "You haven't executed any requests yet",
+      "desc": "When you use the Try It Out feature in the editor, your request history will appear here.",
+      "btn": "Go to Viewer & Editor"
+    },
+    "tableHeader": {
+      "status": "Status",
+      "method": "Method",
+      "endpoint": "URL Endpoint",
+      "time": "Time",
+      "duration": "Duration"
+    },
+    "table": {
+      "linkLabel": "View Details",
+      "ms": "ms"
+    },
+    "errorState": {
+      "title": "Something went wrong!",
+      "desc": "Unable to load history. Please try again.",
+      "btn": "Try again"
+    }
+  },
+  "errors": {
+    "auth": "Unable to check authentication status"
   }
 }
