@@ -16,5 +16,138 @@
   },
   "HomePage": {
     "title": "Swagger-Editor App"
+  },
+  "SignInPage": {
+    "title": "Welcome back",
+    "desc": "Enter your details to access your account.",
+    "footerText": "Don't have an account?",
+    "mainBtn": "Sign In",
+    "btn": "Sign Up"
+  },
+  "SignUpPage": {
+    "title": "Create an account",
+    "desc": "Sign up to save schemas and view analytics.",
+    "footerText": "Already have an account?",
+    "mainBtn": "Sign Up",
+    "btn": "Sign In",
+    "passPlaceholder": "Create a strong password",
+    "passConfPlaceholder": "Confirm your password",
+    "requirements": {
+      "length": "8+ characters",
+      "letter": "At least 1 letter",
+      "digit": "At least 1 digit",
+      "special": "1 special char"
+    }
+  },
+  "Auth": {
+    "validation": {
+      "required": "This field is required",
+      "emailInvalid": "Invalid email format (e.g. name@example.com)",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters"
+    },
+    "password": {
+      "letter": "Password must contain at least one letter",
+      "digit": "Password must contain at least one number",
+      "special": "Password must contain at least one special character",
+      "mismatch": "Passwords do not match"
+    },
+    "SignIn": {
+      "loading": {
+        "title": "Signing you in..."
+      },
+      "success": {
+        "title": "Welcome back!",
+        "description": "You have successfully signed in."
+      },
+      "error": {
+        "title": "Sign in failed",
+        "description": "Invalid email or password. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable."
+      }
+    },
+    "SignUp": {
+      "loading": {
+        "title": "Creating your account..."
+      },
+      "success": {
+        "title": "Account created!",
+        "description": "Welcome! Your account has been successfully created."
+      },
+      "error": {
+        "title": "Registration failed",
+        "description": "This email is already registered or invalid. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable.",
+        "unknown": "An unexpected error occurred. Please try again later."
+      }
+    },
+    "SignOut": {
+      "loading": {
+        "title": "Signing out..."
+      },
+      "success": {
+        "title": "Signed out successfully",
+        "description": "You have been logged out."
+      },
+      "error": {
+        "title": "Error",
+        "description": "Failed to sign out. Please try again.",
+        "network": "No internet connection or the server is temporarily unavailable.",
+        "unknown": "An unexpected error occurred. Please try again later."
+      }
+    }
+  },
+  "AboutPage": {
+    "title": "About the Project",
+    "desc": "Swagger/OpenAPI UI is a web application for editing, visualizing, and testing REST APIs based on OpenAPI specifications. It provides an interactive Swagger-like interface with request execution, history tracking, and analytics.",
+    "RSS": {
+      "title": "RS School Course",
+      "desc": "The Rolling Scopes School is a free, community-based education program conducted by The Rolling Scopes developer community since 2013. This project demonstrates skills acquired during the advanced React path, including full-stack development, routing, testing, and modern UI implementation.",
+      "linkName": "Visit RS School",
+      "linkAria": "Visit RS School React Course web site"
+    },
+    "tech": {
+      "title": "Technologies",
+      "items": {
+        "framework": "Framework",
+        "language": "Language",
+        "styling": "Styling",
+        "i18n": "Internationalization",
+        "testing": "Testing",
+        "backend": "Backend / BaaS"
+      }
+    },
+    "team": {
+      "title": "Development Team",
+      "DianaD": {
+        "role": "Team Lead / Frontend Developer",
+        "name": "Diana Dukhovskaya",
+        "alt": "Avatar of Diana Dukhovskaya",
+        "ariaLabel": "GitHub profile of Diana Dukhovskaya"
+      },
+      "DianaS": {
+        "role": "Frontend Developer",
+        "name": "Diana Solovey",
+        "alt": "Avatar of Diana Solovey",
+        "ariaLabel": "GitHub profile of Diana Solovey"
+      },
+      "MariaM": {
+        "role": "Frontend Developer",
+        "name": "Maria Makarova",
+        "alt": "Avatar of Maria Makarova",
+        "ariaLabel": "GitHub profile of Maria Makarova"
+      }
+    }
+  },
+  "SwaggerEditor": {
+    "title": "Editor",
+    "formatAriaLabel": "Schema format",
+    "status": {
+      "validating": "Validating...",
+      "valid": "Valid",
+      "invalid": "Invalid"
+    },
+    "line": "Line {line}",
+    "column": "column {column}"
   }
 }

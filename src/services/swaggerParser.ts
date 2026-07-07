@@ -1,27 +1,7 @@
 import YAML from 'yaml';
 
-import type { OpenAPIObject, ParseResult, SchemaFormat } from '@/types/openapi';
-
-function isValidOpenAPIObject(obj: unknown): obj is OpenAPIObject {
-  if (typeof obj !== 'object' || obj === null) {
-    return false;
-  }
-
-  const maybeOpenAPI = obj as Record<string, unknown>;
-  if (typeof maybeOpenAPI.openapi !== 'string') {
-    return false;
-  }
-
-  if (!maybeOpenAPI.openapi.startsWith('3.')) {
-    return false;
-  }
-
-  if (typeof maybeOpenAPI.paths !== 'object' || maybeOpenAPI.paths === null) {
-    return false;
-  }
-
-  return true;
-}
+import { isValidOpenAPIObject } from '@/shared/utils/typeQuards';
+import type { ParseResult, SchemaFormat } from '@/types/openapi';
 
 export function parseSwaggerSchema(input: string, format: SchemaFormat): ParseResult {
   try {

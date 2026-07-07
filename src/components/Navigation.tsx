@@ -4,6 +4,7 @@ import type { JSX } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useAuth } from '@/features/auth/hooks/useAuth';
+import { useSignOutAction } from '@/features/auth/hooks/useSignOutAction';
 
 import Button from './ui/Button';
 import LinkComponent from './ui/Link';
@@ -14,7 +15,8 @@ interface MenuItemClickProps {
 
 export const Navigation = ({ onItemClick }: MenuItemClickProps): JSX.Element => {
   const t = useTranslations('Navigation');
-  const { isAuth } = useAuth();
+  const { user } = useAuth();
+  const isAuth = !!user;
   return (
     <nav className="flex flex-col items-center gap-1 md:flex-row md:gap-0.5">
       <LinkComponent
@@ -39,7 +41,10 @@ export const Navigation = ({ onItemClick }: MenuItemClickProps): JSX.Element => 
 
 export const UserActions = ({ onItemClick }: MenuItemClickProps): JSX.Element => {
   const t = useTranslations('Navigation');
-  const { isAuth, signOut } = useAuth();
+  const tToast = useTranslations('Auth.SignOut');
+  const { user } = useAuth();
+  const isAuth = !!user;
+  const { signOut } = useSignOutAction(tToast);
 
   const handleSignOut = async () => {
     await signOut();

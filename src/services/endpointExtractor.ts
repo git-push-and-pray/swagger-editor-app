@@ -1,8 +1,10 @@
+import type { OpenAPI } from 'openapi-types';
+
+import { isOperationObject } from '@/shared/utils/typeQuards';
 import type {
   Endpoint,
   HttpMethod,
   OpenAPIObject,
-  OperationObject,
   ParameterObject,
   RequestBodyObject,
   ResponseObject,
@@ -10,35 +12,38 @@ import type {
 } from '@/types/openapi';
 import { resolveParameters, resolveRequestBody } from '@/types/openapi';
 
-export function extractEndpoints(schema: OpenAPIObject): Endpoint[] {
+export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
   const endpoints: Endpoint[] = [];
 
-  if (!schema.paths) {
+  const openApiObject = schema as unknown as OpenAPIObject;
+
+  if (!openApiObject.paths) {
     return endpoints;
   }
 
-  for (const [path, pathItem] of Object.entries(schema.paths)) {
+  const components = openApiObject.components;
+
+  for (const [path, pathItem] of Object.entries(openApiObject.paths)) {
     const methods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
 
     for (const method of methods) {
       const methodKey = method.toLowerCase() as keyof typeof pathItem;
-      const operation = pathItem[methodKey] as OperationObject | undefined;
 
-      if (!operation) continue;
+      const operation = pathItem[methodKey] as unknown;
 
-      const operationParams = resolveParameters(operation.parameters, schema.components);
+      if (!isOperationObject(operation)) continue;
 
-      const pathParams = resolveParameters(pathItem.parameters, schema.components);
+      const operationParams = resolveParameters(operation.parameters || [], components);
+
+      const pathParams = resolveParameters(pathItem.parameters || [], components);
 
       const parameters = extractParameters(operationParams, pathParams);
 
       const requestBody = operation.requestBody
-        ? resolveRequestBody(operation.requestBody, schema.components)
+        ? resolveRequestBody(operation.requestBody, components)
         : undefined;
 
       const responses = extractResponses(operation.responses);
-
-      const tags = operation.tags || [];
 
       endpoints.push({
         method,
@@ -46,7 +51,7 @@ export function extractEndpoints(schema: OpenAPIObject): Endpoint[] {
         summary: operation.summary,
         description: operation.description,
         operationId: operation.operationId,
-        tags,
+        tags: operation.tags || [],
         parameters,
         requestBody,
         responses,

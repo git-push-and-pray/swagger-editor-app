@@ -1,45 +1,24 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import type { OpenAPI } from 'openapi-types';
 
-import { useSwaggerContext } from '@/context/SwaggerContext';
 import { extractEndpoints, groupEndpointsByTag, sortEndpoints } from '@/services/endpointExtractor';
-import { parseSwaggerSchema } from '@/services/swaggerParser';
-import type { Endpoint, OpenAPIObject } from '@/types/openapi';
+import type { Endpoint } from '@/types/openapi';
 
 import EndpointDetails from './components/EndpointDetails';
 
-interface ParsedSchema {
-  isValid: boolean;
-  data: OpenAPIObject | null;
-  error?: string;
+interface SwaggerViewerProps {
+  document: OpenAPI.Document | null;
 }
 
-export function SwaggerViewer() {
-  const { schema, format } = useSwaggerContext();
+export function SwaggerViewer({ document }: SwaggerViewerProps) {
   const [selectedEndpoint, setSelectedEndpoint] = useState<Endpoint | null>(null);
 
-  const parsed = useMemo<ParsedSchema>(() => {
-    const result = parseSwaggerSchema(schema, format);
-
-    if (result.errors && result.errors.length > 0) {
-      return {
-        isValid: false,
-        data: null,
-        error: result.errors.join(', '),
-      };
-    }
-
-    return {
-      isValid: true,
-      data: result.schema,
-    };
-  }, [schema, format]);
-
   const endpoints = useMemo(() => {
-    if (!parsed.isValid || !parsed.data) return [];
-    return sortEndpoints(extractEndpoints(parsed.data));
-  }, [parsed]);
+    if (!document || !document.paths) return [];
+    return sortEndpoints(extractEndpoints(document));
+  }, [document]);
 
   const groupedEndpoints = useMemo(() => {
     return groupEndpointsByTag(endpoints);
@@ -57,12 +36,20 @@ export function SwaggerViewer() {
     setSelectedEndpoint(null);
   };
 
-  if (!parsed.isValid || !parsed.data) {
+  if (!document) {
     return (
-      <div className="rounded-lg border border-red-300 bg-red-50 p-4">
-        <h3 className="font-semibold text-red-700"> Ошибка валидации</h3>
-        <p className="mt-1 text-red-600">{parsed.error}</p>
-        <div className="mt-2 text-xs text-gray-500">Формат: {format}</div>
+      <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
+        <h3 className="font-semibold text-yellow-700"> Ожидание схемы</h3>
+        <p className="mt-1 text-yellow-600">Схема еще не загружена или не введена</p>
+      </div>
+    );
+  }
+
+  if (!document.paths || Object.keys(document.paths).length === 0) {
+    return (
+      <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
+        <h3 className="font-semibold text-yellow-700"> Нет эндпоинтов</h3>
+        <p className="mt-1 text-yellow-600">В схеме нет описанных эндпоинтов (paths)</p>
       </div>
     );
   }
