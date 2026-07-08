@@ -7,6 +7,11 @@
     "title": "Something went wrong!",
     "btn": "Try again"
   },
+  "NotFoundPage": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "button": "Back to Home"
+  },
   "Navigation": {
     "aboutNav": "About",
     "historyNav": "History & Analytics",
