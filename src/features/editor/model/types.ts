@@ -40,3 +40,19 @@ export type SchemaEditorState =
       status: 'validating';
     }
   | SchemaValidationResult;
+
+export type SaveSchemaSourceResult =
+  | {
+      success: true;
+      error: null;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
+export interface SavedSchemaRow {
+  userId: string;
+  source: string;
+  updatedAt: string;
+}

@@ -1,12 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
+import type { OpenAPI } from 'openapi-types';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import messages from '../../../../messages/en.json';
 import { parseSchema } from '../lib/parse-schema';
+import {
+  INVALID_OPENAPI,
+  INVALID_YAML,
+  VALID_DOCUMENT,
+  VALID_JSON,
+  VALID_YAML,
+} from '../test-utils/schemaFixtures';
 import { SwaggerEditor } from './SwaggerEditor';
 
+type OnDocumentChange = (schemaDocument: OpenAPI.Document | null) => void;
 interface MockEditorProps {
   value: string;
   onChange: (value: string) => void;
@@ -22,18 +31,51 @@ vi.mock('./SchemaCodeEditor', () => ({
   ),
 }));
 
-function renderEditor(onDocumentChange = vi.fn()) {
+const { authUserMock, saveSchemaSourceMock, toastErrorMock, toastSuccessMock } = vi.hoisted(() => ({
+  authUserMock: vi.fn(),
+  saveSchemaSourceMock: vi.fn(),
+  toastErrorMock: vi.fn(),
+  toastSuccessMock: vi.fn(),
+}));
+
+vi.mock('@/features/auth/hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: authUserMock(),
+  }),
+}));
+
+vi.mock('../services/saveSchemaSource', () => ({
+  saveSchemaSource: saveSchemaSourceMock,
+}));
+
+vi.mock('sonner', () => ({
+  toast: {
+    error: toastErrorMock,
+    success: toastSuccessMock,
+  },
+}));
+
+function renderEditor({
+  initialSource,
+  onDocumentChange = vi.fn(),
+}: {
+  initialSource?: string | null;
+  onDocumentChange?: OnDocumentChange;
+} = {}) {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
-      <SwaggerEditor onDocumentChange={onDocumentChange} />
+      <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
     </NextIntlClientProvider>
   );
 }
 
-async function renderEditorWithSource(source: string, onDocumentChange = vi.fn()) {
+async function renderEditorWithSource(
+  source: string,
+  onDocumentChange = vi.fn<OnDocumentChange>()
+) {
   const user = userEvent.setup();
 
-  renderEditor(onDocumentChange);
+  renderEditor({ onDocumentChange });
 
   const editor = screen.getByRole('textbox', {
     name: 'Schema source',
@@ -45,35 +87,12 @@ async function renderEditorWithSource(source: string, onDocumentChange = vi.fn()
   return { editor, user, onDocumentChange };
 }
 
-const VALID_DOCUMENT = {
-  openapi: '3.0.0',
-  info: {
-    title: 'Test API',
-    version: '1.0.0',
-  },
-  paths: {},
-};
-
-const VALID_JSON = JSON.stringify(VALID_DOCUMENT, null, 2);
-
-const VALID_YAML = `openapi: 3.0.0
-info:
-  title: Test API
-  version: 1.0.0
-paths: {}
-`;
-
-const INVALID_YAML = `openapi: 3.0.0
-info: [
-`;
-
-const INVALID_OPENAPI = `openapi: 3.0.0
-info:
-  title: Test API
-paths: {}
-`;
-
 describe('SwaggerEditor', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    authUserMock.mockReturnValue(null);
+  });
+
   it('starts empty with format switching disabled', () => {
     renderEditor();
 
@@ -171,5 +190,96 @@ describe('SwaggerEditor', () => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'JSON' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'YAML' })).toBeDisabled();
+  });
+
+  it('restores and validates initial YAML source', async () => {
+    const onDocumentChange = vi.fn();
+
+    renderEditor({
+      initialSource: VALID_YAML,
+      onDocumentChange,
+    });
+
+    expect(screen.getByRole('textbox', { name: 'Schema source' })).toHaveValue(VALID_YAML);
+
+    expect(await screen.findByText('Valid')).toBeInTheDocument();
+    expect(onDocumentChange).toHaveBeenLastCalledWith(VALID_DOCUMENT);
+
+    expect(screen.getByRole('button', { name: 'JSON' })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: 'YAML' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('shows syntax errors from initial source', async () => {
+    const onDocumentChange = vi.fn();
+
+    renderEditor({
+      initialSource: INVALID_YAML,
+      onDocumentChange,
+    });
+
+    expect(screen.getByRole('textbox', { name: 'Schema source' })).toHaveValue(INVALID_YAML);
+    expect(await screen.findByText('Invalid')).toBeInTheDocument();
+
+    expect(screen.getByRole('alert')).not.toBeEmptyDOMElement();
+    expect(onDocumentChange).not.toHaveBeenCalled();
+  });
+
+  it('saves a valid schema for authenticated users', async () => {
+    authUserMock.mockReturnValue({ id: 'user-1' });
+    saveSchemaSourceMock.mockResolvedValue({
+      success: true,
+      error: null,
+    });
+
+    const { user } = await renderEditorWithSource(VALID_JSON);
+
+    await screen.findByText('Valid');
+
+    await user.click(screen.getByRole('button', { name: messages.SwaggerEditor.actions.save }));
+
+    expect(saveSchemaSourceMock).toHaveBeenCalledWith(VALID_JSON);
+
+    await waitFor(() => {
+      expect(toastSuccessMock).toHaveBeenCalledWith(
+        messages.SwaggerEditor.notifications.saveSuccess
+      );
+    });
+  });
+
+  it('shows an error toast when saving fails', async () => {
+    authUserMock.mockReturnValue({ id: 'user-1' });
+    saveSchemaSourceMock.mockResolvedValue({
+      success: false,
+      error: 'Database error',
+    });
+
+    const { user } = await renderEditorWithSource(VALID_JSON);
+
+    await screen.findByText('Valid');
+
+    await user.click(screen.getByRole('button', { name: messages.SwaggerEditor.actions.save }));
+
+    expect(saveSchemaSourceMock).toHaveBeenCalledWith(VALID_JSON);
+
+    await waitFor(() => {
+      expect(toastErrorMock).toHaveBeenCalledWith('Database error');
+    });
+  });
+
+  it('shows a generic error toast when saving throws', async () => {
+    authUserMock.mockReturnValue({ id: 'user-1' });
+    saveSchemaSourceMock.mockRejectedValue(new Error('Network error'));
+
+    const { user } = await renderEditorWithSource(VALID_JSON);
+
+    await screen.findByText('Valid');
+
+    await user.click(screen.getByRole('button', { name: messages.SwaggerEditor.actions.save }));
+
+    expect(saveSchemaSourceMock).toHaveBeenCalledWith(VALID_JSON);
+
+    await waitFor(() => {
+      expect(toastErrorMock).toHaveBeenCalledWith(messages.SwaggerEditor.notifications.saveError);
+    });
   });
 });

@@ -1,18 +1,26 @@
 import { useTranslations } from 'next-intl';
 
+import Button from '@/components/ui/Button';
+import { useAuth } from '@/features/auth/hooks/useAuth';
+
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 import { EditorStatus } from './EditorStatus';
 
 interface Props {
   format: SchemaFormat;
   status: SchemaEditorState['status'];
+  isSaving: boolean;
   onFormatChange: (value: SchemaFormat) => void;
+  onSave: () => void;
 }
 
-export function EditorHeader({ format, status, onFormatChange }: Props) {
+export function EditorHeader({ format, status, isSaving, onFormatChange, onSave }: Props) {
   const t = useTranslations('SwaggerEditor');
 
-  const isSwitchDisabled = status !== 'valid';
+  const { user } = useAuth();
+  const isAuth = !!user;
+
+  const isSchemaValid = status === 'valid';
 
   return (
     <header className="border-border flex h-14 items-center justify-between border-b px-4">
@@ -27,7 +35,7 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
           <button
             type="button"
             aria-pressed={format === 'json'}
-            disabled={isSwitchDisabled}
+            disabled={!isSchemaValid}
             className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'json'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
@@ -40,7 +48,7 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
           <button
             type="button"
             aria-pressed={format === 'yaml'}
-            disabled={isSwitchDisabled}
+            disabled={!isSchemaValid}
             className={`rounded px-3 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50 ${
               format === 'yaml'
                 ? 'bg-bg-active-tab text-text-primary shadow-btn'
@@ -53,7 +61,20 @@ export function EditorHeader({ format, status, onFormatChange }: Props) {
         </div>
       </div>
 
-      <EditorStatus status={status} />
+      <div className="flex items-center gap-2">
+        <EditorStatus status={status} />
+
+        {isAuth && (
+          <Button
+            icon="save"
+            name={isSaving ? t('actions.saving') : t('actions.save')}
+            size="sm"
+            btnVersion="primary"
+            disabled={!isSchemaValid || isSaving}
+            onClick={onSave}
+          />
+        )}
+      </div>
     </header>
   );
 }
