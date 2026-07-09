@@ -29,7 +29,8 @@ export default async function proxy(request: NextRequest) {
   );
 
   const { response, user } = await updateSession(request, intlResponse);
-  if ((isHistoryRoute && !user) || (isAuthRoute && user)) {
+
+  if (isAuthRoute && user) {
     const redirectUrl = new URL(locale ? `/${locale}` : '/', request.url);
     const authResponse = NextResponse.redirect(redirectUrl);
 
@@ -45,6 +46,30 @@ export default async function proxy(request: NextRequest) {
     });
 
     return authResponse;
+  }
+
+  if (isHistoryRoute && !user) {
+    const redirectTarget = locale ? `/${locale}` : '/';
+    const html = [
+      '<!DOCTYPE html><html><head>',
+      `<meta http-equiv="refresh" content="0;url=${redirectTarget}">`,
+      `<script>window.location.replace(${JSON.stringify(redirectTarget)});</script>`,
+      '</head><body></body></html>',
+    ].join('');
+
+    const unauthorizedResponse = new NextResponse(html, {
+      status: 401,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'WWW-Authenticate': 'Bearer realm="swagger-editor-app"',
+      },
+    });
+
+    response.cookies.getAll().forEach((cookie) => {
+      unauthorizedResponse.cookies.set(cookie);
+    });
+
+    return unauthorizedResponse;
   }
 
   return response;
