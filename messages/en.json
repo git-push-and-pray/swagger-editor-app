@@ -189,6 +189,23 @@
       "btn": "Try again"
     }
   },
+  "AnalyticsPage": {
+    "notFound": {
+      "title": "Analysis not found",
+      "description": "The requested analysis does not exist or may have been removed from your history.",
+      "button": "Back to History"
+    },
+    "btn": "Back to History",
+    "requestDate": "Request date",
+    "data": {
+      "status": "Status",
+      "time": "Time",
+      "duration": "Duration",
+      "reqSize": "Request Size",
+      "resSize": "Response Size"
+    },
+    "errorTitle": "Error Details"
+  },
   "errors": {
     "auth": "Unable to check authentication status"
   }
