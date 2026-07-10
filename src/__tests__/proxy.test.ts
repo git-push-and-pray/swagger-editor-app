@@ -64,8 +64,14 @@ describe('Middleware Proxy', () => {
 
     const result = await proxy(request);
 
-    expect(result.status).toBe(307);
-    expect(result.headers.get('location')).toBe('http://localhost:3000/en');
+    expect(result.status).toBe(401);
+
+    expect(result.headers.get('Content-Type')).toContain('text/html');
+    expect(result.headers.get('WWW-Authenticate')).toBe('Bearer realm="swagger-editor-app"');
+
+    const text = await result.text();
+    expect(text).toContain('url=/en');
+    expect(text).toContain('window.location.replace("/en")');
   });
 
   it('should redirect authenticated user away from auth routes (e.g. /signin)', async () => {
