@@ -3,10 +3,10 @@
 import { useMemo, useState } from 'react';
 import type { OpenAPI } from 'openapi-types';
 
-import { extractEndpoints, groupEndpointsByTag, sortEndpoints } from '@/services/endpointExtractor';
 import type { Endpoint } from '@/types/openapi';
 
 import EndpointDetails from './components/EndpointDetails';
+import { extractEndpoints, groupEndpointsByTag, sortEndpoints } from './services/endpointExtractor';
 
 interface SwaggerViewerProps {
   document: OpenAPI.Document | null;
@@ -55,7 +55,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex h-full flex-col">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold"> Swagger Viewer</h2>
         <span className="text-sm text-gray-500">{endpoints.length} эндпоинтов</span>
@@ -64,9 +64,9 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
       {endpoints.length === 0 ? (
         <div className="py-8 text-center text-gray-500">Нет эндпоинтов для отображения</div>
       ) : (
-        <div className="space-y-4">
+        <div className="min-h-0 space-y-4 overflow-y-auto scroll-smooth border border-gray-200">
           {Array.from(groupedEndpoints.entries()).map(([tag, tagEndpoints]) => (
-            <div key={tag} className="overflow-hidden rounded-lg border">
+            <div key={tag} className="rounded-lg border border-gray-200">
               <div className="bg-gray-100 px-4 py-2 font-semibold text-gray-700">
                 {tag === 'default' ? 'Общие' : tag}
                 <span className="ml-2 text-sm font-normal text-gray-500">

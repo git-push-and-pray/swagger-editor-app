@@ -1,6 +1,6 @@
 import type { ResponseObject } from 'openapi-types-v3.1.0';
 
-import { isValidMediaObject } from '@/shared/utils/typeQuards';
+import { isValidMediaObject } from '../shared/utils/typeQuards';
 
 export default function ResponseItem({
   statusCode,

@@ -2,6 +2,7 @@
 
 import type { Endpoint } from '@/types/openapi';
 
+import TryItOut from './TryItOut/TryItOut';
 import ParametersSection from './ParametersSection';
 import RequestBodySection from './RequestBodySection';
 import ResponsesSection from './ResponsesSection';
@@ -13,7 +14,7 @@ interface EndpointDetailsProps {
 
 export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsProps) {
   return (
-    <div className="mt-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="mt-4 max-h-[400px] overflow-y-auto rounded-lg bg-white p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <span
@@ -75,6 +76,9 @@ export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsPr
           <ResponsesSection responses={endpoint.responses} />
         </div>
       )}
+      <div className="mt-4">
+        <TryItOut endpoint={endpoint} />
+      </div>
     </div>
   );
 }

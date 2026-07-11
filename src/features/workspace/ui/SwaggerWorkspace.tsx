@@ -17,7 +17,7 @@ export function SwaggerWorkspace({ initialSource = null }: Props) {
     <div className="grid min-h-0 flex-[1_1_0] grid-cols-1 grid-rows-2 gap-4 landscape:grid-cols-2 landscape:grid-rows-1">
       <SwaggerEditor initialSource={initialSource} onDocumentChange={setSchemaDocument} />
 
-      <section className="border-border bg-surface min-h-0 overflow-hidden rounded-lg border">
+      <section className="border-border bg-surface min-h-0 rounded-lg border">
         <SwaggerViewer document={schemaDocument} />
       </section>
     </div>

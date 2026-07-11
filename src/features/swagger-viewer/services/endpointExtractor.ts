@@ -1,6 +1,5 @@
 import type { OpenAPI } from 'openapi-types';
 
-import { isOperationObject } from '@/shared/utils/typeQuards';
 import type {
   Endpoint,
   HttpMethod,
@@ -12,6 +11,8 @@ import type {
 } from '@/types/openapi';
 import { resolveParameters, resolveRequestBody } from '@/types/openapi';
 
+import { isOperationObject } from '../shared/utils/typeQuards';
+
 export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
   const endpoints: Endpoint[] = [];
 
@@ -22,6 +23,8 @@ export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
   }
 
   const components = openApiObject.components;
+
+  const rootServers = openApiObject.servers || [];
 
   for (const [path, pathItem] of Object.entries(openApiObject.paths)) {
     const methods: HttpMethod[] = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
@@ -45,6 +48,8 @@ export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
 
       const responses = extractResponses(operation.responses);
 
+      const servers = operation.servers || pathItem.servers || rootServers;
+
       endpoints.push({
         method,
         path,
@@ -57,7 +62,7 @@ export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
         responses,
         security: operation.security,
         deprecated: operation.deprecated,
-        servers: operation.servers,
+        servers,
         externalDocs: operation.externalDocs,
       });
     }
