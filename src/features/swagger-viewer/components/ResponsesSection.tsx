@@ -1,8 +1,8 @@
 'use client';
 
-import { isValidResponse } from '@/shared/utils/typeQuards';
 import type { ResponseObject, ResponsesObject } from '@/types/openapi';
 
+import { isValidResponse } from '../shared/utils/typeQuards';
 import ResponseItem from './ResponseItem';
 
 interface ResponsesSectionProps {

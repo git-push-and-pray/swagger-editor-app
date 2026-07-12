@@ -1,7 +1,8 @@
 import YAML from 'yaml';
 
-import { isValidOpenAPIObject } from '@/shared/utils/typeQuards';
 import type { ParseResult, SchemaFormat } from '@/types/openapi';
+
+import { isValidOpenAPIObject } from '../shared/utils/typeQuards';
 
 export function parseSwaggerSchema(input: string, format: SchemaFormat): ParseResult {
   try {
