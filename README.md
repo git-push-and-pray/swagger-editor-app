@@ -11,7 +11,16 @@ It provides an interactive Swagger-like interface with request execution, histor
 
 ## Features
 
-[TBC]
+- OpenAPI/Swagger schema editor (JSON/YAML)
+- Auto-detection and validation of schema format
+- Swagger-like API viewer with endpoints tree
+- Try-it-out functionality for API requests
+- Server-side API proxy for external requests (CORS-safe execution)
+- Authentication (Sign In / Sign Up with protected routes)
+- Schema saving and restoring for users
+- Request history and server-side request analytics (duration, status, size, timestamp)
+- Internationalization (supports 4 languages using next-intl)
+- Responsive split view (editor + viewer)
 
 ## Tech Stack
 
@@ -44,13 +53,13 @@ It provides an interactive Swagger-like interface with request execution, histor
 
 | Name   | Role | GitHub | Features |
 |--------|------|--------|----------|
-| Diana Dukhovskaya | Team Lead / Frontend | [dukhd](https://github.com/dukhd) | TBC |
-| Diana Solovey | Frontend | [rustytrooper](https://github.com/rustytrooper) | TBC |
-| Maria Makarova | Frontend | [whaleisajoy](https://github.com/whaleisajoy) | TBC |
+| Diana Dukhovskaya | Team Lead / Frontend | [dukhd](https://github.com/dukhd) | App Header, Sign In / Sign Up, History & Analytics, About Page, General Requirements |
+| Diana Solovey | Frontend | [rustytrooper](https://github.com/rustytrooper) | Swagger Viewer |
+| Maria Makarova | Frontend | [whaleisajoy](https://github.com/whaleisajoy) | Swagger Editor |
 
 ## Deployment
 
-[Deployment Link - TBC](link)
+[Deployment Link](https://swagger-editor-app-gpp.vercel.app/)
 
 ## Demo Video
 
