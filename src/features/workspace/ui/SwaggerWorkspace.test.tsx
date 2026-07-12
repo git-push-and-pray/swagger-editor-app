@@ -3,6 +3,22 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { SwaggerWorkspace } from './SwaggerWorkspace';
 
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+  })),
+  usePathname: vi.fn(() => '/'),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
+  redirect: vi.fn(),
+  permanentRedirect: vi.fn(),
+  notFound: vi.fn(),
+}));
+
 vi.mock('@/features/editor/ui/SwaggerEditor', () => ({
   SwaggerEditor: () => <div>Swagger Editor</div>,
 }));
