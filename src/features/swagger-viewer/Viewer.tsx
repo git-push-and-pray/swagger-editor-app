@@ -3,9 +3,11 @@
 import { useMemo, useState } from 'react';
 import type { OpenAPI } from 'openapi-types';
 
+import MethodBadge from '@/components/ui/MethodBadge';
 import type { Endpoint } from '@/types/openapi';
 
 import EndpointDetails from './components/EndpointDetails';
+import { ViewerHeader } from './components/ViewerHeader';
 import { extractEndpoints, groupEndpointsByTag, sortEndpoints } from './services/endpointExtractor';
 
 interface SwaggerViewerProps {
@@ -39,7 +41,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
   if (!document) {
     return (
       <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
-        <h3 className="font-semibold text-yellow-700"> Ожидание схемы</h3>
+        <h3 className="font-semibold text-yellow-700">⏳ Ожидание схемы</h3>
         <p className="mt-1 text-yellow-600">Схема еще не загружена или не введена</p>
       </div>
     );
@@ -48,18 +50,15 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
   if (!document.paths || Object.keys(document.paths).length === 0) {
     return (
       <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
-        <h3 className="font-semibold text-yellow-700"> Нет эндпоинтов</h3>
+        <h3 className="font-semibold text-yellow-700">📭 Нет эндпоинтов</h3>
         <p className="mt-1 text-yellow-600">В схеме нет описанных эндпоинтов (paths)</p>
       </div>
     );
   }
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold"> Swagger Viewer</h2>
-        <span className="text-sm text-gray-500">{endpoints.length} эндпоинтов</span>
-      </div>
+    <section className="border-border bg-surface shadow-main flex h-full min-h-0 flex-col rounded-lg border">
+      <ViewerHeader endpointsCount={endpoints.length} />
 
       {endpoints.length === 0 ? (
         <div className="py-8 text-center text-gray-500">Нет эндпоинтов для отображения</div>
@@ -83,23 +82,8 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
                       onClick={() => handleEndpointClick(endpoint)}
                     >
                       <div className="flex items-center gap-3">
-                        <span
-                          className={`rounded px-2 py-1 text-xs font-bold ${
-                            endpoint.method === 'GET'
-                              ? 'bg-blue-100 text-blue-700'
-                              : endpoint.method === 'POST'
-                                ? 'bg-green-100 text-green-700'
-                                : endpoint.method === 'PUT'
-                                  ? 'bg-yellow-100 text-yellow-700'
-                                  : endpoint.method === 'DELETE'
-                                    ? 'bg-red-100 text-red-700'
-                                    : endpoint.method === 'PATCH'
-                                      ? 'bg-purple-100 text-purple-700'
-                                      : 'bg-gray-100 text-gray-700'
-                          }`}
-                        >
-                          {endpoint.method}
-                        </span>
+                        <MethodBadge method={endpoint.method} size="m" />
+
                         <span className="font-mono text-sm">{endpoint.path}</span>
                         {endpoint.summary && (
                           <span className="ml-2 text-sm text-gray-500">{endpoint.summary}</span>
@@ -137,6 +121,6 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }

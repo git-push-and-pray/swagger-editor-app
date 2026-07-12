@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import Button from '@/components/ui/Button';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { saveRequestHistory } from '@/features/history/services/saveRequestHistory';
 import type { Endpoint, ProxyResponse } from '@/types/openapi';
@@ -171,23 +172,18 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
 
   return (
     <>
-      <button
+      <Button
+        icon="external-link"
+        size="sm"
+        btnVersion="primary"
         onClick={() => setIsTryItOut(!isTryItOut)}
-        className="mt-4 rounded bg-blue-500 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-blue-600"
-      >
-        {isTryItOut ? ' Cancel' : ' Try it out'}
-      </button>
+        name={isTryItOut ? ' Cancel' : ' Try it out'}
+      />
 
       {isTryItOut && (
         <div className="mt-4 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
           <div className="flex items-center justify-between">
             <h4 className="font-semibold">Try It Out</h4>
-            <button
-              onClick={() => setIsTryItOut(false)}
-              className="text-sm text-gray-700 hover:text-gray-700"
-            >
-              ✕
-            </button>
           </div>
 
           {endpoint.parameters.length > 0 && (
@@ -220,27 +216,26 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
           )}
 
           <div className="flex gap-2">
-            <button
+            <Button
+              icon="request"
+              size="xs"
+              btnVersion="primary"
               onClick={handleExecute}
-              disabled={isExecuting}
-              className={`rounded bg-green-500 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-green-600 ${
-                isExecuting ? 'opacity-50' : ''
-              }`}
-            >
-              {isExecuting ? '⏳ Executing...' : '▶ Execute'}
-            </button>
+              name={isExecuting ? ' Executing...' : 'Execute'}
+            />
 
-            <button
+            <Button
+              icon="copy"
+              size="xs"
+              btnVersion="primary"
               onClick={handleCopyCurl}
-              className="rounded bg-gray-500 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-600"
-            >
-              Generate cURL
-            </button>
+              name="Generate cURL"
+            />
           </div>
 
           {isCopied && (
             <div className="rounded bg-green-100 p-2 text-sm text-green-700">
-              ✅ cURL команда скопирована в буфер обмена!
+              cURL команда скопирована в буфер обмена!
             </div>
           )}
 
