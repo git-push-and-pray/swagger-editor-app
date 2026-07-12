@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import type { OpenAPI } from 'openapi-types';
 
 import { useSaveSchemaSource } from '../hooks/useSaveSchemaSource';
-import { parseSchema } from '../lib/parse-schema';
-import { serializeSchema } from '../lib/serialize-schema';
-import { validateSchema } from '../lib/validate-schema';
+import { parseSchema } from '../lib/parseSchema';
+import { serializeSchema } from '../lib/serializeSchema';
+import { validateSchema } from '../lib/validateSchema';
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 import { getInitialEditorSnapshot } from '../utils/getInitialEditorSnapshot';
 import { EditorHeader } from './EditorHeader';

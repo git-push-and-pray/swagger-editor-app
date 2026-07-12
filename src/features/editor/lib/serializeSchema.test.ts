@@ -1,8 +1,8 @@
 import type { OpenAPI } from 'openapi-types';
 import { describe, expect, it } from 'vitest';
 
-import { parseSchema } from './parse-schema';
-import { serializeSchema } from './serialize-schema';
+import { parseSchema } from './parseSchema';
+import { serializeSchema } from './serializeSchema';
 
 const document: OpenAPI.Document = {
   openapi: '3.0.0',

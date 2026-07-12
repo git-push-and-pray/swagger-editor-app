@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { validateSchema } from './validate-schema';
+import { validateSchema } from './validateSchema';
 
 describe('validateSchema', () => {
   it('accepts a valid OpenAPI document', async () => {

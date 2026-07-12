@@ -5,7 +5,7 @@ import type { OpenAPI } from 'openapi-types';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import messages from '../../../../messages/en.json';
-import { parseSchema } from '../lib/parse-schema';
+import { parseSchema } from '../lib/parseSchema';
 import {
   INVALID_OPENAPI,
   INVALID_YAML,
