@@ -197,6 +197,7 @@
     },
     "btn": "Back to History",
     "requestDate": "Request date",
+    "requestURL": "Request URL",
     "data": {
       "status": "Status",
       "time": "Time",
@@ -204,7 +205,8 @@
       "reqSize": "Request Size",
       "resSize": "Response Size"
     },
-    "errorTitle": "Error Details"
+    "errorTitle": "Error Details",
+    "errorStatus": "Status"
   },
   "errors": {
     "auth": "Unable to check authentication status"
