@@ -17,7 +17,7 @@ vi.mock('../utils/getStatusColor', () => ({
 }));
 
 vi.mock('../utils/timeFormatter', () => ({
-  formatTimestamp: vi.fn().mockResolvedValue('2026-07-08 22:00'),
+  formatTimestamp: vi.fn().mockResolvedValue('08 July 2026, 22:45'),
 }));
 
 const mockT = ((key: string) => key) as unknown as TFunction;
@@ -52,7 +52,7 @@ describe('HistoryTableRow Server Component', () => {
     expect(screen.getByRole('link')).toHaveAttribute('href', '/history/req-1');
     expect(screen.getByText('200')).toHaveClass('text-success');
     expect(screen.getByText('/api/v1/users')).toBeInTheDocument();
-    expect(screen.getByText('2026-07-08 22:00')).toBeInTheDocument();
+    expect(screen.getByText('08 July 2026, 22:45')).toBeInTheDocument();
     expect(screen.getByText('42table.ms')).toBeInTheDocument();
 
     const badge = screen.getByText('POST');
