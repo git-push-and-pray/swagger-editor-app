@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { useAuth } from '@/features/auth/hooks/useAuth';
+import { saveRequestHistory } from '@/features/history/services/saveRequestHistory';
 import type { Endpoint, ProxyResponse } from '@/types/openapi';
 
 import { generateCurl } from '../../services/curlGenerator';
@@ -24,6 +26,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
   const [headers, setHeaders] = useState<Record<string, string>>({});
   const [body, setBody] = useState<unknown>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const { user } = useAuth();
 
   const handleExecute = async () => {
     setIsExecuting(true);
@@ -81,6 +84,23 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
       });
 
       setResponse(result);
+
+      if (user) {
+        try {
+          await saveRequestHistory({
+            endpoint: endpoint.path,
+            method: endpoint.method,
+            url,
+            status: result.status || 0,
+            duration: result.duration || 0,
+            requestSize: new Blob([JSON.stringify(body)]).size,
+            responseSize: new Blob([result.body]).size,
+            errorDetails: result.error || undefined,
+          });
+        } catch (historyError) {
+          console.warn('Failed to save history:', historyError);
+        }
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
