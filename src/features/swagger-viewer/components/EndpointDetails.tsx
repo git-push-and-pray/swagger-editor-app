@@ -15,31 +15,35 @@ interface EndpointDetailsProps {
 
 export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsProps) {
   return (
-    <div className="mt-4 max-h-[400px] overflow-y-auto rounded-lg bg-white p-4 shadow-sm">
+    <div className="bg-surface/80 max-h-100 overflow-y-auto rounded-lg p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <MethodBadge method={endpoint.method} size="m" />
           <span className="font-mono text-lg font-semibold">{endpoint.path}</span>
           {endpoint.deprecated && (
-            <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-700">Deprecated</span>
+            <span className="bg-error/15 text-errordark rounded px-2 py-0.5 text-xs">
+              Deprecated
+            </span>
           )}
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
+          className="text-text-secondary hover:text-text-primary cursor-pointer"
           aria-label="Закрыть детали"
         >
           ✕
         </button>
       </div>
-
+      <div className="mt-4">
+        <TryItOut endpoint={endpoint} />
+      </div>
       {(endpoint.summary || endpoint.description) && (
         <div className="mt-3">
           {endpoint.summary && (
-            <p className="text-sm font-medium text-gray-900">{endpoint.summary}</p>
+            <p className="text-text-primary text-sm font-medium">{endpoint.summary}</p>
           )}
           {endpoint.description && (
-            <p className="mt-1 text-sm text-gray-600">{endpoint.description}</p>
+            <p className="text-text-secondary mt-1 text-sm">{endpoint.description}</p>
           )}
         </div>
       )}
@@ -61,9 +65,6 @@ export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsPr
           <ResponsesSection responses={endpoint.responses} />
         </div>
       )}
-      <div className="mt-4">
-        <TryItOut endpoint={endpoint} />
-      </div>
     </div>
   );
 }

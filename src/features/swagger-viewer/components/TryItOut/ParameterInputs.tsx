@@ -31,7 +31,7 @@ export default function ParameterInputs({ parameters, values, onChange }: Parame
 
         return (
           <div key={`${param.name}-${param.in}`} className="flex items-center gap-2">
-            <div className="flex min-w-[100px] items-center gap-1">
+            <div className="flex min-w-25 items-center gap-1">
               <span className="font-mono text-xs font-medium">{param.name}</span>
               <span className="rounded bg-gray-200 px-1 text-xs text-gray-600">{param.in}</span>
               {isRequired && <span className="text-xs text-red-500">*</span>}

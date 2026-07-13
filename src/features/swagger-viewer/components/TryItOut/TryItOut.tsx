@@ -179,7 +179,6 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
   return (
     <>
       <Button
-        icon="external-link"
         size="sm"
         btnVersion="primary"
         onClick={() => setIsTryItOut(!isTryItOut)}
@@ -187,7 +186,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
       />
 
       {isTryItOut && (
-        <div className="mt-4 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div className="border-border mt-4 space-y-4 rounded-lg border bg-white p-4">
           <div className="flex items-center justify-between">
             <h4 className="font-semibold">{t('tryItOut.title')}</h4>
           </div>
@@ -223,7 +222,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
 
           <div className="flex gap-2">
             <Button
-              icon="request"
+              icon="play"
               size="xs"
               btnVersion="primary"
               onClick={handleExecute}
@@ -233,7 +232,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
             <Button
               icon="copy"
               size="xs"
-              btnVersion="primary"
+              btnVersion="secondary"
               onClick={handleCopyCurl}
               name={t('tryItOut.generateCurl')}
             />

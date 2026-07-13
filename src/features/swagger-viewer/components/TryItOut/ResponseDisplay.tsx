@@ -31,7 +31,6 @@ export default function ResponseDisplay({ response }: ResponseDisplayProps) {
   const isSuccess = response.status >= 200 && response.status < 300;
   const statusColor = isSuccess ? 'text-green-600' : 'text-red-600';
 
-  // Массив табов для рендеринга
   const tabs: Array<{ id: 'body' | 'headers' | 'info'; label: string }> = [
     { id: 'body', label: t('responseDisplay.body') },
     { id: 'headers', label: t('responseDisplay.headers') },

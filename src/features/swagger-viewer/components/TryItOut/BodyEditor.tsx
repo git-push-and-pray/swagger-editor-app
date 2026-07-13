@@ -85,7 +85,7 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
       )}
 
       <textarea
-        className="min-h-[120px] w-full rounded border border-gray-300 p-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
+        className="min-h-30 w-full rounded border border-gray-300 p-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
         value={currentValue}
         placeholder={t('bodyEditor.placeholder')}
         onChange={(e) => handleChange(e.target.value)}

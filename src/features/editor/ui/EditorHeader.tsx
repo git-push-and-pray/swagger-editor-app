@@ -23,7 +23,7 @@ export function EditorHeader({ format, status, isSaving, onFormatChange, onSave 
   const isSchemaValid = status === 'valid';
 
   return (
-    <header className="border-border flex h-14 items-center justify-between border-b px-4">
+    <header className="border-border flex min-h-15 flex-wrap items-center justify-between gap-2 border-b px-4 py-3">
       <div className="flex items-center gap-4">
         <h2 className="font-serif font-semibold">{t('title')}</h2>
 

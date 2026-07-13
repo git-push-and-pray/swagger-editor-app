@@ -212,7 +212,7 @@
     "auth": "Unable to check authentication status"
   },
   "SwaggerViewer": {
-    "title": "Swagger Viewer",
+    "title": "Viewer",
     "endpoints": "endpoints",
     "responses": {
       "title": "Responses",
