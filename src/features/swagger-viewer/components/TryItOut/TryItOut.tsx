@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 
 import Button from '@/components/ui/Button';
 import { useAuth } from '@/features/auth/hooks/useAuth';
@@ -9,6 +11,7 @@ import type { Endpoint, ProxyResponse } from '@/types/openapi';
 
 import { generateCurl } from '../../services/curlGenerator';
 import { sendRequest } from '../../services/proxyService';
+import { formatResponseBody } from '../../shared/utils/formatResponseBody';
 import BodyEditor from './BodyEditor';
 import ParameterInputs from './ParameterInputs';
 import ResponseDisplay from './ResponseDisplay';
@@ -18,6 +21,9 @@ interface TryItOutProps {
 }
 
 export default function TryItOut({ endpoint }: TryItOutProps) {
+  const t = useTranslations('SwaggerViewer');
+  const { user } = useAuth();
+
   const [isTryItOut, setIsTryItOut] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [response, setResponse] = useState<ProxyResponse | null>(null);
@@ -27,7 +33,6 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
   const [headers, setHeaders] = useState<Record<string, string>>({});
   const [body, setBody] = useState<unknown>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const { user } = useAuth();
 
   const handleExecute = async () => {
     setIsExecuting(true);
@@ -83,6 +88,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
         headers: requestHeaders,
         body,
       });
+      const errorDetails = result.status >= 400 ? formatResponseBody(result.body) : undefined;
 
       setResponse(result);
 
@@ -96,10 +102,10 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
             duration: result.duration || 0,
             requestSize: new Blob([JSON.stringify(body)]).size,
             responseSize: new Blob([result.body]).size,
-            errorDetails: result.error || undefined,
+            errorDetails,
           });
-        } catch (historyError) {
-          console.warn('Failed to save history:', historyError);
+        } catch {
+          toast.error(t('saveHistoryError'));
         }
       }
     } catch (err) {
@@ -177,13 +183,13 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
         size="sm"
         btnVersion="primary"
         onClick={() => setIsTryItOut(!isTryItOut)}
-        name={isTryItOut ? ' Cancel' : ' Try it out'}
+        name={isTryItOut ? t('tryItOut.cancel') : t('tryItOut.button')}
       />
 
       {isTryItOut && (
         <div className="mt-4 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
           <div className="flex items-center justify-between">
-            <h4 className="font-semibold">Try It Out</h4>
+            <h4 className="font-semibold">{t('tryItOut.title')}</h4>
           </div>
 
           {endpoint.parameters.length > 0 && (
@@ -195,11 +201,11 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
           )}
 
           <div>
-            <label className="text-sm font-medium text-gray-700">Headers</label>
+            <label className="text-sm font-medium text-gray-700">{t('tryItOut.headers')}</label>
             <div className="mt-1">
               <input
                 type="text"
-                placeholder="Content-Type: application/json"
+                placeholder={t('tryItOut.placeholder')}
                 className="w-full rounded border border-gray-300 p-2 text-sm"
                 onChange={(e) => {
                   const [key, value] = e.target.value.split(':');
@@ -221,7 +227,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
               size="xs"
               btnVersion="primary"
               onClick={handleExecute}
-              name={isExecuting ? ' Executing...' : 'Execute'}
+              name={isExecuting ? t('tryItOut.executing') : t('tryItOut.execute')}
             />
 
             <Button
@@ -229,13 +235,13 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
               size="xs"
               btnVersion="primary"
               onClick={handleCopyCurl}
-              name="Generate cURL"
+              name={t('tryItOut.generateCurl')}
             />
           </div>
 
           {isCopied && (
             <div className="rounded bg-green-100 p-2 text-sm text-green-700">
-              cURL команда скопирована в буфер обмена!
+              {t('tryItOut.copied')}
             </div>
           )}
 

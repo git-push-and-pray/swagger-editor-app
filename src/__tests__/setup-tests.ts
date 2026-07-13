@@ -21,4 +21,3 @@ vi.mock('next/navigation', () => ({
   permanentRedirect: vi.fn(),
   notFound: vi.fn(),
 }));
-

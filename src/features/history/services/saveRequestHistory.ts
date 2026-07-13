@@ -1,5 +1,7 @@
 'use server';
 
+import { getTranslations } from 'next-intl/server';
+
 import { createClient } from '@/lib/supabase/server';
 import type { RequestHistory } from '@/types/openapi';
 
@@ -36,7 +38,11 @@ export async function saveRequestHistory(params: SaveRequestHistoryParams) {
   const { error } = await supabase.from('request_history').insert(historyEntry);
 
   if (error) {
-    console.error('Failed to save history:', error);
+    const t = await getTranslations('SwaggerViewer');
+
+    const { toast } = await import('sonner');
+    toast.error(t('saveHistoryError'));
+
     return {
       success: false,
       error: error.message,

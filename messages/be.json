@@ -191,5 +191,64 @@
   },
   "errors": {
     "auth": "Не ўдалося праверыць статус аўтэнтыфікацыі"
-  }
+  },
+  "SwaggerViewer": {
+    "title": "Праглядчык схем Swagger",
+    "endpoints": "эндпойнтаў",
+    "responses": {
+      "title": "Адказы",
+      "noDescriptions": "Няма апісанняў адказаў"
+    },
+    "requestBody": {
+      "title": "Цела запыту",
+      "required": "(абавязковае)"
+    },
+    "parameters": {
+      "title": "Спiс параметраў",
+      "required": "абавязковы",
+      "type": "Тып:"
+    },
+    "tryItOut": {
+      "button": "Паспрабаваць",
+      "cancel": "Адмена",
+      "title": "Паспрабаваць",
+      "headers": "Загалоўкі",
+      "execute": "Выканаць",
+      "executing": "Выконваецца...",
+      "generateCurl": "Стварыць cURL",
+      "copied": "cURL каманда скапіравана ў буфер абмену!",
+      "placeholder": "Content-Type: application/json"
+    },
+    "responseDisplay": {
+      "body": "Цела",
+      "headers": "Загалоўкі",
+      "info": "Інфармацыя",
+      "status": "Статус:",
+      "duration": "Час выканання:",
+      "error": "Памылка:"
+    },
+    "parameterInputs": {
+      "title": "Спiс параметраў"
+    },
+    "bodyEditor": {
+      "title": "Цела запыту",
+      "fillExample": "Запоўніць прыкладам",
+      "placeholder": "Увядзіце JSON цела запыту",
+      "invalidJson": "Невалідны JSON"
+    },
+    "waiting": {
+      "title": "Чаканне схемы",
+      "description": "Схема яшчэ не загружана або не ўведзена"
+    },
+    "noEndpoints": {
+      "title": "Няма эндпойнтаў",
+      "description": "У схеме няма апісаных эндпойнтаў (paths)"
+    },
+    "noEndpointsToDisplay": "Няма эндпойнтаў для адлюстравання",
+    "defaultTag": "Агульныя",
+    "parametersCount": "параметраў",
+    "deprecated": "Састарэлы",
+    "body": "цела"
+  },
+  "saveHistoryError": "Не ўдалося захаваць гісторыю запытаў"
 }

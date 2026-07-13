@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import type { ParameterObject } from '@/types/openapi';
 
 interface ParameterInputsProps {
@@ -9,9 +11,11 @@ interface ParameterInputsProps {
 }
 
 export default function ParameterInputs({ parameters, values, onChange }: ParameterInputsProps) {
+  const t = useTranslations('SwaggerViewer');
   const handleChange = (name: string, value: unknown) => {
     onChange({ ...values, [name]: value });
   };
+
   const visibleParams = parameters.filter((p) => p.in !== 'cookie');
 
   if (visibleParams.length === 0) {
@@ -20,7 +24,7 @@ export default function ParameterInputs({ parameters, values, onChange }: Parame
 
   return (
     <div className="space-y-2">
-      <h5 className="text-sm font-medium text-gray-700">Параметры</h5>
+      <h5 className="text-sm font-medium text-gray-700">{t('parameterInputs.title')}</h5>
       {visibleParams.map((param) => {
         const isPathParam = param.in === 'path';
         const isRequired = param.required || isPathParam;

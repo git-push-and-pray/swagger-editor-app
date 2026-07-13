@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import type { ResponseObject, ResponsesObject } from '@/types/openapi';
 
 import { isValidResponse } from '../shared/utils/typeQuards';
@@ -10,6 +12,8 @@ interface ResponsesSectionProps {
 }
 
 export default function ResponsesSection({ responses }: ResponsesSectionProps) {
+  const t = useTranslations('SwaggerViewer');
+
   const validResponses = Object.entries(responses)
     .filter(([, response]) => isValidResponse(response))
     .map(([statusCode, response]) => ({
@@ -20,15 +24,15 @@ export default function ResponsesSection({ responses }: ResponsesSectionProps) {
   if (validResponses.length === 0) {
     return (
       <div>
-        <h4 className="text-sm font-semibold text-gray-700">Ответы</h4>
-        <p className="mt-1 text-sm text-gray-500">Нет описаний ответов</p>
+        <h4 className="text-sm font-semibold text-gray-700">{t('responses.title')}</h4>
+        <p className="mt-1 text-sm text-gray-500">{t('responses.noDescriptions')}</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h4 className="text-sm font-semibold text-gray-700">Ответы</h4>
+      <h4 className="text-sm font-semibold text-gray-700">{t('responses.title')}</h4>
       <div className="mt-2 space-y-2">
         {validResponses.map(({ statusCode, response }) => (
           <ResponseItem key={statusCode} statusCode={statusCode} response={response} />
