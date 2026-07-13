@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 import type { TFunction } from '@/types/translation';
 
 import HistoryTable from '../components/HistoryTable';

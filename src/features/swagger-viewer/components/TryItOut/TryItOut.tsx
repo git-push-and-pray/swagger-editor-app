@@ -179,7 +179,6 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
   return (
     <>
       <Button
-        icon="external-link"
         size="sm"
         btnVersion="primary"
         onClick={() => setIsTryItOut(!isTryItOut)}
@@ -187,7 +186,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
       />
 
       {isTryItOut && (
-        <div className="mt-4 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div className="border-border bg-surface mt-4 space-y-4 rounded-lg border p-4">
           <div className="flex items-center justify-between">
             <h4 className="font-semibold">{t('tryItOut.title')}</h4>
           </div>
@@ -201,12 +200,12 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
           )}
 
           <div>
-            <label className="text-sm font-medium text-gray-700">{t('tryItOut.headers')}</label>
+            <label className="text-text-primary text-sm font-medium">{t('tryItOut.headers')}</label>
             <div className="mt-1">
               <input
                 type="text"
                 placeholder={t('tryItOut.placeholder')}
-                className="w-full rounded border border-gray-300 p-2 text-sm"
+                className="border-border focus:border-info w-full rounded border p-2 text-sm focus:outline-none"
                 onChange={(e) => {
                   const [key, value] = e.target.value.split(':');
                   if (key && value) {
@@ -223,7 +222,7 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
 
           <div className="flex gap-2">
             <Button
-              icon="request"
+              icon="play"
               size="xs"
               btnVersion="primary"
               onClick={handleExecute}
@@ -233,19 +232,19 @@ export default function TryItOut({ endpoint }: TryItOutProps) {
             <Button
               icon="copy"
               size="xs"
-              btnVersion="primary"
+              btnVersion="secondary"
               onClick={handleCopyCurl}
               name={t('tryItOut.generateCurl')}
             />
           </div>
 
           {isCopied && (
-            <div className="rounded bg-green-100 p-2 text-sm text-green-700">
+            <div className="bg-accent/20 text-accentdark rounded p-2 text-sm">
               {t('tryItOut.copied')}
             </div>
           )}
 
-          {error && <div className="rounded bg-red-100 p-3 text-sm text-red-700">{error}</div>}
+          {error && <div className="bg-error/15 text-errordark rounded p-3 text-sm">{error}</div>}
 
           {response && <ResponseDisplay response={response} />}
         </div>

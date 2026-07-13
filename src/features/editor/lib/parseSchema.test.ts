@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseSchema } from './parse-schema';
+import { parseSchema } from './parseSchema';
 
 describe('parseSchema', () => {
   it('returns empty result for whitespace-only source', () => {

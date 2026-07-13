@@ -2,7 +2,7 @@ import type { JSX } from 'react/jsx-runtime';
 
 import MethodBadge from '@/components/ui/MethodBadge';
 import { Link } from '@/i18n/navigation';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 import type { TFunction } from '@/types/translation';
 
 import { getStatusClasses } from '../utils/getStatusColor';

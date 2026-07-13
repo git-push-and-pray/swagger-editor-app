@@ -24,23 +24,25 @@ export default function ParameterInputs({ parameters, values, onChange }: Parame
 
   return (
     <div className="space-y-2">
-      <h5 className="text-sm font-medium text-gray-700">{t('parameterInputs.title')}</h5>
+      <h5 className="text-text-primary text-sm font-medium">{t('parameterInputs.title')}</h5>
       {visibleParams.map((param) => {
         const isPathParam = param.in === 'path';
         const isRequired = param.required || isPathParam;
 
         return (
           <div key={`${param.name}-${param.in}`} className="flex items-center gap-2">
-            <div className="flex min-w-[100px] items-center gap-1">
+            <div className="flex min-w-25 items-center gap-1">
               <span className="font-mono text-xs font-medium">{param.name}</span>
-              <span className="rounded bg-gray-200 px-1 text-xs text-gray-600">{param.in}</span>
-              {isRequired && <span className="text-xs text-red-500">*</span>}
+              <span className="bg-secondary/60 text-text-primary rounded px-1 text-xs">
+                {param.in}
+              </span>
+              {isRequired && <span className="text-errordark text-xs">*</span>}
             </div>
             <input
               type="text"
               value={String(values[param.name] || '')}
               placeholder={param.description || param.name}
-              className="flex-1 rounded border border-gray-300 p-1.5 text-sm focus:border-blue-500 focus:outline-none"
+              className="border-border focus:border-info flex-1 rounded border p-1.5 text-sm focus:outline-none"
               onChange={(e) => handleChange(param.name, e.target.value)}
             />
           </div>

@@ -1,4 +1,4 @@
-import { parseSchema } from '../lib/parse-schema';
+import { parseSchema } from '../lib/parseSchema';
 import type { SchemaEditorState, SchemaFormat } from '../model/types';
 
 type InitialEditorSnapshot =

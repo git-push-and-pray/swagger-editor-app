@@ -13,26 +13,26 @@ export default function ParametersSection({ parameters }: ParametersSectionProps
 
   return (
     <div>
-      <h4 className="text-sm font-semibold text-gray-700">{t('parameters.title')}</h4>
+      <h4 className="text-text-primary text-sm font-semibold">{t('parameters.title')}</h4>
       <div className="mt-2 space-y-2">
         {parameters.map((param, index) => (
-          <div key={index} className="rounded border border-gray-100 bg-gray-50 p-2 text-sm">
+          <div key={index} className="border-border bg-secondary/30 rounded border p-2 text-sm">
             <div className="flex items-center gap-2">
               <span className="font-mono font-semibold">{param.name}</span>
-              <span className="rounded bg-gray-200 px-1.5 py-0.5 text-xs text-gray-600">
+              <span className="bg-secondary/60 text-text-primary rounded px-1.5 py-0.5 text-xs">
                 {param.in}
               </span>
               {param.required && (
-                <span className="text-xs text-red-500">{t('parameters.required')}</span>
+                <span className="text-errordark text-xs">{t('parameters.required')}</span>
               )}
               {param.description && (
-                <span className="text-xs text-gray-500">{param.description}</span>
+                <span className="text-text-secondary text-xs">{param.description}</span>
               )}
             </div>
             {param.schema && (
-              <div className="mt-1 text-xs text-gray-500">
+              <div className="text-text-secondary mt-1 text-xs">
                 <span>{t('parameters.type')} </span>
-                <code className="rounded bg-gray-200 px-1 py-0.5">
+                <code className="bg-secondary/60 text-text-primary rounded px-1 py-0.5">
                   {param.schema.type || 'unknown'}
                 </code>
               </div>

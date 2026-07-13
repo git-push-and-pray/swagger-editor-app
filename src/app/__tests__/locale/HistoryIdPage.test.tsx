@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import HistoryEntryPage from '@/app/[locale]/history/[id]/page';
 import { getHistoryEntry } from '@/features/history/services/getHistoryEntry';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 interface MockViewerProps {
   locale: string;

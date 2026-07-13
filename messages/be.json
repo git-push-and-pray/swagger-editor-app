@@ -212,15 +212,20 @@
     "auth": "Не ўдалося праверыць статус аўтэнтыфікацыі"
   },
   "SwaggerViewer": {
-    "title": "Праглядчык схем Swagger",
+    "title": "Праглядчык схем",
     "endpoints": "эндпойнтаў",
     "responses": {
       "title": "Адказы",
-      "noDescriptions": "Няма апісанняў адказаў"
+      "noDescriptions": "Няма апісанняў адказаў",
+      "schema": "Схема",
+      "example": "Прыклад",
+      "examples": "Прыклады"
     },
     "requestBody": {
       "title": "Цела запыту",
-      "required": "(абавязковае)"
+      "required": "(абавязковае)",
+      "schema": "Схема",
+      "example": "Прыклад"
     },
     "parameters": {
       "title": "Спiс параметраў",
@@ -267,7 +272,8 @@
     "defaultTag": "Агульныя",
     "parametersCount": "параметраў",
     "deprecated": "Састарэлы",
-    "body": "цела"
-  },
-  "saveHistoryError": "Не ўдалося захаваць гісторыю запытаў"
+    "closeDetails": "Зачыніць дэталі",
+    "body": "цела",
+    "saveHistoryError": "Не ўдалося захаваць гісторыю запытаў"
+  }
 }

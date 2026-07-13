@@ -1,7 +1,7 @@
 import type { JSX } from 'react/jsx-runtime';
 import { getTranslations } from 'next-intl/server';
 
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 import EmptyHistory from './EmptyHistory';
 import HistoryTable from './HistoryTable';

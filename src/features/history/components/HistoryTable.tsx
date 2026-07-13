@@ -1,6 +1,6 @@
 import type { JSX } from 'react/jsx-runtime';
 
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 import type { TFunction } from '@/types/translation';
 
 import HistoryTableRow from './HistoryTableRow';

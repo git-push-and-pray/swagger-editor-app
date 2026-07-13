@@ -281,3 +281,46 @@ export function resolveSchema(
 
   return schema;
 }
+
+export function resolveSchemaDeep(
+  schema: SchemaObject | ReferenceObject,
+  components?: ComponentsObject,
+  visited: Set<string> = new Set()
+): SchemaObject {
+  if (isReferenceObject(schema)) {
+    const ref = schema.$ref;
+    if (visited.has(ref)) {
+      return { description: `[Circular: ${ref}]` } as SchemaObject;
+    }
+    if (!components?.schemas) return {} as SchemaObject;
+    const schemaName = ref.split('/').pop();
+    if (!schemaName) return {} as SchemaObject;
+    const target = components.schemas[schemaName];
+    if (!target) return {} as SchemaObject;
+    const newVisited = new Set(visited);
+    newVisited.add(ref);
+    return resolveSchemaDeep(target, components, newVisited);
+  }
+
+  const result: SchemaObject = { ...schema };
+  if (result.properties) {
+    const resolved: Record<string, SchemaObject> = {};
+    for (const [key, prop] of Object.entries(result.properties)) {
+      resolved[key] = resolveSchemaDeep(prop, components, visited);
+    }
+    result.properties = resolved;
+  }
+  if (result.items && typeof result.items !== 'boolean') {
+    result.items = resolveSchemaDeep(result.items, components, visited);
+  }
+  if (result.allOf) {
+    result.allOf = result.allOf.map((s) => resolveSchemaDeep(s, components, visited));
+  }
+  if (result.oneOf) {
+    result.oneOf = result.oneOf.map((s) => resolveSchemaDeep(s, components, visited));
+  }
+  if (result.anyOf) {
+    result.anyOf = result.anyOf.map((s) => resolveSchemaDeep(s, components, visited));
+  }
+  return result;
+}
