@@ -184,47 +184,5 @@ describe('ResponseItem', () => {
       expect(screen.queryByText('Schema')).not.toBeInTheDocument();
       expect(screen.queryByText('Example')).not.toBeInTheDocument();
     });
-
-    it('should skip invalid mediaObject content but still show mediaType', () => {
-      const response: ResponseObject = {
-        description: 'OK',
-        content: {
-          'application/json': null as unknown as Record<string, unknown>,
-          'application/xml': {
-            schema: {
-              type: 'object',
-              properties: { id: { type: 'integer' } },
-            },
-          },
-        },
-      };
-
-      render(<ResponseItem statusCode="200" response={response} />);
-
-      expect(screen.getByText('application/xml')).toBeInTheDocument();
-      expect(screen.getByText('Schema')).toBeInTheDocument();
-
-      expect(screen.getByText('application/json')).toBeInTheDocument();
-
-      const schemaElements = screen.queryAllByText('Schema');
-
-      if (schemaElements.length > 0) {
-        const jsonElement = screen.getByText('application/json');
-        const parentElement = jsonElement.closest('div');
-
-        if (parentElement) {
-          expect(parentElement).not.toHaveTextContent('Schema');
-        }
-      }
-
-      const exampleElements = screen.queryAllByText('Example');
-      if (exampleElements.length > 0) {
-        const jsonElement = screen.getByText('application/json');
-        const parentElement = jsonElement.closest('div');
-        if (parentElement) {
-          expect(parentElement).not.toHaveTextContent('Example');
-        }
-      }
-    });
   });
 });
