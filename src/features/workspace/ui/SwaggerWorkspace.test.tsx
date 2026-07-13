@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { SwaggerWorkspace } from './SwaggerWorkspace';
 
 vi.mock('next-intl', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('next-intl')>();
+  const actual = (await importOriginal()) as { useTranslations: () => (key: string) => string };
   return {
     ...actual,
     useTranslations: () => (key: string) => key,
