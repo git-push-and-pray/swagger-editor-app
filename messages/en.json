@@ -216,11 +216,16 @@
     "endpoints": "endpoints",
     "responses": {
       "title": "Responses",
-      "noDescriptions": "No response descriptions"
+      "noDescriptions": "No response descriptions",
+      "schema": "Schema",
+      "example": "Example",
+      "examples": "Examples"
     },
     "requestBody": {
       "title": "Request Body",
-      "required": "(required)"
+      "required": "(required)",
+      "schema": "Schema",
+      "example": "Example"
     },
     "parameters": {
       "title": "Parameters",
@@ -267,6 +272,7 @@
     "defaultTag": "General",
     "parametersCount": "parameters",
     "deprecated": "Deprecated",
+    "closeDetails": "Close details",
     "body": "body"
   },
   "saveHistoryError": "Failed to save request history"

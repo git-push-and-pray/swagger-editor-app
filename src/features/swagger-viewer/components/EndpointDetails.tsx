@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import MethodBadge from '@/components/ui/MethodBadge';
 import type { Endpoint } from '@/types/openapi';
 
@@ -14,6 +16,7 @@ interface EndpointDetailsProps {
 }
 
 export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsProps) {
+  const t = useTranslations('SwaggerViewer');
   return (
     <div className="bg-surface/80 max-h-100 overflow-y-auto rounded-lg p-4 shadow-sm">
       <div className="flex items-start justify-between">
@@ -22,14 +25,14 @@ export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsPr
           <span className="font-mono text-lg font-semibold">{endpoint.path}</span>
           {endpoint.deprecated && (
             <span className="bg-error/15 text-errordark rounded px-2 py-0.5 text-xs">
-              Deprecated
+              {t('deprecated')}
             </span>
           )}
         </div>
         <button
           onClick={onClose}
           className="text-text-secondary hover:text-text-primary cursor-pointer"
-          aria-label="Закрыть детали"
+          aria-label={t('closeDetails')}
         >
           ✕
         </button>

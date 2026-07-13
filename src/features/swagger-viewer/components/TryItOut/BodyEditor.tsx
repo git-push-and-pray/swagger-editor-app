@@ -5,6 +5,8 @@ import { useTranslations } from 'next-intl';
 
 import type { RequestBodyObject, SchemaObject } from '@/types/openapi';
 
+import { generateExample } from '../../shared/utils/generateExample';
+
 interface BodyEditorProps {
   requestBody: RequestBodyObject;
   value: unknown;
@@ -21,27 +23,10 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
   const schema = requestBody.content?.[defaultMediaType]?.schema;
   const example = requestBody.content?.[defaultMediaType]?.example;
 
-  const generateExample = (schema: SchemaObject): unknown => {
-    if (schema.type === 'object') {
-      const result: Record<string, unknown> = {};
-      for (const [key, prop] of Object.entries(schema.properties || {})) {
-        result[key] = generateExample(prop as SchemaObject);
-      }
-      return result;
-    }
-    if (schema.type === 'array') {
-      return [generateExample(schema.items as SchemaObject)];
-    }
-    if (schema.type === 'string') return 'string';
-    if (schema.type === 'number' || schema.type === 'integer') return 0;
-    if (schema.type === 'boolean') return true;
-    return null;
-  };
-
   const getExample = () => {
     if (example) return JSON.stringify(example, null, 2);
     if (schema) {
-      return JSON.stringify(generateExample(schema), null, 2);
+      return JSON.stringify(generateExample(schema as SchemaObject), null, 2);
     }
     return '{\n  \n}';
   };
@@ -68,31 +53,31 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h5 className="text-sm font-medium text-gray-700">{t('bodyEditor.title')}</h5>
-        <div className="flex items-center gap-2 text-xs text-gray-500">
+        <h5 className="text-text-primary text-sm font-medium">{t('bodyEditor.title')}</h5>
+        <div className="text-text-secondary flex items-center gap-2 text-xs">
           <span>{defaultMediaType}</span>
-          {requestBody.required && <span className="text-red-500">*</span>}
+          {requestBody.required && <span className="text-errordark">*</span>}
         </div>
       </div>
 
       {(!value || (typeof value === 'object' && Object.keys(value).length === 0)) && (
         <button
           onClick={() => handleChange(getExample())}
-          className="text-xs text-blue-500 hover:text-blue-700"
+          className="text-info hover:text-infodark text-xs"
         >
           {t('bodyEditor.fillExample')}
         </button>
       )}
 
       <textarea
-        className="min-h-30 w-full rounded border border-gray-300 p-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
+        className="border-border focus:border-info min-h-30 w-full rounded border p-2 font-mono text-sm focus:outline-none"
         value={currentValue}
         placeholder={t('bodyEditor.placeholder')}
         onChange={(e) => handleChange(e.target.value)}
         spellCheck={false}
       />
 
-      {jsonError && <div className="text-xs text-red-500">{jsonError}</div>}
+      {jsonError && <div className="text-errordark text-xs">{jsonError}</div>}
     </div>
   );
 }

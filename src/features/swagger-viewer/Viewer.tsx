@@ -42,18 +42,18 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
 
   if (!document) {
     return (
-      <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
-        <h3 className="font-semibold text-yellow-700">{t('waiting.title')}</h3>
-        <p className="mt-1 text-yellow-600">{t('waiting.description')}</p>
+      <div className="border-warning/40 bg-warning/10 rounded-lg border p-4">
+        <h3 className="text-warningdark font-semibold">{t('waiting.title')}</h3>
+        <p className="text-warningdark/80 mt-1">{t('waiting.description')}</p>
       </div>
     );
   }
 
   if (!document.paths || Object.keys(document.paths).length === 0) {
     return (
-      <div className="rounded-lg border border-yellow-300 bg-yellow-50 p-4">
-        <h3 className="font-semibold text-yellow-700">{t('noEndpoints.title')}</h3>
-        <p className="mt-1 text-yellow-600">{t('noEndpoints.description')}</p>
+      <div className="border-warning/40 bg-warning/10 rounded-lg border p-4">
+        <h3 className="text-warningdark font-semibold">{t('noEndpoints.title')}</h3>
+        <p className="text-warningdark/80 mt-1">{t('noEndpoints.description')}</p>
       </div>
     );
   }
@@ -81,7 +81,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
                     className="border-border rounded-lg border shadow-xs"
                   >
                     <div
-                      className={`bg-bg/50 cursor-pointer rounded-lg px-4 py-3 transition hover:bg-white ${
+                      className={`bg-bg/50 hover:bg-surface cursor-pointer rounded-lg px-4 py-3 transition ${
                         selectedEndpoint === endpoint
                           ? 'bg-bg border-border rounded-b-none border-b'
                           : ''
@@ -103,7 +103,7 @@ export function SwaggerViewer({ document }: SwaggerViewerProps) {
                           </span>
                         )}
                         {endpoint.deprecated && (
-                          <span className="text-errordark rounded bg-red-100 px-2 py-0.5 text-xs">
+                          <span className="text-errordark bg-error/15 rounded px-2 py-0.5 text-xs">
                             {t('deprecated')}
                           </span>
                         )}

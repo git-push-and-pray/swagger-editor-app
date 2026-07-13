@@ -216,11 +216,16 @@
     "endpoints": "ендпоінтів",
     "responses": {
       "title": "Відповіді",
-      "noDescriptions": "Немає описів відповідей"
+      "noDescriptions": "Немає описів відповідей",
+      "schema": "Схема",
+      "example": "Приклад",
+      "examples": "Приклади"
     },
     "requestBody": {
       "title": "Тіло запиту",
-      "required": "(обов'язкове)"
+      "required": "(обов'язкове)",
+      "schema": "Схема",
+      "example": "Приклад"
     },
     "parameters": {
       "title": "Параметри",
@@ -267,6 +272,7 @@
     "defaultTag": "Загальні",
     "parametersCount": "параметрів",
     "deprecated": "Застарілий",
+    "closeDetails": "Закрити деталі",
     "body": "тіло"
   },
   "saveHistoryError": "Не вдалося зберегти історію запитів"

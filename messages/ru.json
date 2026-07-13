@@ -216,11 +216,16 @@
     "endpoints": "эндпоинтов",
     "responses": {
       "title": "Ответы",
-      "noDescriptions": "Нет описаний ответов"
+      "noDescriptions": "Нет описаний ответов",
+      "schema": "Схема",
+      "example": "Пример",
+      "examples": "Примеры"
     },
     "requestBody": {
       "title": "Тело запроса",
-      "required": "(обязательное)"
+      "required": "(обязательное)",
+      "schema": "Схема",
+      "example": "Пример"
     },
     "parameters": {
       "title": "Параметры",
@@ -267,6 +272,7 @@
     "defaultTag": "Общие",
     "parametersCount": "параметров",
     "deprecated": "Устаревший",
+    "closeDetails": "Закрыть детали",
     "body": "тело"
   },
   "saveHistoryError": "Не удалось сохранить историю запросов"

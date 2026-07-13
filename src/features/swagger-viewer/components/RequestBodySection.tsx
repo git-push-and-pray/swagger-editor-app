@@ -2,7 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 
-import type { RequestBodyObject } from '@/types/openapi';
+import type { RequestBodyObject, SchemaObject } from '@/types/openapi';
+
+import { generateExample } from '../shared/utils/generateExample';
 
 interface RequestBodySectionProps {
   requestBody: RequestBodyObject;
@@ -15,26 +17,58 @@ export default function RequestBodySection({ requestBody }: RequestBodySectionPr
 
   return (
     <div>
-      <h4 className="text-sm font-semibold text-gray-700">
+      <h4 className="text-text-primary text-sm font-semibold">
         {t('requestBody.title')}
         {requestBody.required && (
-          <span className="ml-2 text-xs text-red-500">{t('requestBody.required')}</span>
+          <span className="text-errordark ml-2 text-xs">{t('requestBody.required')}</span>
         )}
       </h4>
       {requestBody.description && (
-        <p className="mt-1 text-sm text-gray-600">{requestBody.description}</p>
+        <p className="text-text-secondary mt-1 text-sm">{requestBody.description}</p>
       )}
       <div className="mt-2 space-y-2">
-        {mediaTypes.map((mediaType) => (
-          <div key={mediaType} className="rounded border border-gray-100 bg-gray-50 p-2">
-            <div className="text-xs font-medium text-gray-500">{mediaType}</div>
-            {requestBody.content?.[mediaType]?.schema && (
-              <pre className="mt-1 max-h-40 overflow-auto rounded bg-gray-800 p-2 text-xs text-gray-200">
-                {JSON.stringify(requestBody.content[mediaType].schema, null, 2)}
-              </pre>
-            )}
-          </div>
-        ))}
+        {mediaTypes.map((mediaType) => {
+          const mediaObject = requestBody.content?.[mediaType];
+          const schema = mediaObject?.schema as SchemaObject | undefined;
+          const directExample = mediaObject?.example;
+          const exampleValue =
+            directExample !== undefined
+              ? directExample
+              : schema
+                ? generateExample(schema)
+                : undefined;
+
+          return (
+            <div
+              key={mediaType}
+              className="border-border bg-secondary/30 space-y-2 rounded border p-2"
+            >
+              <div className="text-text-secondary text-xs font-medium">{mediaType}</div>
+
+              {schema && (
+                <div>
+                  <p className="text-text-secondary text-xs font-semibold tracking-wide uppercase">
+                    {t('requestBody.schema')}
+                  </p>
+                  <pre className="bg-foreground text-text-foreground mt-1 max-h-48 overflow-auto rounded p-2 text-xs">
+                    {JSON.stringify(schema, null, 2)}
+                  </pre>
+                </div>
+              )}
+
+              {exampleValue !== undefined && (
+                <div>
+                  <p className="text-text-secondary text-xs font-semibold tracking-wide uppercase">
+                    {t('requestBody.example')}
+                  </p>
+                  <pre className="bg-foreground text-text-foreground mt-1 max-h-40 overflow-auto rounded p-2 text-xs">
+                    {JSON.stringify(exampleValue, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

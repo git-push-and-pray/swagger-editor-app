@@ -216,11 +216,16 @@
     "endpoints": "эндпойнтаў",
     "responses": {
       "title": "Адказы",
-      "noDescriptions": "Няма апісанняў адказаў"
+      "noDescriptions": "Няма апісанняў адказаў",
+      "schema": "Схема",
+      "example": "Прыклад",
+      "examples": "Прыклады"
     },
     "requestBody": {
       "title": "Цела запыту",
-      "required": "(абавязковае)"
+      "required": "(абавязковае)",
+      "schema": "Схема",
+      "example": "Прыклад"
     },
     "parameters": {
       "title": "Спiс параметраў",
@@ -267,6 +272,7 @@
     "defaultTag": "Агульныя",
     "parametersCount": "параметраў",
     "deprecated": "Састарэлы",
+    "closeDetails": "Зачыніць дэталі",
     "body": "цела"
   },
   "saveHistoryError": "Не ўдалося захаваць гісторыю запытаў"

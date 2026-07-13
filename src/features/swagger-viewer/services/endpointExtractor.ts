@@ -1,15 +1,17 @@
 import type { OpenAPI } from 'openapi-types';
 
 import type {
+  ComponentsObject,
   Endpoint,
   HttpMethod,
+  MediaTypeObject,
   OpenAPIObject,
   ParameterObject,
   RequestBodyObject,
   ResponseObject,
   ResponsesObject,
 } from '@/types/openapi';
-import { resolveParameters, resolveRequestBody } from '@/types/openapi';
+import { resolveParameters, resolveRequestBody, resolveSchemaDeep } from '@/types/openapi';
 
 import { isOperationObject } from '../shared/utils/typeQuards';
 
@@ -46,7 +48,11 @@ export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
         ? resolveRequestBody(operation.requestBody, components)
         : undefined;
 
-      const responses = extractResponses(operation.responses);
+      const resolvedRequestBody = requestBody
+        ? resolveRequestBodySchemas(requestBody, components)
+        : undefined;
+
+      const responses = extractResponses(operation.responses, components);
 
       const servers = operation.servers || pathItem.servers || rootServers;
 
@@ -58,7 +64,7 @@ export function extractEndpoints(schema: OpenAPI.Document): Endpoint[] {
         operationId: operation.operationId,
         tags: operation.tags || [],
         parameters,
-        requestBody,
+        requestBody: resolvedRequestBody,
         responses,
         security: operation.security,
         deprecated: operation.deprecated,
@@ -98,11 +104,17 @@ export function extractRequestBody(requestBody: RequestBodyObject): RequestBodyO
   };
 }
 
-export function extractResponses(responses: ResponsesObject): ResponsesObject {
+export function extractResponses(
+  responses: ResponsesObject,
+  components?: ComponentsObject
+): ResponsesObject {
   const result: ResponsesObject = {};
 
   for (const [statusCode, response] of Object.entries(responses)) {
-    result[statusCode] = extractResponse(response as ResponseObject);
+    result[statusCode] = resolveResponseSchemas(
+      extractResponse(response as ResponseObject),
+      components
+    );
   }
 
   return result;
@@ -190,4 +202,44 @@ export function getStatusCodes(responses: ResponsesObject): string[] {
     if (!aIsSuccess && bIsSuccess) return 1;
     return parseInt(a) - parseInt(b);
   });
+}
+
+function resolveResponseSchemas(
+  response: ResponseObject,
+  components?: ComponentsObject
+): ResponseObject {
+  if (!response.content) return response;
+
+  const resolvedContent: Record<string, MediaTypeObject> = {};
+  for (const [mediaType, mediaObject] of Object.entries(response.content)) {
+    resolvedContent[mediaType] = {
+      ...mediaObject,
+      schema: mediaObject.schema ? resolveSchemaDeep(mediaObject.schema, components) : undefined,
+    };
+  }
+
+  return {
+    ...response,
+    content: resolvedContent,
+  };
+}
+
+function resolveRequestBodySchemas(
+  requestBody: RequestBodyObject,
+  components?: ComponentsObject
+): RequestBodyObject {
+  if (!requestBody.content) return requestBody;
+
+  const resolvedContent: Record<string, MediaTypeObject> = {};
+  for (const [mediaType, mediaObject] of Object.entries(requestBody.content)) {
+    resolvedContent[mediaType] = {
+      ...mediaObject,
+      schema: mediaObject.schema ? resolveSchemaDeep(mediaObject.schema, components) : undefined,
+    };
+  }
+
+  return {
+    ...requestBody,
+    content: resolvedContent,
+  };
 }

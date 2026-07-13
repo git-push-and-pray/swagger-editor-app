@@ -24,15 +24,15 @@ export default function ResponsesSection({ responses }: ResponsesSectionProps) {
   if (validResponses.length === 0) {
     return (
       <div>
-        <h4 className="text-sm font-semibold text-gray-700">{t('responses.title')}</h4>
-        <p className="mt-1 text-sm text-gray-500">{t('responses.noDescriptions')}</p>
+        <h4 className="text-text-primary text-sm font-semibold">{t('responses.title')}</h4>
+        <p className="text-text-secondary mt-1 text-sm">{t('responses.noDescriptions')}</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h4 className="text-sm font-semibold text-gray-700">{t('responses.title')}</h4>
+      <h4 className="text-text-primary text-sm font-semibold">{t('responses.title')}</h4>
       <div className="mt-2 space-y-2">
         {validResponses.map(({ statusCode, response }) => (
           <ResponseItem key={statusCode} statusCode={statusCode} response={response} />
