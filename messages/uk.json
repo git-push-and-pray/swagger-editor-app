@@ -273,7 +273,7 @@
     "parametersCount": "параметрів",
     "deprecated": "Застарілий",
     "closeDetails": "Закрити деталі",
-    "body": "тіло"
-  },
-  "saveHistoryError": "Не вдалося зберегти історію запитів"
+    "body": "тіло",
+    "saveHistoryError": "Не вдалося зберегти історію запитів"
+  }
 }

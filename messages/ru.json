@@ -273,7 +273,7 @@
     "parametersCount": "параметров",
     "deprecated": "Устаревший",
     "closeDetails": "Закрыть детали",
-    "body": "тело"
-  },
-  "saveHistoryError": "Не удалось сохранить историю запросов"
+    "body": "тело",
+    "saveHistoryError": "Не удалось сохранить историю запросов"
+  }
 }
