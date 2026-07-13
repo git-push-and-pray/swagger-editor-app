@@ -118,7 +118,7 @@ export interface ProxyResponse {
 
 export interface RequestHistory {
   id: string;
-  timestamp: Date;
+  timestamp: Date | string;
   endpoint: string;
   method: HttpMethod;
   status: number;
@@ -127,7 +127,7 @@ export interface RequestHistory {
   responseSize: number;
   url: string;
   errorDetails?: string;
-  userId?: string;
+  userId: string;
 }
 
 export interface TryItOutState {

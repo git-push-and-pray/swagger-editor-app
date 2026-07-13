@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import type { RequestBodyObject } from '@/types/openapi';
 
 interface RequestBodySectionProps {
@@ -7,13 +9,17 @@ interface RequestBodySectionProps {
 }
 
 export default function RequestBodySection({ requestBody }: RequestBodySectionProps) {
+  const t = useTranslations('SwaggerViewer');
+
   const mediaTypes = Object.keys(requestBody.content || {});
 
   return (
     <div>
       <h4 className="text-sm font-semibold text-gray-700">
-        Тело запроса
-        {requestBody.required && <span className="ml-2 text-xs text-red-500">(обязательное)</span>}
+        {t('requestBody.title')}
+        {requestBody.required && (
+          <span className="ml-2 text-xs text-red-500">{t('requestBody.required')}</span>
+        )}
       </h4>
       {requestBody.description && (
         <p className="mt-1 text-sm text-gray-600">{requestBody.description}</p>
