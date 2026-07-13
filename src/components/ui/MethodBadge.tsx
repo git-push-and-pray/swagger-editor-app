@@ -1,6 +1,6 @@
 import type { JSX } from 'react/jsx-runtime';
 
-import type { HttpMethod } from '@/types/httpMethods';
+import type { HttpMethod } from '@/types/openapi';
 
 const httpMethods = {
   GET: 'bg-accent/20 text-accentdark',

@@ -2,7 +2,7 @@ import type { User } from '@supabase/supabase-js';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { createClient } from '@/lib/supabase/server';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 import { getRequestHistory } from '../services/getRequestHistory';
 

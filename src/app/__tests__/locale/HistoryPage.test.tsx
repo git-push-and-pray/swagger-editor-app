@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import HistoryPage from '@/app/[locale]/history/page';
 import { getRequestHistory } from '@/features/history/services/getRequestHistory';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 vi.mock('next/navigation', () => ({
   redirect: vi.fn(),

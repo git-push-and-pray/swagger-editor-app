@@ -1,6 +1,6 @@
 import { getUser } from '@/features/auth/utils/getUser';
 import { createClient } from '@/lib/supabase/server';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 export async function getHistoryEntry(id: string): Promise<{
   entry: RequestHistory | null;

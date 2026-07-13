@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Icon from '@/components/ui/Icon';
 import LinkComponent from '@/components/ui/Link';
 import MethodBadge from '@/components/ui/MethodBadge';
-import type { RequestHistory } from '@/types/historyEntry';
+import type { RequestHistory } from '@/types/openapi';
 
 import { ANALYTICS_LAYOUT } from '../config/analystLayout';
 import { getStatusText } from '../utils/getStatusText';
