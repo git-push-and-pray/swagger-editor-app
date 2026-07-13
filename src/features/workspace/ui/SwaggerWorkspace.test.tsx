@@ -3,6 +3,16 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { SwaggerWorkspace } from './SwaggerWorkspace';
 
+vi.mock('next-intl', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('next-intl')>();
+  return {
+    ...actual,
+    useTranslations: () => (key: string) => key,
+    useLocale: () => 'en',
+    useFormatter: () => ({}),
+  };
+});
+
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(() => ({
     push: vi.fn(),

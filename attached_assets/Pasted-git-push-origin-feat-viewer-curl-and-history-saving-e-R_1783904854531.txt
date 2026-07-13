@@ -1,0 +1,319 @@
+git push origin feat/viewer/curl-and-history-saving
+-e Running unit tests before push...
+
+> swagger-editor-app@0.1.0 test
+> vitest --passWithNoTests
+
+
+ RUN  v4.1.10 /home/runner/workspace
+      Coverage enabled with v8
+
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx (12 tests | 12 failed) 51ms
+     × starts empty with format switching disabled 23ms
+     × validates JSON and enables format switching 5ms
+     × auto-detects a valid YAML schema 5ms
+     × displays syntax errors and disables format switching 1ms
+     × displays OpenAPI validation errors 1ms
+     × converts JSON to YAML and back without data loss 1ms
+     × returns to the empty state when the schema is removed 1ms
+     × restores and validates initial YAML source 9ms
+     × shows syntax errors from initial source 1ms
+     × saves a valid schema for authenticated users 1ms
+     × shows an error toast when saving fails 1ms
+     × shows a generic error toast when saving throws 1ms
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > starts empty with format switching disabled
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:97:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > validates JSON and enables format switching
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:107:48
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > auto-detects a valid YAML schema
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:122:48
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > displays syntax errors and disables format switching
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:133:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > displays OpenAPI validation errors
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:147:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > converts JSON to YAML and back without data loss
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:157:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > returns to the empty state when the schema is removed
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:180:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > restores and validates initial YAML source
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:198:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > shows syntax errors from initial source
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:215:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > saves a valid schema for authenticated users
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:234:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > shows an error toast when saving fails
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:256:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL  src/features/editor/ui/SwaggerEditor.test.tsx > SwaggerEditor > shows a generic error toast when saving throws
+Error: [vitest] No "NextIntlClientProvider" export is defined on the "next-intl" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    // your mocked methods
+  }
+})
+
+ ❯ renderEditor src/features/editor/ui/SwaggerEditor.test.tsx:66:6
+     64| } = {}) {
+     65|   return render(
+     66|     <NextIntlClientProvider locale="en" messages={messages}>
+       |      ^
+     67|       <SwaggerEditor initialSource={initialSource} onDocumentChange={onDocumentChange} />
+     68|     </NextIntlClientProvider>
+ ❯ renderEditorWithSource src/features/editor/ui/SwaggerEditor.test.tsx:78:3
+ ❯ src/features/editor/ui/SwaggerEditor.test.tsx:273:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  1 failed | 54 passed (55)
+      Tests  12 failed | 136 passed (148)
+   Start at  01:05:40
+   Duration  70.43s (transform 1.61s, setup 4.91s, import 6.49s, tests 5.60s, environment 40.87s)
+
+husky - pre-push script failed (code 1)
+error: failed to push some refs to 'https://github.com/git-push-and-pray/swagger-editor-app.git'
