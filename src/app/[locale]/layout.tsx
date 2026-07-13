@@ -1,0 +1,88 @@
+import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono, Lora } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { Toaster } from 'sonner';
+
+import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
+import { toastConfig } from '@/config/toastConfig';
+import { AuthProvider } from '@/features/auth/components/AuthProvider';
+import { getUser } from '@/features/auth/utils/getUser';
+import { routing } from '@/i18n/routing';
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-inter',
+  weight: ['400', '500', '700'],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-mono',
+  weight: ['400', '500', '700'],
+});
+
+const lora = Lora({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-lora',
+  weight: ['400', '500', '600', '700'],
+});
+
+export const metadata: Metadata = {
+  manifest: '/manifest.json',
+  title: 'Swagger-Editor App',
+  description:
+    'Visualize, test, and edit your REST APIs with an interactive interface. Features request execution, API history, and built-in analytics for OpenAPI specs.',
+};
+
+interface LocaleLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({
+    locale,
+  }));
+}
+
+export default async function LocaleLayout({ children, params }: Readonly<LocaleLayoutProps>) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+  setRequestLocale(locale);
+
+  const messages = await getMessages();
+  const { user, authError } = await getUser();
+
+  return (
+    <html
+      lang={locale}
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${jetbrainsMono.variable} ${lora.variable} h-full antialiased`}
+    >
+      <body className="flex min-h-full flex-col font-sans">
+        <NextIntlClientProvider messages={messages}>
+          <AuthProvider initialUser={user} authError={authError}>
+            <Header />
+            <main className="mx-auto w-full max-w-360 flex-1 px-5 has-[>.workspace-page]:flex has-[>.workspace-page]:min-h-0 has-[>.workspace-page]:flex-col 2xl:max-w-450">
+              {children}
+            </main>
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                unstyled: true,
+                ...toastConfig.toastOptions,
+              }}
+              visibleToasts={9}
+            />
+            <Footer />
+          </AuthProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
