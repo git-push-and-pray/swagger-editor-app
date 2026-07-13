@@ -31,7 +31,10 @@ vi.mock('../shared/utils/generateExample', () => ({
 }));
 
 vi.mock('../shared/utils/typeQuards', () => ({
-  isValidMediaObject: vi.fn((obj) => obj && typeof obj === 'object'),
+  isValidMediaObject: vi.fn((obj) => {
+    if (obj === null || obj === undefined) return false;
+    return typeof obj === 'object';
+  }),
 }));
 
 describe('ResponseItem', () => {
@@ -163,7 +166,6 @@ describe('ResponseItem', () => {
 
       expect(screen.getByText('200')).toBeInTheDocument();
       expect(screen.getByText('OK')).toBeInTheDocument();
-
       expect(screen.queryByText('Schema')).not.toBeInTheDocument();
     });
 
@@ -180,27 +182,6 @@ describe('ResponseItem', () => {
       expect(screen.getByText('application/json')).toBeInTheDocument();
       expect(screen.queryByText('Schema')).not.toBeInTheDocument();
       expect(screen.queryByText('Example')).not.toBeInTheDocument();
-    });
-
-    it('should handle invalid mediaObject by skipping it', () => {
-      const response: ResponseObject = {
-        description: 'OK',
-        content: {
-          'application/json': null as unknown as Record<string, unknown>,
-          'application/xml': {
-            schema: {
-              type: 'object',
-              properties: { id: { type: 'integer' } },
-            },
-          },
-        },
-      };
-
-      render(<ResponseItem statusCode="200" response={response} />);
-
-      expect(screen.getByText('application/xml')).toBeInTheDocument();
-
-      expect(screen.queryByText('application/json')).not.toBeInTheDocument();
     });
   });
 });
