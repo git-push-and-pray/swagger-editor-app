@@ -273,7 +273,7 @@
     "parametersCount": "parameters",
     "deprecated": "Deprecated",
     "closeDetails": "Close details",
-    "body": "body"
-  },
-  "saveHistoryError": "Failed to save request history"
+    "body": "body",
+    "saveHistoryError": "Failed to save request history"
+  }
 }
