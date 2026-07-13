@@ -2,6 +2,15 @@ import { afterEach, vi } from 'vitest';
 
 import '@testing-library/jest-dom';
 
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+  useLocale: () => 'en',
+  useMessages: () => ({}),
+  useNow: () => new Date(),
+  useTimeZone: () => 'UTC',
+  useFormatter: () => ({}),
+}));
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
