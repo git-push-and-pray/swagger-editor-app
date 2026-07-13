@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import type { RequestBodyObject, SchemaObject } from '@/types/openapi';
 
@@ -11,6 +12,7 @@ interface BodyEditorProps {
 }
 
 export default function BodyEditor({ requestBody, value, onChange }: BodyEditorProps) {
+  const t = useTranslations('SwaggerViewer');
   const [jsonError, setJsonError] = useState<string | null>(null);
 
   const mediaTypes = Object.keys(requestBody.content || {});
@@ -55,7 +57,7 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
         setJsonError(null);
       }
     } catch {
-      setJsonError('Невалидный JSON');
+      setJsonError(t('bodyEditor.invalidJson'));
       onChange(text);
     }
   };
@@ -66,7 +68,7 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h5 className="text-sm font-medium text-gray-700">Тело запроса</h5>
+        <h5 className="text-sm font-medium text-gray-700">{t('bodyEditor.title')}</h5>
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <span>{defaultMediaType}</span>
           {requestBody.required && <span className="text-red-500">*</span>}
@@ -78,14 +80,14 @@ export default function BodyEditor({ requestBody, value, onChange }: BodyEditorP
           onClick={() => handleChange(getExample())}
           className="text-xs text-blue-500 hover:text-blue-700"
         >
-          Заполнить примером
+          {t('bodyEditor.fillExample')}
         </button>
       )}
 
       <textarea
         className="min-h-[120px] w-full rounded border border-gray-300 p-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
         value={currentValue}
-        placeholder="Введите JSON тело запроса"
+        placeholder={t('bodyEditor.placeholder')}
         onChange={(e) => handleChange(e.target.value)}
         spellCheck={false}
       />

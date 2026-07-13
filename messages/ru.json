@@ -210,5 +210,64 @@
   },
   "errors": {
     "auth": "Не удалось проверить статус аутентификации"
-  }
+  },
+  "SwaggerViewer": {
+    "title": "Отображение схем Swagger",
+    "endpoints": "эндпоинтов",
+    "responses": {
+      "title": "Ответы",
+      "noDescriptions": "Нет описаний ответов"
+    },
+    "requestBody": {
+      "title": "Тело запроса",
+      "required": "(обязательное)"
+    },
+    "parameters": {
+      "title": "Параметры",
+      "required": "обязательный",
+      "type": "Тип:"
+    },
+    "tryItOut": {
+      "button": "Сгенерировать",
+      "cancel": "Отмена",
+      "title": "Сгенерировать",
+      "headers": "Заголовки",
+      "execute": "Выполнить",
+      "executing": "Выполняется...",
+      "generateCurl": "Сгенерировать cURL",
+      "copied": "cURL команда скопирована в буфер обмена!",
+      "placeholder": "Content-Type: application/json"
+    },
+    "responseDisplay": {
+      "body": "Тело",
+      "headers": "Заголовки",
+      "info": "Информация",
+      "status": "Статус:",
+      "duration": "Время выполнения:",
+      "error": "Ошибка:"
+    },
+    "parameterInputs": {
+      "title": "Параметры"
+    },
+    "bodyEditor": {
+      "title": "Тело запроса",
+      "fillExample": "Заполнить примером",
+      "placeholder": "Введите JSON тело запроса",
+      "invalidJson": "Невалидный JSON"
+    },
+    "waiting": {
+      "title": "Ожидание схемы",
+      "description": "Схема еще не загружена или не введена"
+    },
+    "noEndpoints": {
+      "title": "Нет эндпоинтов",
+      "description": "В схеме нет описанных эндпоинтов (paths)"
+    },
+    "noEndpointsToDisplay": "Нет эндпоинтов для отображения",
+    "defaultTag": "Общие",
+    "parametersCount": "параметров",
+    "deprecated": "Устаревший",
+    "body": "тело"
+  },
+  "saveHistoryError": "Не удалось сохранить историю запросов"
 }

@@ -210,5 +210,64 @@
   },
   "errors": {
     "auth": "Не вдалося перевірити статус автентифікації"
-  }
+  },
+  "SwaggerViewer": {
+    "title": "Перегляд схем Swagger",
+    "endpoints": "ендпоінтів",
+    "responses": {
+      "title": "Відповіді",
+      "noDescriptions": "Немає описів відповідей"
+    },
+    "requestBody": {
+      "title": "Тіло запиту",
+      "required": "(обов'язкове)"
+    },
+    "parameters": {
+      "title": "Параметри",
+      "required": "обов'язковий",
+      "type": "Тип:"
+    },
+    "tryItOut": {
+      "button": "Спробувати",
+      "cancel": "Скасувати",
+      "title": "Спробувати",
+      "headers": "Заголовки",
+      "execute": "Виконати",
+      "executing": "Виконується...",
+      "generateCurl": "Згенерувати cURL",
+      "copied": "cURL команду скопійовано в буфер обміну!",
+      "placeholder": "Content-Type: application/json"
+    },
+    "responseDisplay": {
+      "body": "Тіло",
+      "headers": "Заголовки",
+      "info": "Інформація",
+      "status": "Статус:",
+      "duration": "Час виконання:",
+      "error": "Помилка:"
+    },
+    "parameterInputs": {
+      "title": "Параметри"
+    },
+    "bodyEditor": {
+      "title": "Тіло запиту",
+      "fillExample": "Заповнити прикладом",
+      "placeholder": "Введіть JSON тіло запиту",
+      "invalidJson": "Невалідний JSON"
+    },
+    "waiting": {
+      "title": "Очікування схеми",
+      "description": "Схема ще не завантажена або не введена"
+    },
+    "noEndpoints": {
+      "title": "Немає ендпоінтів",
+      "description": "У схемі немає описаних ендпоінтів (paths)"
+    },
+    "noEndpointsToDisplay": "Немає ендпоінтів для відображення",
+    "defaultTag": "Загальні",
+    "parametersCount": "параметрів",
+    "deprecated": "Застарілий",
+    "body": "тіло"
+  },
+  "saveHistoryError": "Не вдалося зберегти історію запитів"
 }

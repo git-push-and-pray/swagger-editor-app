@@ -210,5 +210,64 @@
   },
   "errors": {
     "auth": "Unable to check authentication status"
-  }
+  },
+  "SwaggerViewer": {
+    "title": "Swagger Viewer",
+    "endpoints": "endpoints",
+    "responses": {
+      "title": "Responses",
+      "noDescriptions": "No response descriptions"
+    },
+    "requestBody": {
+      "title": "Request Body",
+      "required": "(required)"
+    },
+    "parameters": {
+      "title": "Parameters",
+      "required": "required",
+      "type": "Type:"
+    },
+    "tryItOut": {
+      "button": "Try it out",
+      "cancel": "Cancel",
+      "title": "Try It Out",
+      "headers": "Headers",
+      "execute": "Execute",
+      "executing": "Executing...",
+      "generateCurl": "Generate cURL",
+      "copied": "cURL command copied to clipboard!",
+      "placeholder": "Content-Type: application/json"
+    },
+    "responseDisplay": {
+      "body": "Body",
+      "headers": "Headers",
+      "info": "Info",
+      "status": "Status:",
+      "duration": "Duration:",
+      "error": "Error:"
+    },
+    "parameterInputs": {
+      "title": "Parameters"
+    },
+    "bodyEditor": {
+      "title": "Request Body",
+      "fillExample": "Fill with example",
+      "placeholder": "Enter JSON request body",
+      "invalidJson": "Invalid JSON"
+    },
+    "waiting": {
+      "title": "Waiting for schema",
+      "description": "Schema not loaded or not entered yet"
+    },
+    "noEndpoints": {
+      "title": " No endpoints",
+      "description": "No endpoints (paths) described in the schema"
+    },
+    "noEndpointsToDisplay": "No endpoints to display",
+    "defaultTag": "General",
+    "parametersCount": "parameters",
+    "deprecated": "Deprecated",
+    "body": "body"
+  },
+  "saveHistoryError": "Failed to save request history"
 }

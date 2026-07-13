@@ -1,5 +1,6 @@
 'use client';
 
+import MethodBadge from '@/components/ui/MethodBadge';
 import type { Endpoint } from '@/types/openapi';
 
 import TryItOut from './TryItOut/TryItOut';
@@ -17,23 +18,7 @@ export default function EndpointDetails({ endpoint, onClose }: EndpointDetailsPr
     <div className="mt-4 max-h-[400px] overflow-y-auto rounded-lg bg-white p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <span
-            className={`rounded px-2 py-1 text-xs font-bold ${
-              endpoint.method === 'GET'
-                ? 'bg-blue-100 text-blue-700'
-                : endpoint.method === 'POST'
-                  ? 'bg-green-100 text-green-700'
-                  : endpoint.method === 'PUT'
-                    ? 'bg-yellow-100 text-yellow-700'
-                    : endpoint.method === 'DELETE'
-                      ? 'bg-red-100 text-red-700'
-                      : endpoint.method === 'PATCH'
-                        ? 'bg-purple-100 text-purple-700'
-                        : 'bg-gray-100 text-gray-700'
-            }`}
-          >
-            {endpoint.method}
-          </span>
+          <MethodBadge method={endpoint.method} size="m" />
           <span className="font-mono text-lg font-semibold">{endpoint.path}</span>
           {endpoint.deprecated && (
             <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-700">Deprecated</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import type { ProxyResponse } from '@/types/openapi';
 
@@ -9,6 +10,7 @@ interface ResponseDisplayProps {
 }
 
 export default function ResponseDisplay({ response }: ResponseDisplayProps) {
+  const t = useTranslations('SwaggerViewer');
   const [activeTab, setActiveTab] = useState<'body' | 'headers' | 'info'>('body');
 
   const formatBody = () => {
@@ -29,6 +31,13 @@ export default function ResponseDisplay({ response }: ResponseDisplayProps) {
   const isSuccess = response.status >= 200 && response.status < 300;
   const statusColor = isSuccess ? 'text-green-600' : 'text-red-600';
 
+  // Массив табов для рендеринга
+  const tabs: Array<{ id: 'body' | 'headers' | 'info'; label: string }> = [
+    { id: 'body', label: t('responseDisplay.body') },
+    { id: 'headers', label: t('responseDisplay.headers') },
+    { id: 'info', label: t('responseDisplay.info') },
+  ];
+
   return (
     <div className="space-y-3 rounded-lg border border-gray-200 bg-white p-3">
       <div className="flex items-center justify-between">
@@ -41,17 +50,17 @@ export default function ResponseDisplay({ response }: ResponseDisplayProps) {
       </div>
 
       <div className="flex gap-2 border-b border-gray-200 pb-1">
-        {['body', 'headers', 'info'].map((tab) => (
+        {tabs.map((tab) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab as typeof activeTab)}
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
             className={`px-2 py-1 text-xs font-medium ${
-              activeTab === tab
+              activeTab === tab.id
                 ? 'border-b-2 border-blue-500 text-blue-600'
                 : 'text-gray-500 hover:text-gray-700'
             }`}
           >
-            {tab === 'body' ? 'Body' : tab === 'headers' ? 'Headers' : 'Info'}
+            {tab.label}
           </button>
         ))}
       </div>
@@ -77,16 +86,16 @@ export default function ResponseDisplay({ response }: ResponseDisplayProps) {
         {activeTab === 'info' && (
           <div className="space-y-1 text-xs">
             <div>
-              <span className="font-semibold text-gray-700">Статус:</span>{' '}
+              <span className="font-semibold text-gray-700">{t('responseDisplay.status')}</span>{' '}
               <span className={statusColor}>{response.status}</span>
             </div>
             <div>
-              <span className="font-semibold text-gray-700">Время выполнения:</span>{' '}
+              <span className="font-semibold text-gray-700">{t('responseDisplay.duration')}</span>{' '}
               {response.duration}ms
             </div>
             {response.error && (
               <div>
-                <span className="font-semibold text-red-600">Ошибка:</span>{' '}
+                <span className="font-semibold text-red-600">{t('responseDisplay.error')}</span>{' '}
                 <span className="text-red-600">{response.error}</span>
               </div>
             )}

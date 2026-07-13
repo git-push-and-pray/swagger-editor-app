@@ -11,12 +11,18 @@ export async function POST(request: NextRequest) {
 
     const startTime = Date.now();
 
+    const requestHeaders: Record<string, string> = {
+      ...headers,
+      'User-Agent': 'SwaggerViewer/1.0',
+    };
+
+    if (body && !headers['Content-Type']) {
+      requestHeaders['Content-Type'] = 'application/json';
+    }
+
     const response = await fetch(url, {
       method: method || 'GET',
-      headers: {
-        ...headers,
-        'User-Agent': 'SwaggerViewer/1.0',
-      },
+      headers: requestHeaders,
       body: body ? JSON.stringify(body) : undefined,
     });
 
